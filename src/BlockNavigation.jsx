@@ -1,8 +1,9 @@
 /* Здесь будет находится все внутренности блока Navigation */
+import style from "./BlockNavigation.module.css";
 
 const BlockNavigation = () => {
   return (
-    <nav className="nav">
+    <nav className={style.nav}>
       <div>
         <a>Profile</a>
       </div>

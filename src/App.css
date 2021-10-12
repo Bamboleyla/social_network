@@ -6,26 +6,3 @@
   grid-template-rows: 2fr 8fr;
   grid-template-columns: 2fr 8fr;
 }
-
-.header {
-  grid-area: h;
-  background-color: aqua;
-}
-
-.header img {
-  width: 100%;
-}
-
-.nav {
-  grid-area: n;
-  background-color: burlywood;
-}
-
-.content {
-  grid-area: c;
-  background-color: chocolate;
-}
-
-.content img {
-  width: 150px;
-}
