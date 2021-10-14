@@ -8,11 +8,11 @@ const BlockPosts = () => {
       My posts
       <div>New post</div>
       <div>
-        <Post message="Hello World!" />
-        <Post message="I'ts test message from props" />
-        <Post message="I like it" />
-        <Post message="Yahoo" />
-        <Post message="I'ts work, i'ts wunderfull" />
+        <Post message="Hello World!" likesCount="0" />
+        <Post message="I'ts test message from props" likesCount="9" />
+        <Post message="I like it" likesCount="10" />
+        <Post message="Yahoo" likesCount="5" />
+        <Post message="I'ts work, i'ts wunderfull" likesCount="3" />
       </div>
     </div>
   );

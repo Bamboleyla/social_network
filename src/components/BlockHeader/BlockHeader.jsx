@@ -4,7 +4,7 @@ import style from "./BlockHeader.module.css";
 const BlockHeader = () => {
   return (
     <header className={style.header}>
-      <img src="https://ustaliy.ru/wp-content/uploads/2020/07/original1.jpeg"></img>
+      <img src="https://s0un.ru/wp-content/uploads/2015/10/header_bg.jpg"></img>
     </header>
   );
 };
