@@ -5,10 +5,10 @@ const BlockNavigation = () => {
   return (
     <nav className={style.nav}>
       <div>
-        <a>Profile</a>
+        <a href="/contents">Profile</a>
       </div>
       <div>
-        <a>Messages</a>
+        <a href="/dialogs">Messages</a>
       </div>
       <div>
         <a>News</a>
