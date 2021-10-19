@@ -1,1 +1,19 @@
+.blockDialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
 
+.dialogs {
+    padding: 10px;
+}
+
+.messages {
+    padding: 10px;
+}
+
+.message {}
+
+.dialogs .active {
+    font-size: larger;
+    color: white;
+}

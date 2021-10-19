@@ -1,4 +1,3 @@
-/* Здесь будет находится все внутренности блока Navigation */
 import { NavLink } from "react-router-dom";
 import style from "./BlockNavigation.module.css";
 

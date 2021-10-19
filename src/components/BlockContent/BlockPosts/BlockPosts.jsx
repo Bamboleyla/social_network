@@ -12,7 +12,7 @@ const BlockPosts = () => {
         <Post message="I'ts test message from props" likesCount="9" />
         <Post message="I like it" likesCount="10" />
         <Post message="Yahoo" likesCount="5" />
-        <Post message="I'ts work, i'ts wunderfull" likesCount="3" />
+        <Post message="I'ts work, i'ts wonderfull" likesCount="3" />
       </div>
     </div>
   );

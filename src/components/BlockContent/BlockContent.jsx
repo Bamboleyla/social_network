@@ -1,4 +1,3 @@
-/* Здесь будет находится все внутренности блока Content */
 import style from "./BlockContent.module.css";
 import BlockPosts from "./BlockPosts/BlockPosts";
 

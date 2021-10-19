@@ -1,4 +1,3 @@
-/* Здесь будет находится все внутренности блока Header */
 import style from "./BlockHeader.module.css";
 
 const BlockHeader = () => {
