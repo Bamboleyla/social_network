@@ -1,6 +1,7 @@
 .blockDialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
+    padding: 20px;
 }
 
 .dialogs {
@@ -11,9 +12,11 @@
     padding: 10px;
 }
 
-.message {}
-
-.dialogs .active {
+.item .active {
     font-size: larger;
     color: white;
+}
+
+.item a {
+    text-decoration: none;
 }
