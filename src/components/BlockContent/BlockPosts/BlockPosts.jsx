@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 
 const BlockPosts = () => {
   return (
-    <div>
+    <div className={style.posts}>
       My posts
       <div>New post</div>
       <div>
