@@ -1,9 +1,10 @@
 import style from "./BlockHeader.module.css";
+import logo from "./img_header.png";
 
 const BlockHeader = () => {
   return (
     <header className={style.header}>
-      <img src="https://s0un.ru/wp-content/uploads/2015/10/header_bg.jpg"></img>
+      <img src={logo}></img>
     </header>
   );
 };
