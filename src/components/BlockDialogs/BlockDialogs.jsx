@@ -9,7 +9,7 @@ let dialogsData = [
   { id: 5, name: "Anya" },
   { id: 6, name: "Bulya" },
   { id: 7, name: "Lusya" },
-  { id: 8, name: "Vutya" },
+  { id: 8, name: "Vitya" },
 ];
 
 let messageData = [
@@ -32,24 +32,14 @@ const Message = (props) => {
   return <div className={style.message}>{props.message}</div>;
 };
 
+let dialogs = dialogsData.map((d) => <Dialog id={d.id} name={d.name} />);
+let message = messageData.map((m) => <Message message={m.message} />);
+
 const BlockDialogs = (props) => {
   return (
     <div className={style.blockDialogs}>
-      <div className={style.dialogs}>
-        <Dialog id={dialogsData[0].id} name={dialogsData[0].name} />
-        <Dialog id={dialogsData[1].id} name={dialogsData[1].name} />
-        <Dialog id={dialogsData[2].id} name={dialogsData[2].name} />
-        <Dialog id={dialogsData[3].id} name={dialogsData[3].name} />
-        <Dialog id={dialogsData[4].id} name={dialogsData[4].name} />
-        <Dialog id={dialogsData[5].id} name={dialogsData[5].name} />
-        <Dialog id={dialogsData[6].id} name={dialogsData[6].name} />
-        <Dialog id={dialogsData[7].id} name={dialogsData[7].name} />
-      </div>
-      <div className={style.messages}>
-        <Message message={messageData[0].message} />
-        <Message message={messageData[1].message} />
-        <Message message={messageData[2].message} />
-      </div>
+      <div className={style.dialogs}>{dialogs}</div>
+      <div className={style.messages}>{message}</div>
     </div>
   );
 };
