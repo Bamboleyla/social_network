@@ -11,12 +11,3 @@
 .messages {
     padding: 10px;
 }
-
-.item .active {
-    font-size: larger;
-    color: white;
-}
-
-.item a {
-    text-decoration: none;
-}

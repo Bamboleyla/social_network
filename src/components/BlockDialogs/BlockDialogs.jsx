@@ -1,5 +1,6 @@
-import { NavLink } from "react-router-dom";
 import style from "./BlockDialogs.module.css";
+import Dialog from "./Dialog/Dialog";
+import Message from "./Messages/Message";
 
 let dialogsData = [
   { id: 1, name: "Dmitriy" },
@@ -17,20 +18,6 @@ let messageData = [
   { id: 2, message: "And good luck on your project!" },
   { id: 3, message: "React is wonderful!" },
 ];
-
-const Dialog = (props) => {
-  return (
-    <div className={style.item}>
-      <NavLink to={"/dialogs/" + props.id} activeClassName={style.active}>
-        {props.name}
-      </NavLink>
-    </div>
-  );
-};
-
-const Message = (props) => {
-  return <div className={style.message}>{props.message}</div>;
-};
 
 let dialogs = dialogsData.map((d) => <Dialog id={d.id} name={d.name} />);
 let message = messageData.map((m) => <Message message={m.message} />);
