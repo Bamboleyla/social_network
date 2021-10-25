@@ -1,4 +1,10 @@
 .item img {
     width: 100px;
     border-radius: 50px;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.message {
+    padding: 10px;
 }

@@ -14,8 +14,8 @@ const App = () => {
         <BlockHeader />
         <BlockNavigation />
         <div className='app-wrapper-content'>
-          <Route path='/dialogs' component={BlockDialogs} />
-          <Route path='/contents' component={BlockContent} />
+          <Route path='/dialogs' render={() => <BlockDialogs />} />
+          <Route path='/contents' render={() => <BlockContent />} />
         </div>
       </div>
     </BrowserRouter>

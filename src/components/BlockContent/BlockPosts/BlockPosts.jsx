@@ -17,8 +17,10 @@ let Comments = CommentsData.map((m) => (
 const BlockPosts = () => {
   return (
     <div className={style.posts}>
-      My posts
-      <div>New post</div>
+      <div className={style.title}>
+        My posts
+        <div>New post</div>
+      </div>
       <div>{Comments}</div>
     </div>
   );
