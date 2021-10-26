@@ -1,11 +1,11 @@
 import BlockPosts from "./BlockPosts/BlockPosts";
 import BlockProfileInfo from "./BlockProfileInfo/BlockProfileInfo";
 
-const BlockContent = () => {
+const BlockContent = (props) => {
   return (
     <div>
       <BlockProfileInfo />
-      <BlockPosts />
+      <BlockPosts commentsData={props.commentsData} />
     </div>
   );
 };
