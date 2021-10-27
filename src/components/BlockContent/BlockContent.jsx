@@ -5,7 +5,7 @@ const BlockContent = (props) => {
   return (
     <div>
       <BlockProfileInfo />
-      <BlockPosts commentsData={props.commentsData} />
+      <BlockPosts commentsData={props.state.commentsData} />
     </div>
   );
 };
