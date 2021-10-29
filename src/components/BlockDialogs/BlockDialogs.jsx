@@ -1,6 +1,7 @@
 import style from "./BlockDialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Messages/Message";
+import CreateNewMessage from "./Messages/CreateNewMessage/CreateNewMessage";
 
 const BlockDialogs = (props) => {
   let dialogs = props.state.dialogsData.map((d) => (
@@ -12,7 +13,10 @@ const BlockDialogs = (props) => {
   return (
     <div className={style.blockDialogs}>
       <div className={style.dialogs}>{dialogs}</div>
-      <div className={style.messages}>{message}</div>
+      <div className={style.messages}>
+        <CreateNewMessage />
+        {message}
+      </div>
     </div>
   );
 };

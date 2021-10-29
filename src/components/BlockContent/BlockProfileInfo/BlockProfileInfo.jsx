@@ -1,6 +1,12 @@
 import style from "./BlockProfileInfo.module.css";
+import React from "react";
 
 const BlockProfileInfo = () => {
+  let linkTextArea = React.createRef(); //Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе
+  let addPost = () => {
+    let textFromTextArea = linkTextArea.current.value;
+    alert(textFromTextArea);
+  };
   return (
     <div>
       <div className={style.img}>
@@ -9,10 +15,10 @@ const BlockProfileInfo = () => {
       <div className={style.discription}> Ava + Discription</div>
       <div className={style.text}>
         <div>
-          <textarea></textarea>
+          <textarea ref={linkTextArea}></textarea>
         </div>
         <div>
-          <button>Add Post</button>
+          <button onClick={addPost}>Add Post</button>
         </div>
       </div>
     </div>
