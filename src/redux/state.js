@@ -1,5 +1,5 @@
 let state = {
-    contentPage: {
+    contentPage: {                                               //Страница с постами
         commentsData: [
             { id: 1, message: "Hello World!", likes: "0" },
             { id: 2, message: "I'ts test message from props", likes: "9" },
@@ -8,7 +8,7 @@ let state = {
             { id: 5, message: "I'ts work, i'ts wonderfull", likes: "3" },
         ]
     },
-    dialogsPage: {
+    dialogsPage: {                                              //Страница с сообщениями
         dialogsData: [
             { id: 1, name: "Dmitriy" },
             { id: 2, name: "Luba" },
@@ -25,6 +25,26 @@ let state = {
             { id: 3, message: "React is wonderful!" },
         ]
     }
+}
+
+export let addPost = (text) => {                                //Функция которая добавляет новый текст поста в state
+    let idComents = state.contentPage.commentsData.length + 1;
+    let newPost = {
+        id: idComents,
+        message: text,
+        likes: 0
+    };
+    state.contentPage.commentsData.push(newPost);
+}
+
+export let addMessage = (text) => {                                //Функция которая добавляет новый текст сообщения в state
+    let idMessage = state.dialogsPage.messageData.length + 1;;
+    let newMessage = {
+        id: idMessage,
+        message: text
+    };
+    state.dialogsPage.messageData.push(newMessage);
+    debugger;
 }
 
 export default state;

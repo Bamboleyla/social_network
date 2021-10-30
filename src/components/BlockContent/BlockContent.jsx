@@ -4,7 +4,7 @@ import BlockProfileInfo from "./BlockProfileInfo/BlockProfileInfo";
 const BlockContent = (props) => {
   return (
     <div>
-      <BlockProfileInfo />
+      <BlockProfileInfo addPost={props.addPost} />
       <BlockPosts commentsData={props.state.commentsData} />
     </div>
   );
