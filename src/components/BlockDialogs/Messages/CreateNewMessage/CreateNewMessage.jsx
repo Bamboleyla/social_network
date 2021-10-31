@@ -5,6 +5,7 @@ const CteateNewMessage = (props) => {
   let addMessage = () => {
     let textFromTextArea = linkTextArea.current.value;
     props.addMessage(textFromTextArea);
+    linkTextArea.current.value = ""; //После отправки данных зануляем textarea
   };
   return (
     <div>

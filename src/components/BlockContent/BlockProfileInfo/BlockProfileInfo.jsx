@@ -6,6 +6,7 @@ const BlockProfileInfo = (props) => {
   let addPost = () => {
     let textFromTextArea = linkTextArea.current.value;
     props.addPost(textFromTextArea);
+    linkTextArea.current.value = ""; //После отправки данных зануляем textarea
   };
   return (
     <div>

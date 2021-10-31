@@ -1,3 +1,4 @@
+import reset from '../reset'
 let state = {
     contentPage: {                                               //Страница с постами
         commentsData: [
@@ -35,6 +36,7 @@ export let addPost = (text) => {                                //Функция
         likes: 0
     };
     state.contentPage.commentsData.push(newPost);
+    reset(state, addPost, addMessage);                               //Функция которая перерисует DOM с измененным state
 }
 
 export let addMessage = (text) => {                                //Функция которая добавляет новый текст сообщения в state
@@ -44,6 +46,7 @@ export let addMessage = (text) => {                                //Функц�
         message: text
     };
     state.dialogsPage.messageData.push(newMessage);
+    reset(state, addPost, addMessage);                               //Функция которая перерисует DOM с измененным state
     debugger;
 }
 
