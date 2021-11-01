@@ -7,7 +7,8 @@ let state = {
             { id: 3, message: "I like it", likes: "10" },
             { id: 4, message: "Yahoo", likes: "5" },
             { id: 5, message: "I'ts work, i'ts wonderfull", likes: "3" },
-        ]
+        ],
+        newPostText: "Введите сюда ваше сообщение"
     },
     dialogsPage: {                                              //Страница с сообщениями
         dialogsData: [
@@ -24,19 +25,20 @@ let state = {
             { id: 1, message: "Hi, have a nice day!" },
             { id: 2, message: "And good luck on your project!" },
             { id: 3, message: "React is wonderful!" },
-        ]
+        ],
+        newMessageText: "Введите сюда ваше сообщение"
     }
 }
 
-export let addPost = (text) => {                                //Функция которая добавляет новый текст поста в state
+export let addPost = () => {                                //Функция которая добавляет новый текст поста в state
     let idComents = state.contentPage.commentsData.length + 1;
     let newPost = {
         id: idComents,
-        message: text,
+        message: state.contentPage.newPostText,
         likes: 0
     };
     state.contentPage.commentsData.push(newPost);
-    reset(state, addPost, addMessage);                               //Функция которая перерисует DOM с измененным state
+    reset(state);                               //Функция которая перерисует DOM с измененным state
 }
 
 export let addMessage = (text) => {                                //Функция которая добавляет новый текст сообщения в state
@@ -46,8 +48,15 @@ export let addMessage = (text) => {                                //Функц�
         message: text
     };
     state.dialogsPage.messageData.push(newMessage);
-    reset(state, addPost, addMessage);                               //Функция которая перерисует DOM с измененным state
-    debugger;
+    reset(state);                               //Функция которая перерисует DOM с измененным state
+}
+export let syncingMessage = (text) => {
+    state.dialogsPage.newMessageText = text;
+}
+
+export let syncingPost = (text) => {
+    state.contentPage.newPostText = text;
+    reset(state);
 }
 
 export default state;

@@ -4,11 +4,11 @@ import './index.css';
 import App from './pages/startPage/App';
 import { BrowserRouter } from 'react-router-dom';
 
-let reset = (state, addPost, addMessage) => {
+let reset = (state) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} addPost={addPost} addMessage={addMessage} />
+                <App state={state} />
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

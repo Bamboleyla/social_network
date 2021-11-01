@@ -4,9 +4,12 @@ import React from "react";
 const BlockProfileInfo = (props) => {
   let linkTextArea = React.createRef(); //Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе
   let addPost = () => {
+    props.addPost();
+    props.syncingPost("");
+  };
+  let syncing = () => {
     let textFromTextArea = linkTextArea.current.value;
-    props.addPost(textFromTextArea);
-    linkTextArea.current.value = ""; //После отправки данных зануляем textarea
+    props.syncingPost(textFromTextArea);
   };
   return (
     <div>
@@ -16,7 +19,11 @@ const BlockProfileInfo = (props) => {
       <div className={style.discription}> Ava + Discription</div>
       <div className={style.text}>
         <div>
-          <textarea ref={linkTextArea}></textarea>
+          <textarea
+            onChange={syncing}
+            ref={linkTextArea}
+            value={props.newPostText}
+          />
         </div>
         <div>
           <button onClick={addPost}>Add Post</button>
