@@ -1,4 +1,3 @@
-import reset from '../reset'
 let state = {
     contentPage: {                                               //Страница с постами
         commentsData: [
@@ -57,6 +56,11 @@ export let syncingMessage = (text) => {
 export let syncingPost = (text) => {
     state.contentPage.newPostText = text;
     reset(state);
+}
+
+let reset = ()=>{}; // Функция пустышка, что бы потом ее переопределить под функцию полной перерисовки DOM
+export let subscribe = (observer)=>{ // observer -функция перерисовки дом которую нам передаст index.js через callback
+    reset = observer;
 }
 
 export default state;
