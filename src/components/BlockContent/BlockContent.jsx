@@ -5,9 +5,8 @@ const BlockContent = (props) => {
   return (
     <div>
       <BlockProfileInfo
-        addPost={props.addPost}
+        dispatch={props.dispatch}
         newPostText={props.state.newPostText}
-        syncingPost={props.syncingPost}
       />
       <BlockPosts commentsData={props.state.commentsData} />
     </div>

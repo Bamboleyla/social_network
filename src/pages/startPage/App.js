@@ -14,8 +14,8 @@ const App = (props) => {
       <BlockHeader />
       <BlockNavigation />
       <div className='app-wrapper-content'>
-        <Route path='/dialogs' render={() => <BlockDialogs state={state.dialogsPage} addMessage={props.store.addMessage.bind(props.store)} />} /> {/* Сообщения */}
-        <Route path='/contents' render={() => <BlockContent state={state.contentPage} addPost={props.store.addPost.bind(props.store)} syncingPost={props.store.syncingPost.bind(props.store)} />} /> {/* Посты */}
+        <Route path='/dialogs' render={() => <BlockDialogs state={state.dialogsPage} dispatch={props.store.dispatch.bind(props.store)} />} /> {/* Сообщения */}
+        <Route path='/contents' render={() => <BlockContent state={state.contentPage} dispatch={props.store.dispatch.bind(props.store)} />} /> {/* Посты */}
         <Route path='/news' render={() => <BlockNews />} />                                                               {/* Блок с новостями */}
       </div>
     </div>

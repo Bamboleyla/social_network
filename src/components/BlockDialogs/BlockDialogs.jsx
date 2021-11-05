@@ -4,6 +4,7 @@ import Message from "./Messages/Message";
 import CreateNewMessage from "./Messages/CreateNewMessage/CreateNewMessage";
 
 const BlockDialogs = (props) => {
+  debugger;
   let dialogs = props.state.dialogsData.map((d) => (
     <Dialog id={d.id} name={d.name} />
   ));
@@ -15,7 +16,10 @@ const BlockDialogs = (props) => {
       <div className={style.dialogs}>{dialogs}</div>
       <div className={style.messages}>
         {/* Компонент для добавления новых сообщений */}
-        <CreateNewMessage addMessage={props.addMessage} />
+        <CreateNewMessage
+          dispatch={props.dispatch}
+          newMessageText={props.state.newMessageText}
+        />
         {message}
       </div>
     </div>

@@ -4,12 +4,12 @@ import React from "react";
 const BlockProfileInfo = (props) => {
   let linkTextArea = React.createRef(); //Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе
   let addPost = () => {
-    props.addPost();
-    props.syncingPost("");
+    props.dispatch({ type: "ADD-POST" });
+    props.dispatch({ type: "SYNCING-POST", text: "" });
   };
   let syncing = () => {
     let textFromTextArea = linkTextArea.current.value;
-    props.syncingPost(textFromTextArea);
+    props.dispatch({ type: "SYNCING-POST", text: textFromTextArea });
   };
   return (
     <div>

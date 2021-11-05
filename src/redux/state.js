@@ -29,40 +29,51 @@ let store = {
             newMessageText: "Введите сюда ваше сообщение"
         }
     },
-    getState(){
+    getState() {
         return this._state
     },
 
-    addPost () {                                //Функция которая добавляет новый текст поста в state
-        let idComents = this._state.contentPage.commentsData.length + 1;
-        let newPost = {
-            id: idComents,
-            message: this._state.contentPage.newPostText,
-            likes: 0
-        };
-        this._state.contentPage.commentsData.push(newPost);
-        this._reset(this.getState());                               //Функция которая перерисует DOM с измененным state
-    },
-
-    addMessage (text)  {                                //Функция которая добавляет новый текст сообщения в state
-        let idMessage = this._state.dialogsPage.messageData.length + 1;;
-        let newMessage = {
-            id: idMessage,
-            message: text
-        };
-        this._state.dialogsPage.messageData.push(newMessage);
-        this._reset(this.getState());                               //Функция которая перерисует DOM с измененным state
-    },
-    syncingMessage (text) {
-        this._state.dialogsPage.newMessageText = text;
-    },
-    syncingPost (text) {
-        this._state.contentPage.newPostText = text;
-        this._reset(this.getState());
-    },
-    _reset () { }, // Функция пустышка, что бы потом ее переопределить под функцию полной перерисовки DOM
-    subscribe (observer) { // observer -функция перерисовки дом которую нам передаст index.js через callback
+    _reset() { }, // Функция пустышка, что бы потом ее переопределить под функцию полной перерисовки DOM
+    subscribe(observer) { // observer -функция перерисовки дом которую нам передаст index.js через callback
         this._reset = observer;
+    },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            //Функция которая добавляет новый текст поста в state
+            let idComents = this._state.contentPage.commentsData.length + 1;
+            let newPost = {
+                id: idComents,
+                message: this._state.contentPage.newPostText,
+                likes: 0
+            };
+            this._state.contentPage.commentsData.push(newPost);
+            this._reset(this.getState());                               //Функция которая перерисует DOM с измененным state    
+        }
+        else if (action.type === 'SYNCING-POST') {
+            //Добавление в state любого изменения textarea в блоке с постами
+            this._state.contentPage.newPostText = action.text;
+            this._reset(this.getState());
+        }
+        else if (action.type === 'ADD-MESSAGE') {
+            //*****Функция которая добавляет новый текст сообщения в state*****
+            //Получаем новый id -> Узнаем длинну массива + 1 и вот наш новый id
+            let idMessage = this._state.dialogsPage.messageData.length + 1;;
+            //Создаем объект сообщения с обязательными свойствами id и message    
+            let newMessage = {
+                id: idMessage,
+                message: this._state.dialogsPage.newMessageText
+            };
+            //Добавляем в state объект нового сообщения        
+            this._state.dialogsPage.messageData.push(newMessage);
+            //Перерисовываем DOM
+            this._reset(this.getState());
+        }
+        else if (action.type === 'SYNCING-MESSAGE') {
+            debugger;
+            //Добавление в state любого изменения textarea в блоке с сообщениями
+            this._state.dialogsPage.newMessageText = action.text;
+            this._reset(this.getState());
+        }
     }
 };
 
