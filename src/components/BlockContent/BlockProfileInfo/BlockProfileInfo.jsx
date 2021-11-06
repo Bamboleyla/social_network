@@ -1,15 +1,16 @@
 import style from "./BlockProfileInfo.module.css";
 import React from "react";
+import { addPostAC, syncingPostAC } from "../../../redux/state";
 
 const BlockProfileInfo = (props) => {
   let linkTextArea = React.createRef(); //Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе
   let addPost = () => {
-    props.addPost();
-    props.syncingPost("");
+    props.dispatch(addPostAC());
+    props.dispatch(syncingPostAC(""));
   };
   let syncing = () => {
     let textFromTextArea = linkTextArea.current.value;
-    props.syncingPost(textFromTextArea);
+    props.dispatch(syncingPostAC(textFromTextArea));
   };
   return (
     <div>
