@@ -1,3 +1,10 @@
+//**************Константы для Action Creators*****************
+const ADD_POST = 'ADD-POST';
+const SYNCING_POST = 'SYNCING-POST';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const SYNCING_MESSAGE = 'SYNCING-MESSAGE';
+
+//*************************STORE******************************
 let store = {
     _state: {
         contentPage: {                                               //Страница с постами
@@ -76,5 +83,11 @@ let store = {
         }
     }
 };
+
+//**********************ACTION CREATORS***************************
+export let addPostAC = () => ({ type: ADD_POST });
+export let syncingPostAC = (text) => ({ type: SYNCING_POST, text: text });
+export let addMessageAC = () => ({ type: ADD_MESSAGE });
+export let syncingMessageAC = (text) => ({ type: SYNCING_MESSAGE, text: text });
 
 export default store;
