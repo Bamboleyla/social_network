@@ -15,7 +15,7 @@ let store = {
                 { id: 4, message: "Yahoo", likes: "5" },
                 { id: 5, message: "I'ts work, i'ts wonderfull", likes: "3" },
             ],
-            newPostText: "Введите сюда ваше сообщение"
+            newPostText: ""
         },
         dialogsPage: {                                              //Страница с сообщениями
             dialogsData: [
@@ -33,7 +33,7 @@ let store = {
                 { id: 2, message: "And good luck on your project!" },
                 { id: 3, message: "React is wonderful!" },
             ],
-            newMessageText: "Введите сюда ваше сообщение"
+            newMessageText: ""
         }
     },
     dialogsPage: {                                              //Страница с сообщениями

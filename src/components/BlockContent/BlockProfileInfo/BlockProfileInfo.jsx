@@ -24,6 +24,7 @@ const BlockProfileInfo = (props) => {
             onChange={syncing}
             ref={linkTextArea}
             value={props.newPostText}
+            placeholder="Введите ваше сообщение"
           />
         </div>
         <div>
