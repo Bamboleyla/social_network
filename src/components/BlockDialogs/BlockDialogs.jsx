@@ -15,10 +15,7 @@ const BlockDialogs = (props) => {
       <div className={style.dialogs}>{dialogs}</div>
       <div className={style.messages}>
         {/* Компонент для добавления новых сообщений */}
-        <CreateNewMessage
-          dispatch={props.dispatch}
-          newMessageText={props.state.newMessageText}
-        />
+        <CreateNewMessage addMessage={props.addMessage} />
         {message}
       </div>
     </div>
