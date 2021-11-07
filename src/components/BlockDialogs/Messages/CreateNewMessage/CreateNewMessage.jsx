@@ -19,7 +19,8 @@ const CteateNewMessage = (props) => {
         <textarea
           ref={linkTextArea}
           onChange={syncing}
-          value={props.newMessageText}></textarea>
+          value={props.newMessageText}
+          placeholder="Введите ваше сообщение"></textarea>
       </div>
       <div>
         <button onClick={addMessage}>Send</button>
