@@ -1,6 +1,6 @@
 import style from "./BlockProfileInfo.module.css";
 import React from "react";
-import { addPostAC, syncingPostAC } from "../../../redux/state";
+import { addPostAC, syncingPostAC } from "../../../redux/postPageReducer";
 
 const BlockProfileInfo = (props) => {
   let linkTextArea = React.createRef(); //Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе

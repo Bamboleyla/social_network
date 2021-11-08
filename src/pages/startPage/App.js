@@ -15,7 +15,7 @@ const App = (props) => {
       <BlockNavigation />
       <div className='app-wrapper-content'>
         <Route path='/dialogs' render={() => <BlockDialogs state={state.dialogsPage} dispatch={props.store.dispatch.bind(props.store)} />} /> {/* Сообщения */}
-        <Route path='/contents' render={() => <BlockContent state={state.contentPage} dispatch={props.store.dispatch.bind(props.store)} />} /> {/* Посты */}
+        <Route path='/contents' render={() => <BlockContent state={state.postsPage} dispatch={props.store.dispatch.bind(props.store)} />} /> {/* Посты */}
         <Route path='/news' render={() => <BlockNews />} />                                                               {/* Блок с новостями */}
       </div>
     </div>

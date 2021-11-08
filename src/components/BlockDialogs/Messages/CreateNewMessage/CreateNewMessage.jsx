@@ -1,5 +1,8 @@
 import React from "react";
-import { addMessageAC, syncingMessageAC } from "../../../../redux/state";
+import {
+  addMessageAC,
+  syncingMessageAC,
+} from "../../../../redux/dialogsPageReducer";
 
 const CteateNewMessage = (props) => {
   debugger;
