@@ -46,7 +46,6 @@ let store = {
         this._state.dialogsPage = dialogsPageReducer(this._state.dialogsPage, action);
         this._state.postsPage = postPageReducer(this._state.postsPage, action);
         this._reset();
-
     }
 }
 
