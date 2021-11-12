@@ -1,17 +1,20 @@
 import style from "./BlockProfileInfo.module.css";
 import React from "react";
-import { addPostAC, syncingPostAC } from "../../../redux/postPageReducer";
 
 const BlockProfileInfo = (props) => {
-  let linkTextArea = React.createRef(); //Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе
-  let addPost = () => {
-    props.dispatch(addPostAC());
-    props.dispatch(syncingPostAC(""));
-  };
-  let syncing = () => {
+  /* Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе */
+  let linkTextArea = React.createRef();
+
+  let sendText = () => {
+    /* Получаем значение который ввел пользователь в textarea */
     let textFromTextArea = linkTextArea.current.value;
-    props.dispatch(syncingPostAC(textFromTextArea));
+    props.syncing(textFromTextArea);
   };
+
+  let sendPost = () => {
+    props.addPost();
+  };
+
   return (
     <div>
       <div className={style.img}>
@@ -21,14 +24,14 @@ const BlockProfileInfo = (props) => {
       <div className={style.text}>
         <div>
           <textarea
-            onChange={syncing}
+            onChange={sendText}
             ref={linkTextArea}
             value={props.newPostText}
             placeholder="Введите ваше сообщение"
           />
         </div>
         <div>
-          <button onClick={addPost}>Add Post</button>
+          <button onClick={sendPost}>Add Post</button>
         </div>
       </div>
     </div>

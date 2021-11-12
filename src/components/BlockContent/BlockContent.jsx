@@ -1,15 +1,14 @@
 import BlockPosts from "./BlockPosts/BlockPosts";
-import BlockProfileInfo from "./BlockProfileInfo/BlockProfileInfo";
+import BlockProfileInfoContainer from "./BlockProfileInfo/BlockProfileInfoContainer";
 
 const BlockContent = (props) => {
   debugger;
+  let state = props.store.getState().postsPage;
+
   return (
     <div>
-      <BlockProfileInfo
-        newPostText={props.state.newPostText}
-        dispatch={props.dispatch}
-      />
-      <BlockPosts commentsData={props.state.commentsData} />
+      <BlockProfileInfoContainer store={props.store} />
+      <BlockPosts commentsData={state.commentsData} />
     </div>
   );
 };

@@ -13,8 +13,8 @@ const App = (props) => {
       <BlockHeader />
       <BlockNavigation />
       <div className='app-wrapper-content'>
-        <Route path='/dialogs' render={() => <BlockDialogs state={props.store.getState().dialogsPage} dispatch={props.store.dispatch.bind(props.store)} />} /> {/* Сообщения */}
-        <Route path='/contents' render={() => <BlockContent state={props.store.getState().postsPage} dispatch={props.store.dispatch.bind(props.store)} />} /> {/* Посты */}
+        <Route path='/dialogs' render={() => <BlockDialogs store={props.store} />} /> {/* Сообщения */}
+        <Route path='/contents' render={() => <BlockContent store={props.store} />} /> {/* Посты */}
         <Route path='/news' render={() => <BlockNews />} />                                                               {/* Блок с новостями */}
       </div>
     </div>

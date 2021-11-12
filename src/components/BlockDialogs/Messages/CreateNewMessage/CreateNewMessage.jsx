@@ -1,19 +1,14 @@
 import React from "react";
-import {
-  addMessageAC,
-  syncingMessageAC,
-} from "../../../../redux/dialogsPageReducer";
 
-const CteateNewMessage = (props) => {
+const CreateNewMessage = (props) => {
   let linkTextArea = React.createRef(); //Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе
-  let addMessage = () => {
-    props.dispatch(addMessageAC());
-    props.dispatch(syncingMessageAC(""));
+  let addNewMessage = () => {
+    props.addMessage();
   };
 
-  let syncing = () => {
+  let sendNewTextMessage = () => {
     let textFromTextArea = linkTextArea.current.value;
-    props.dispatch(syncingMessageAC(textFromTextArea));
+    props.syncing(textFromTextArea);
   };
 
   return (
@@ -21,15 +16,15 @@ const CteateNewMessage = (props) => {
       <div>
         <textarea
           ref={linkTextArea}
-          onChange={syncing}
+          onChange={sendNewTextMessage}
           value={props.newMessageText}
           placeholder="Введите ваше сообщение"></textarea>
       </div>
       <div>
-        <button onClick={addMessage}>Send</button>
+        <button onClick={addNewMessage}>Send</button>
       </div>
     </div>
   );
 };
 
-export default CteateNewMessage;
+export default CreateNewMessage;
