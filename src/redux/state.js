@@ -1,5 +1,5 @@
-import { dialogsPageReducer } from "./dialogsPageReducer";
-import { postPageReducer } from "./postPageReducer";
+import { dialogsPageReducer } from "./dialogsPageReducer.js";
+import { postPageReducer } from "./postPageReducer.js";
 
 let store = {
     _state: {

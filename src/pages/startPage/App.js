@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import BlockContent from '../../components/BlockContent/BlockContent';
-import BlockHeader from '../../components/BlockHeader/BlockHeader';
-import BlockNavigation from '../../components/BlockNavigation/BlockNavigation';
-import BlockDialogsContainer from '../../components/BlockDialogs/BlockDialogsContainer';
-import BlockNews from '../../components/BlockNews/BlockNews';
+import BlockContent from '../../components/BlockContent/BlockContent.jsx';
+import BlockHeader from '../../components/BlockHeader/BlockHeader.jsx';
+import BlockNavigation from '../../components/BlockNavigation/BlockNavigation.jsx';
+import BlockDialogsContainer from '../../components/BlockDialogs/BlockDialogsContainer.jsx';
+import BlockNews from '../../components/BlockNews/BlockNews.jsx';
 import { Route } from 'react-router';
 /* Здесь выводится вся StartPage, которая состоит на данный момент из трех блоков */
 const App = (props) => {
