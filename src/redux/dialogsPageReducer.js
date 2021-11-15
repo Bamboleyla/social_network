@@ -2,7 +2,7 @@ const ADD_MESSAGE = 'ADD-MESSAGE';
 const SYNCING_MESSAGE = 'SYNCING-MESSAGE';
 
 //Если в dialogsPageReducer придет state = undefined будем использывать state по default, первоначальный
-let initialState = {                                             
+let initialState = {
     dialogsData: [
         { id: 1, name: "Dmitriy" },
         { id: 2, name: "Luba" },
@@ -23,22 +23,30 @@ let initialState = {
 
 export const dialogsPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD-MESSAGE':
+        case 'ADD-MESSAGE': {
             //*****Функция которая добавляет новый текст сообщения в state*****
+            //делаем поверхностную копию state
+            let stateCopy = { ...state };
             //Получаем новый id -> Узнаем длинну массива + 1 и вот наш новый id
-            let idMessage = state.messageData.length + 1;;
+            let idMessage = stateCopy.messageData.length + 1;;
             //Создаем объект сообщения с обязательными свойствами id и message    
             let newMessage = {
                 id: idMessage,
-                message: state.newMessageText
+                message: stateCopy.newMessageText
             };
-            //Добавляем в state объект нового сообщения        
-            state.messageData.push(newMessage);
-            return state;
-        case 'SYNCING-MESSAGE':
+            //Делаем копию messageData 
+            stateCopy.messageData = [...state.messageData];
+            //Добавляем в state объект нового сообщения  
+            stateCopy.messageData.push(newMessage);
+            return stateCopy;
+        }
+        case 'SYNCING-MESSAGE': {
+            //делаем поверхностную копию state
+            let stateCopy = { ...state };
             //Добавление в state любого изменения textarea в блоке с сообщениями
-            state.newMessageText = action.text;
-            return state;
+            stateCopy.newMessageText = action.text;
+            return stateCopy;
+        }
         default:
             return state;
 

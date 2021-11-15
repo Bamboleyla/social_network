@@ -2,7 +2,7 @@ const ADD_POST = 'ADD-POST';
 const SYNCING_POST = 'SYNCING-POST';
 
 //Если в postPageReducer придет state = undefined будем использывать state по default, первоначальный
-let initialState = {                                               
+let initialState = {
     commentsData: [
         { id: 1, message: "Hello World!", likes: "0" },
         { id: 2, message: "I'ts test message from props", likes: "9" },
@@ -15,20 +15,31 @@ let initialState = {
 
 export const postPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD-POST':
-            //Функция которая добавляет новый текст поста в state
-            let idComents = state.commentsData.length + 1;
+        case 'ADD-POST': {
+            /******* Функция которая добавляет новый текст поста в state ******/
+            //делаем поверхностную копию state
+            let stateCopy = { ...state };
+            //Получаем новый id -> Узнаем длинну массива + 1 и вот наш новый id
+            let idComents = stateCopy.commentsData.length + 1;
+            //Делаем дополнительно копию commentsData, так как поверхнастное копирование копирует только примитивы а на объекты филонит и копирует ссылки
+            stateCopy.commentsData = [...state.commentsData];
+            //Создаем шаблон newPost 
             let newPost = {
                 id: idComents,
-                message: state.newPostText,
+                message: stateCopy.newPostText,
                 likes: 0
             };
-            state.commentsData.push(newPost);
-            return state;
-        case 'SYNCING-POST':
-            //Добавление в state любого изменения textarea в блоке с постами
-            state.newPostText = action.text;
-            return state;
+            //Добавляем newPost в наш новый commentsData
+            stateCopy.commentsData.push(newPost);
+            return stateCopy;
+        }
+        case 'SYNCING-POST': {
+            /****** Добавление в state любого изменения textarea в блоке с постами ******/
+            //делаем поверхностную копию state
+            let stateCopy = { ...state };
+            stateCopy.newPostText = action.text;
+            return stateCopy;
+        }
         default: return state;
     }
 };
