@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 
 const BlockPosts = (props) => {
   let comments = props.commentsData.map((m) => (
-    <Post message={m.message} likesCount={m.likes} />
+    <Post message={m.message} key={m.id} likesCount={m.likes} />
   ));
   return (
     <div className={style.posts}>

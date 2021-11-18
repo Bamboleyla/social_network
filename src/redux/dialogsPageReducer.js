@@ -23,30 +23,20 @@ let initialState = {
 
 export const dialogsPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD-MESSAGE': {
+        case 'ADD-MESSAGE':
             //*****Функция которая добавляет новый текст сообщения в state*****
-            //делаем поверхностную копию state
-            let stateCopy = { ...state };
             //Получаем новый id -> Узнаем длинну массива + 1 и вот наш новый id
-            let idMessage = stateCopy.messageData.length + 1;;
-            //Создаем объект сообщения с обязательными свойствами id и message    
-            let newMessage = {
-                id: idMessage,
-                message: stateCopy.newMessageText
+            let idMessage = state.messageData.length + 1;;
+            //Возврашаем новый state в виде копии старого с добавлением нового сообщения, но более глубокие копии делаем только тех частей state которые будут изменены при выполнении action
+            return {
+                ...state, messageData: [...state.messageData, {
+                    id: idMessage,
+                    message: state.newMessageText
+                }]
             };
-            //Делаем копию messageData 
-            stateCopy.messageData = [...state.messageData];
-            //Добавляем в state объект нового сообщения  
-            stateCopy.messageData.push(newMessage);
-            return stateCopy;
-        }
-        case 'SYNCING-MESSAGE': {
-            //делаем поверхностную копию state
-            let stateCopy = { ...state };
-            //Добавление в state любого изменения textarea в блоке с сообщениями
-            stateCopy.newMessageText = action.text;
-            return stateCopy;
-        }
+        case 'SYNCING-MESSAGE':
+            //делаем поверхностную копию state, меняем свойство newMessageText, возврашаем
+            return { ...state, newMessageText: action.text };
         default:
             return state;
 

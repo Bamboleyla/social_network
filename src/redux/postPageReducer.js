@@ -15,31 +15,22 @@ let initialState = {
 
 export const postPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD-POST': {
+        case 'ADD-POST':
             /******* Функция которая добавляет новый текст поста в state ******/
-            //делаем поверхностную копию state
-            let stateCopy = { ...state };
             //Получаем новый id -> Узнаем длинну массива + 1 и вот наш новый id
-            let idComents = stateCopy.commentsData.length + 1;
-            //Делаем дополнительно копию commentsData, так как поверхнастное копирование копирует только примитивы а на объекты филонит и копирует ссылки
-            stateCopy.commentsData = [...state.commentsData];
-            //Создаем шаблон newPost 
-            let newPost = {
-                id: idComents,
-                message: stateCopy.newPostText,
-                likes: 0
+            let idComents = state.commentsData.length + 1;
+            //Возврашаем новый state в виде копии старого с добавлением нового сообщения, но более глубокие копии делаем только тех частей state которые будут изменены при выполнении action
+            return {
+                ...state, commentsData: [...state.commentsData, {
+                    id: idComents,
+                    message: state.newPostText,
+                    likes: 0
+                }]
             };
-            //Добавляем newPost в наш новый commentsData
-            stateCopy.commentsData.push(newPost);
-            return stateCopy;
-        }
-        case 'SYNCING-POST': {
+        case 'SYNCING-POST':
             /****** Добавление в state любого изменения textarea в блоке с постами ******/
-            //делаем поверхностную копию state
-            let stateCopy = { ...state };
-            stateCopy.newPostText = action.text;
-            return stateCopy;
-        }
+            //делаем поверхностную копию state, меняем свойство newPostText
+            return { ...state, newPostText: action.text };
         default: return state;
     }
 };
