@@ -4,7 +4,6 @@ import Message from "./Messages/Message";
 import CreateNewMessageContainer from "./Messages/CreateNewMessage/CreateNewMessageContainer";
 
 const BlockDialogs = (props) => {
-  debugger;
   let dialogs = props.dialogsPage.dialogsData.map((d) => (
     <Dialog id={d.id} key={d.id} name={d.name} />
   ));
