@@ -4,14 +4,15 @@ import style from "./BlockUsers.module.css";
 import user_logo from "./user-default.jpg";
 /* Создаем классовую компоненту, мы используем ее в место функциональной, что бы не нарушать принцип чистоты функции, если бы использовали функциональную */
 class BlockUsers extends React.Component {
-  constructor(props) {
-    super(props);
+  /* Вызываем метод жизненного цикла компонента */
+  componentDidMount() {
     /* Так как у нас пустой стейт, делаем запрос на сервер */
     axios.get("http://localhost:5000/users").then((response) => {
       /*  И диспачем его в state через метод setUsers, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
       this.props.setUsers(response.data.users);
     });
   }
+  /* Вызываем метод, который вернет разметку JSX */
   render() {
     return (
       <div>
@@ -21,7 +22,8 @@ class BlockUsers extends React.Component {
               <div>
                 <img
                   className={style.photo}
-                  src={u.ava != null ? u.ava : user_logo}></img>
+                  src={u.ava != null ? u.ava : user_logo}
+                  alt="user_photo"></img>
               </div>
               <div>
                 {u.followed ? (

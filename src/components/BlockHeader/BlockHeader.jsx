@@ -4,7 +4,7 @@ import logo from "./img_header.png";
 const BlockHeader = () => {
   return (
     <header className={style.header}>
-      <img src={logo}></img>
+      <img src={logo} alt="rocket"></img>
     </header>
   );
 };
