@@ -1,7 +1,6 @@
 /*********************************************************************/
 /* Чтобы запустить сервер набери в терминале node express/express.js */
 /*********************************************************************/
-
 const express = require('express');  //подключились к библиотеке экспресс
 const app = express(); //создаем обьект подключения 
 const jsonParser = express.json(); // подклячаем Парсер(программа считывающая переданные данные)
@@ -10,6 +9,7 @@ const fs = require("fs"); //для чтения и записи в этот фа
 //const mongoose = require('mongoose') //подключаю библиотеку mongoose
 const PORT = 5000;
 //const filePath = "task.json";
+const users = require('./users.json');//Читаем файл users.json, чтобы знать сколько у нас здесь пользователей
 
 app.use(cors());
 app.use(express.json());
@@ -17,11 +17,34 @@ app.use(express.json());
 app.get("/home", function (request, response) { // Определяем обработчик для маршрута "/"
     response.sendFile(__dirname + '/express.html'); //Определяем ответ на запрос
 });
+
 console.log(__dirname);
+
 app.get("/users", function (request, response) {
-    console.log("ЗАПРОС НА ПОЛУЧЕНИЕ SUBSCRIBERS ОБРАБОТАН") // Определяем обработчик для маршрута "/"
-    response.sendFile(__dirname + '/users.json'); //Определяем ответ на запрос
+    console.log("ПОЛУЧЕН ЗАПРОС НА ПОЛУЧЕНИЕ USERS") // Определяем обработчик для маршрута "/"
+    let total_users = users.users.length;            //total_users сколько всего у нас пользователей
+    let numberPage = request.query.page;             //указываем, пока жестко какую страницу нужно выгрузить на клиент
+    let totalPages = Math.ceil(total_users / 10);    //totalPages сколько всего будет страниц с пользователями
+    let usersList = (usersArr, number) => {          //Функция которая делит общее количество пользователей на 10 и возврашает десяток соответствующий номеру страницы
+        let result = [];
+        let start = number === 1 ? 0 : (number - 1) * 10;
+        let finish = number === 1 ? 10 : number * 10;
+        let end = finish >= total_users ? total_users + 1 : finish;
+        for (start; start < end; start++) {
+            result.push(usersArr[start])
+        };
+        return result;
+    };
+    //Формируем ответ
+    let result = { "users": usersList(users.users, numberPage), "numberPage": numberPage, "totalPages": totalPages, "totalUsers": total_users }
+
+    response.send(result); //Отправляем ответ
 });
+
+
+
+
+
 /***************************ШАБЛОН ДЛЯ GET ЗАПРОСА*************************************************/
 /* app.get("/task/1", function (request, response) { // Определяем обработчик для маршрута "/"
     response.sendFile(__dirname + '/task.json'); //Определяем ответ на запрос
