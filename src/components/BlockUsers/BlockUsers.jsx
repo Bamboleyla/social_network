@@ -7,15 +7,48 @@ class BlockUsers extends React.Component {
   /* Вызываем метод жизненного цикла компонента */
   componentDidMount() {
     /* Так как у нас пустой стейт, делаем запрос на сервер */
-    axios.get("http://localhost:5000/users").then((response) => {
-      /*  И диспачем его в state через метод setUsers, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+    axios
+      .get(`http://localhost:5000/users?page=${this.props.numberPage}`)
+      .then((response) => {
+        /* И диспачем его в state через метод setUsers, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+        this.props.setUsers(response.data.users);
+        this.props.setTotalPages(response.data.totalPages);
+      });
+  }
+  //Обработчик выбраной страницы
+  selectedPage = (num) => {
+    this.props.setNumberPage(num);
+    axios.get(`http://localhost:5000/users?page=${num}`).then((response) => {
+      /* И диспачем его в state через метод setUsers, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
       this.props.setUsers(response.data.users);
     });
-  }
+  };
   /* Вызываем метод, который вернет разметку JSX */
   render() {
+    //Сколько кнопок со страницами нужно вывести?
+    let howMuchpages = () => {
+      let result = [];
+      for (let i = 1; i <= this.props.totalPages; i++) {
+        result.push(i);
+      }
+      return result;
+    };
+
+    let pages = howMuchpages();
+    debugger;
     return (
       <div>
+        <div>
+          {pages.map((p) => (
+            <span
+              className={this.props.numberPage === p && style.selected}
+              onClick={() => {
+                this.selectedPage(p);
+              }}>
+              {p}
+            </span>
+          ))}
+        </div>
         {this.props.users.map((u) => (
           <div key={u.id}>
             <span>

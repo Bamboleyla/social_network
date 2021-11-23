@@ -29,7 +29,7 @@ app.get("/users", function (request, response) {
         let result = [];
         let start = number === 1 ? 0 : (number - 1) * 10;
         let finish = number === 1 ? 10 : number * 10;
-        let end = finish >= total_users ? total_users + 1 : finish;
+        let end = finish >= total_users ? total_users : finish;
         for (start; start < end; start++) {
             result.push(usersArr[start])
         };

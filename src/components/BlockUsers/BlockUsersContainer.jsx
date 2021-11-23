@@ -1,5 +1,11 @@
 import { connect } from "react-redux";
-import { followAC, unfollowAC, setUsersAC } from "../../redux/usersPageReducer";
+import {
+  followAC,
+  unfollowAC,
+  setUsersAC,
+  setPageAC,
+  setTotalPagesAC,
+} from "../../redux/usersPageReducer";
 import BlockUsers from "./BlockUsers";
 
 /*************************Контейнерная компонента*****************************/
@@ -8,6 +14,8 @@ import BlockUsers from "./BlockUsers";
 let mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
+    numberPage: state.usersPage.numberPage,
+    totalPages: state.usersPage.totalPages,
   };
 };
 //Создаем функцию которая будет принимать через connect необходимые dispatch из store
@@ -21,6 +29,12 @@ let mapDispatchToProps = (dispatch) => {
     },
     setUsers: (users) => {
       dispatch(setUsersAC(users));
+    },
+    setNumberPage: (number) => {
+      dispatch(setPageAC(number));
+    },
+    setTotalPages: (total) => {
+      dispatch(setTotalPagesAC(total));
     },
   };
 };

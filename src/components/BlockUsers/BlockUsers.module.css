@@ -1,3 +1,7 @@
 .photo {
     height: 100px;
 }
+
+.selected {
+    font-weight: bold;
+}

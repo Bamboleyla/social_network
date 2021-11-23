@@ -1,10 +1,14 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
 
 //Если в postPageReducer придет state = undefined будем использывать state по default, первоначальный
 let initialState = {
-    users: []
+    users: [],
+    numberPage: 1,
+    totalPages: 5
 }
 
 export const usersPageReducer = (state = initialState, action) => {
@@ -29,10 +33,17 @@ export const usersPageReducer = (state = initialState, action) => {
             }
         case 'SET_USERS':
             debugger;
-            return { ...state, users: [...state.users, ...action.users] }
+            return { ...state, users: [...action.users] }
+        case 'SET_CURRENT_PAGE':
+            return { ...state, numberPage: action.numberPage }
+        case 'SET_TOTAL_PAGES':
+            return { ...state, totalPages: action.totalPages }
         default: return state;
     }
 };
-export let followAC = (userId) => ({ type: FOLLOW, userId });
-export let unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
-export let setUsersAC = (users) => ({ type: SET_USERS, users });
+
+export let followAC = (userId) => ({ type: FOLLOW, userId })
+export let unfollowAC = (userId) => ({ type: UNFOLLOW, userId })
+export let setUsersAC = (users) => ({ type: SET_USERS, users })
+export let setPageAC = (numberPage) => ({ type: SET_CURRENT_PAGE, numberPage })
+export let setTotalPagesAC = (totalPages) => ({ type: SET_TOTAL_PAGES, totalPages })
