@@ -32,7 +32,6 @@ export const usersPageReducer = (state = initialState, action) => {
                 })
             }
         case 'SET_USERS':
-            debugger;
             return { ...state, users: [...action.users] }
         case 'SET_CURRENT_PAGE':
             return { ...state, numberPage: action.numberPage }

@@ -7,6 +7,45 @@ import {
   setTotalPagesAC,
 } from "../../redux/usersPageReducer";
 import BlockUsers from "./BlockUsers";
+import React from "react";
+import * as axios from "axios";
+
+/*************************Классовая компонента для работы с запросами на сервер*****************************/
+/* Создаем классовую компоненту, мы используем ее в место функциональной, что бы не нарушать принцип чистоты функции, если бы использовали функциональную */
+class BlockUsersAPI extends React.Component {
+  /* Вызываем метод жизненного цикла компонента */
+  componentDidMount() {
+    /* Так как у нас пустой стейт, делаем запрос на сервер */
+    axios
+      .get(`http://localhost:5000/users?page=${this.props.numberPage}`)
+      .then((response) => {
+        /* И диспачем его в state через метод setUsers, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+        this.props.setUsers(response.data.users);
+        this.props.setTotalPages(response.data.totalPages);
+      });
+  }
+  //Обработчик выбраной страницы
+  selectedPage = (num) => {
+    this.props.setNumberPage(num);
+    axios.get(`http://localhost:5000/users?page=${num}`).then((response) => {
+      /* И диспачем его в state через метод setUsers, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+      this.props.setUsers(response.data.users);
+    });
+  };
+  /* Вызываем метод, который вернет разметку JSX */
+  render() {
+    return (
+      <BlockUsers
+        totalPages={this.props.totalPages}
+        numberPage={this.props.numberPage}
+        selectedPage={this.selectedPage}
+        users={this.props.users}
+        unfollow={this.props.unfollow}
+        follow={this.props.follow}
+      />
+    );
+  }
+}
 
 /*************************Контейнерная компонента*****************************/
 
@@ -42,5 +81,5 @@ let mapDispatchToProps = (dispatch) => {
 const BlockUsersContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(BlockUsers);
+)(BlockUsersAPI);
 export default BlockUsersContainer;
