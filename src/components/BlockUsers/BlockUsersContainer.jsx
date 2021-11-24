@@ -18,28 +18,28 @@ class BlockUsersAPI extends React.Component {
   /* Вызываем метод жизненного цикла компонента */
   componentDidMount() {
     //Включаем preloader
-    this.props.setPreloader(true);
+    this.props.setPreloaderAC(true);
     /* Так как у нас пустой стейт, делаем запрос на сервер */
     axios
       .get(`http://localhost:5000/users?page=${this.props.numberPage}`)
       .then((response) => {
-        /* И диспачем его в state через метод setUsers, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
-        this.props.setUsers(response.data.users);
-        this.props.setTotalPages(response.data.totalPages);
+        /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+        this.props.setUsersAC(response.data.users);
+        this.props.setTotalPagesAC(response.data.totalPages);
         //Выключаем preloader
-        this.props.setPreloader(false);
+        this.props.setPreloaderAC(false);
       });
   }
   //Обработчик выбраной страницы
   selectedPage = (num) => {
-    this.props.setNumberPage(num);
+    this.props.setPageAC(num);
     //Включаем preloader
-    this.props.setPreloader(true);
+    this.props.setPreloaderAC(true);
     axios.get(`http://localhost:5000/users?page=${num}`).then((response) => {
-      /* И диспачем его в state через метод setUsers, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
-      this.props.setUsers(response.data.users);
+      /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+      this.props.setUsersAC(response.data.users);
       //Выключаем preloader
-      this.props.setPreloader(false);
+      this.props.setPreloaderAC(false);
     });
   };
   /* Вызываем метод, который вернет разметку JSX */
@@ -54,8 +54,8 @@ class BlockUsersAPI extends React.Component {
         numberPage={this.props.numberPage}
         selectedPage={this.selectedPage}
         users={this.props.users}
-        unfollow={this.props.unfollow}
-        follow={this.props.follow}
+        unfollow={this.props.unfollowAC}
+        follow={this.props.followAC}
       />
     );
   }
@@ -76,32 +76,14 @@ let mapStateToProps = (state) => {
     statusPreloader: state.usersPage.statusPreloader,
   };
 };
-//Создаем функцию которая будет принимать через connect необходимые dispatch из store
-let mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followAC(userId));
-    },
-    unfollow: (userId) => {
-      dispatch(unfollowAC(userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users));
-    },
-    setNumberPage: (number) => {
-      dispatch(setPageAC(number));
-    },
-    setTotalPages: (total) => {
-      dispatch(setTotalPagesAC(total));
-    },
-    setPreloader: (status) => {
-      dispatch(setPreloaderAC(status));
-    },
-  };
-};
+
 //Создаем контейнерную компоненту,подключаем наши команды к state и dispatch, оборачиваем ей презентационную компоненту BlockProfileInfo
-const BlockUsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BlockUsersAPI);
+const BlockUsersContainer = connect(mapStateToProps, {
+  followAC,
+  unfollowAC,
+  setUsersAC,
+  setPageAC,
+  setTotalPagesAC,
+  setPreloaderAC,
+})(BlockUsersAPI);
 export default BlockUsersContainer;

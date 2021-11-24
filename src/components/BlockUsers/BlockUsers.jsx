@@ -10,8 +10,8 @@ const BlockUsers = (props) => {
     }
     return result;
   };
-
   let pages = howMuchpages();
+  debugger;
   return (
     <div>
       <div>
