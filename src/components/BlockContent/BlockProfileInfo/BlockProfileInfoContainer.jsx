@@ -8,6 +8,7 @@ import BlockProfileInfo from "./BlockProfileInfo";
 let mapStateToProps = (state) => {
   return {
     newPostText: state.postsPage.newPostText,
+    userPhoto: state.postsPage.userInfo.userPhoto,
   };
 };
 //Создаем функцию которая будет принимать через connect необходимые dispatch из store

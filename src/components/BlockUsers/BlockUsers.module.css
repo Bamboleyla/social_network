@@ -1,7 +1,23 @@
 .photo {
     height: 100px;
+    border-radius: 30px;
 }
 
 .selected {
     font-weight: bold;
+}
+
+.numberPage span {
+    margin: 10px;
+}
+
+.numberPage {
+    margin-left: 250px;
+}
+
+.user {
+    margin: 50px;
+    border: 1px solid;
+    padding: 10px;
+    background-color: burlywood;
 }

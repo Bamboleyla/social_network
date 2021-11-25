@@ -1,6 +1,8 @@
 import React from "react";
 import style from "./BlockUsers.module.css";
 import user_logo from "./user-default.jpg";
+import { NavLink } from "react-router-dom";
+
 const BlockUsers = (props) => {
   //Сколько кнопок со страницами нужно вывести?
   let howMuchpages = () => {
@@ -11,10 +13,9 @@ const BlockUsers = (props) => {
     return result;
   };
   let pages = howMuchpages();
-  debugger;
   return (
     <div>
-      <div>
+      <div className={style.numberPage}>
         {pages.map((p) => (
           <span
             className={props.numberPage === p && style.selected}
@@ -26,13 +27,15 @@ const BlockUsers = (props) => {
         ))}
       </div>
       {props.users.map((u) => (
-        <div key={u.id}>
+        <div key={u.id} className={style.user}>
           <span>
             <div>
-              <img
-                className={style.photo}
-                src={u.ava != null ? u.ava : user_logo}
-                alt="user_photo"></img>
+              <NavLink to={"/contents/" + u.id}>
+                <img
+                  className={style.photo}
+                  src={u.ava != null ? u.ava : user_logo}
+                  alt="user_photo"></img>
+              </NavLink>
             </div>
             <div>
               {u.followed ? (

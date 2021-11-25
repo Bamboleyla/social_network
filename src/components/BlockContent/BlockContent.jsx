@@ -1,7 +1,7 @@
 import BlockPostsContainer from "./BlockPosts/BlockPostsContainer";
 import BlockProfileInfoContainer from "./BlockProfileInfo/BlockProfileInfoContainer";
 
-const BlockContent = (props) => {
+const BlockContent = () => {
   return (
     <div>
       <BlockProfileInfoContainer />

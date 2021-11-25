@@ -3,6 +3,11 @@ const SYNCING_POST = 'SYNCING-POST';
 
 //Если в postPageReducer придет state = undefined будем использывать state по default, первоначальный
 let initialState = {
+    //Информация о пользователе
+    userInfo: {
+        userPhoto: "https://raduga-shop.ru/wa-data/public/shop/products/43/95/29543/images/47374/47374.970.jpg"
+    },
+    //Информация о постах пользователя
     commentsData: [
         { id: 1, message: "Hello World!", likes: "0" },
         { id: 2, message: "I'ts test message from props", likes: "9" },
@@ -10,6 +15,7 @@ let initialState = {
         { id: 4, message: "Yahoo", likes: "5" },
         { id: 5, message: "I'ts work, i'ts wonderfull", likes: "3" },
     ],
+    //Информация о новом посте
     newPostText: ""
 }
 
