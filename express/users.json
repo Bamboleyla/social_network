@@ -6,7 +6,21 @@
       "fullName": "Дима",
       "status": "I want to become a web developer",
       "location": { "country": "Russia", "sity": "Ufa" },
-      "ava": "https://znamenitka.ru/uploads/posts/2019-11/dmitriy-shepelev-pokazal-podpischikam-poceluy-s-ekaterinoy-tulupovoy-1.jpg"
+      "ava": "https://znamenitka.ru/uploads/posts/2019-11/dmitriy-shepelev-pokazal-podpischikam-poceluy-s-ekaterinoy-tulupovoy-1.jpg",
+      "profileInfo": {
+        "aboutMe": "Хочу что бы шоколад стал бесплатным",
+        "study": {
+          "status": false,
+          "where": null
+        },
+        "work": { "status": false, "where": null },
+        "contact": {
+          "mob": "+793755668421",
+          "email": "huismrpupkin@gmail.com"
+        },
+        "age": 37,
+        "sex": "man"
+      }
     },
     {
       "id": 2,
