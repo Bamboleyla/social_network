@@ -29,7 +29,10 @@ const BlockUsers = (props) => {
       {props.users.map((u) => (
         <div key={u.id} className={style.user}>
           <span>
-            <div>
+            <div
+              onClick={() => {
+                props.getUser(u.id);
+              }}>
               <NavLink to={"/contents/" + u.id}>
                 <img
                   className={style.photo}

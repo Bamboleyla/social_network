@@ -1,6 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const SYNCING_POST = 'SYNCING-POST';
-
+const SET_USERINFO = 'SET_USERINFO';
 //Если в postPageReducer придет state = undefined будем использывать state по default, первоначальный
 let initialState = {
     //Информация о пользователе
@@ -37,8 +37,11 @@ export const postPageReducer = (state = initialState, action) => {
             /****** Добавление в state любого изменения textarea в блоке с постами ******/
             //делаем поверхностную копию state, меняем свойство newPostText
             return { ...state, newPostText: action.text };
+        case 'SET_USERINFO':
+            return { ...state, userInfo: { userPhoto: action.userInfo.ava } };
         default: return state;
     }
 };
 export let addPostAC = () => ({ type: ADD_POST });
-export let syncingPostAC = (text) => ({ type: SYNCING_POST, text: text });
+export let syncingPostAC = (text) => ({ type: SYNCING_POST, text });
+export let setUserInfoAC = (userInfo) => ({ type: SET_USERINFO, userInfo });

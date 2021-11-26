@@ -11,6 +11,7 @@ import BlockUsers from "./BlockUsers";
 import React from "react";
 import * as axios from "axios";
 import Preloader from "../common/Preloader";
+import { setUserInfoAC } from "../../redux/postPageReducer";
 
 /*************************Классовая компонента для работы с запросами на сервер*****************************/
 /* Создаем классовую компоненту, мы используем ее в место функциональной, что бы не нарушать принцип чистоты функции, если бы использовали функциональную */
@@ -36,8 +37,20 @@ class BlockUsersAPI extends React.Component {
     //Включаем preloader
     this.props.setPreloaderAC(true);
     axios.get(`http://localhost:5000/users?page=${num}`).then((response) => {
-      /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+      // И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
       this.props.setUsersAC(response.data.users);
+      //Выключаем preloader
+      this.props.setPreloaderAC(false);
+    });
+  };
+  //Обработчик выбраного пользователя
+  getUser = (id) => {
+    //Включаем preloader
+    this.props.setPreloaderAC(true);
+    //Делаем запрос на получение информации о выбранном пользователе
+    axios.get(`http://localhost:5000/users?userId=${id}`).then((response) => {
+      // И диспачем его в state через метод setUserInfoAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
+      this.props.setUserInfoAC(response.data.user);
       //Выключаем preloader
       this.props.setPreloaderAC(false);
     });
@@ -56,6 +69,7 @@ class BlockUsersAPI extends React.Component {
         users={this.props.users}
         unfollow={this.props.unfollowAC}
         follow={this.props.followAC}
+        getUser={this.getUser}
       />
     );
   }
@@ -85,5 +99,6 @@ const BlockUsersContainer = connect(mapStateToProps, {
   setPageAC,
   setTotalPagesAC,
   setPreloaderAC,
+  setUserInfoAC,
 })(BlockUsersAPI);
 export default BlockUsersContainer;
