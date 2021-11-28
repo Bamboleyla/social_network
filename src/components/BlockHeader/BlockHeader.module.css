@@ -6,3 +6,11 @@
 .header img {
   width: 100%;
 }
+
+.user {
+  float: right;
+}
+
+.user a {
+  color: white;
+}

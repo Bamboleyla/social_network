@@ -10,16 +10,17 @@ const fs = require("fs"); //для чтения и записи в этот фа
 const PORT = 5000;
 //const filePath = "task.json";
 const users = require('./users.json');//Читаем файл users.json, чтобы знать сколько у нас здесь пользователей
+const { mainModule } = require('process');
 //Запускаем corse для кросбраузерной, безошибочной работы сервера и преложения на одной локальной машине
 app.use(cors());
 app.use(express.json());
 //функция которая возвращает текущее время;
 let now = () => new Date().toLocaleTimeString();
-
+/***************************GET страницу с документацией*************************************************/
 app.get("/home", function (request, response) { // Определяем обработчик для маршрута "/"
     response.sendFile(__dirname + '/express.html'); //Определяем ответ на запрос
 });
-
+/***************************GET информацио о user или или users******************************************/
 app.get("/users", function (request, response) {
     let userId = request.query.userId;                //Проверяем наличие userId, если есть значит запрос за информацией по одному конкретному пользователю, если undefined, то тогда за страницей с users 
     if (!userId) {
@@ -51,11 +52,15 @@ app.get("/users", function (request, response) {
         console.log(`${now()} Пользователь ${userId} найден, данные отправлены`)
     };
 });
+/***************************************GET Ауинтификация***************************************************/
+app.get("/auth", function (request, response) { // Определяем обработчик для маршрута "/auth"
+    console.log(`${now()} Получен запрос на ауинтификацию`);
+    response.send({ 'userID': 1, 'email': 'dvorobjevredstar@mail.ru', 'login': "owner" }); //Определяем ответ на запрос
+    console.log(`${now()} ответ отправлен`);
+});
 
 
-
-
-/***************************ШАБЛОН ДЛЯ GET ЗАПРОСА*************************************************/
+/************************************ШАБЛОН ДЛЯ GET ЗАПРОСА*************************************************/
 /* app.get("/task/1", function (request, response) { // Определяем обработчик для маршрута "/"
     response.sendFile(__dirname + '/task.json'); //Определяем ответ на запрос
 }); */
