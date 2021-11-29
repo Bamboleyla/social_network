@@ -2,17 +2,14 @@
   "users": [
     {
       "id": 1,
-      "followed": false,
+      "followed": true,
       "fullName": "Дима",
       "status": "I want to become a web developer",
       "location": { "country": "Russia", "sity": "Ufa" },
       "ava": "https://znamenitka.ru/uploads/posts/2019-11/dmitriy-shepelev-pokazal-podpischikam-poceluy-s-ekaterinoy-tulupovoy-1.jpg",
       "profileInfo": {
         "aboutMe": "Хочу что бы шоколад стал бесплатным",
-        "study": {
-          "status": false,
-          "where": null
-        },
+        "study": { "status": false, "where": null },
         "work": { "status": false, "where": null },
         "contact": {
           "mob": "+793755668421",
@@ -24,7 +21,7 @@
     },
     {
       "id": 2,
-      "followed": false,
+      "followed": true,
       "fullName": "Любовь",
       "status": "I was born for love",
       "location": { "country": "Russia", "sity": "Ufa" },
@@ -128,7 +125,7 @@
     },
     {
       "id": 15,
-      "followed": false,
+      "followed": true,
       "fullName": "Шоколадный заяц",
       "status": "Я ласковый мерзавец",
       "location": { "country": "Russia", "sity": "Rostov" },

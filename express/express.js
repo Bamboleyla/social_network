@@ -8,7 +8,7 @@ const cors = require('cors') // подключение библиотеки cors
 const fs = require("fs"); //для чтения и записи в этот файл мы будем использовать встроенный модуль fs
 //const mongoose = require('mongoose') //подключаю библиотеку mongoose
 const PORT = 5000;
-//const filePath = "task.json";
+const filePath = './users.json'; //константа с местоположением файла где хранятся все пользователи
 const users = require('./users.json');//Читаем файл users.json, чтобы знать сколько у нас здесь пользователей
 const { mainModule } = require('process');
 //Запускаем corse для кросбраузерной, безошибочной работы сервера и преложения на одной локальной машине
@@ -20,6 +20,7 @@ let now = () => new Date().toLocaleTimeString();
 app.get("/home", function (request, response) { // Определяем обработчик для маршрута "/"
     response.sendFile(__dirname + '/express.html'); //Определяем ответ на запрос
 });
+
 /***************************GET информацио о user или или users******************************************/
 app.get("/users", function (request, response) {
     let userId = request.query.userId;                //Проверяем наличие userId, если есть значит запрос за информацией по одному конкретному пользователю, если undefined, то тогда за страницей с users 
@@ -57,6 +58,31 @@ app.get("/auth", function (request, response) { // Определяем обра
     console.log(`${now()} Получен запрос на ауинтификацию`);
     response.send({ 'userID': 1, 'email': 'dvorobjevredstar@mail.ru', 'login': "owner" }); //Определяем ответ на запрос
     console.log(`${now()} ответ отправлен`);
+});
+
+/***************************POST ОТПИСАТЬСЯ*************************************************/
+app.post("/follow", jsonParser, function (req, res) {
+
+    if (!req.body) return res.sendStatus(400);
+    console.log(`${now()} получен запрос на отмену подписки на пользователя с id = ${req.query.id}`);
+
+    find_a_user = (id) => users.users.find((el) => el.id == id);
+    idUser = find_a_user(req.query.id);
+    const status = req.query.status === 'true' ? true : false;
+    if (idUser.followed !== status) {
+        idUser.followed = status;
+        data = JSON.stringify(users);
+        fs.writeFileSync("./express/users.json", data);
+        console.log(`${now()} свойство followed у user id = ${req.query.id} изменено на ${status}`)
+    }
+
+    else console.log(`${now()} Ошибка! Нельзя изменить у user id = ${req.query.id} свойство followed на ${status}, так как он уже ${idUser.followed}`)
+
+    // перезаписываем файл с новыми данными
+
+
+    console.log(`${now()} СЕРВЕР ОЖИДАЕТ НОВОГО ЗАПРОСА`)
+    res.send(true);
 });
 
 

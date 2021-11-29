@@ -2,6 +2,7 @@ import React from "react";
 import style from "./BlockUsers.module.css";
 import user_logo from "./user-default.jpg";
 import { NavLink } from "react-router-dom";
+import * as axios from "axios";
 
 const BlockUsers = (props) => {
   //Сколько кнопок со страницами нужно вывести?
@@ -44,14 +45,37 @@ const BlockUsers = (props) => {
               {u.followed ? (
                 <button
                   onClick={() => {
-                    props.unfollow(u.id);
+                    //Делаем запрос на отмену подписки к пользователю
+                    axios
+                      .post(
+                        `http://localhost:5000/follow?id=${u.id}&status=false`
+                      )
+                      .then((response) => {
+                        //Если ответ положительный, тогда отписуемся и в state
+                        debugger;
+                        if (response.data === true) {
+                          props.unfollow(u.id);
+                        }
+                      });
                   }}>
                   Followed
                 </button>
               ) : (
                 <button
                   onClick={() => {
-                    props.follow(u.id);
+                    //Делаем запрос на отмену подписки к пользователю
+                    axios
+                      .post(
+                        `http://localhost:5000/follow?id=${u.id}&status=true`
+                      )
+                      .then((response) => {
+                        //Если ответ положительный, тогда отписуемся и в state
+                        debugger;
+                        if (response.data === true) {
+                          debugger;
+                          props.follow(u.id);
+                        }
+                      });
                   }}>
                   Unfollowed
                 </button>

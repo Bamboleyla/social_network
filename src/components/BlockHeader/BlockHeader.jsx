@@ -3,7 +3,6 @@ import logo from "./img_header.png";
 import { NavLink } from "react-router-dom";
 
 const BlockHeader = (props) => {
-  debugger;
   return (
     <header className={style.header}>
       <div className={style.user}>
