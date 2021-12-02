@@ -5,7 +5,7 @@ import BlockNavigation from '../../components/BlockNavigation/BlockNavigation';
 import BlockDialogsContainer from '../../components/BlockDialogs/BlockDialogsContainer';
 import BlockNews from '../../components/BlockNews/BlockNews';
 import { Route } from 'react-router';
-import BlockUsersContainer from '../../components/BlockUsers/BlockUsersContainer';
+import { BlockUsersContainer } from '../../components/BlockUsers/BlockUsersContainer';
 import BlockHeaderContainer from '../../components/BlockHeader/BlockHeaderContainer';
 /* Здесь выводится вся StartPage, которая состоит на данный момент из трех блоков */
 const App = () => {

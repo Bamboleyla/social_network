@@ -6,6 +6,7 @@ import {
   setPageAC,
   setTotalPagesAC,
   setPreloaderAC,
+  buttonDisabledAC,
 } from "../../redux/usersPageReducer";
 import BlockUsers from "./BlockUsers";
 import React from "react";
@@ -29,7 +30,9 @@ class BlockUsersAPI extends React.Component {
       this.props.setPreloaderAC(false);
     });
   }
-  //Обработчик выбраной страницы
+  ////////////////////////////////
+  //Обработчик выбраной страницы//
+  ////////////////////////////////
   selectedPage = (num) => {
     this.props.setPageAC(num);
     //Включаем preloader
@@ -41,7 +44,9 @@ class BlockUsersAPI extends React.Component {
       this.props.setPreloaderAC(false);
     });
   };
-  //Обработчик выбраного пользователя
+  /////////////////////////////////////
+  //Обработчик выбраного пользователя//
+  /////////////////////////////////////
   getUser = (id) => {
     //Включаем preloader
     this.props.setPreloaderAC(true);
@@ -68,6 +73,8 @@ class BlockUsersAPI extends React.Component {
         unfollow={this.props.unfollowAC}
         follow={this.props.followAC}
         getUser={this.getUser}
+        buttonDisabled={this.props.buttonDisabledAC}
+        disabled={this.props.statusButton}
       />
     );
   }
@@ -75,7 +82,7 @@ class BlockUsersAPI extends React.Component {
 
 /*************************Контейнерная компонента*****************************/
 
-//Создаем функцию которая будет принимать через connect нужную часть state
+//Создаем функцию которая будет принимать через connect нужную часть state и делится им с компонентой
 let mapStateToProps = (state) => {
   return {
     //массив юзеров
@@ -86,11 +93,13 @@ let mapStateToProps = (state) => {
     totalPages: state.usersPage.totalPages,
     //статус прелоадера
     statusPreloader: state.usersPage.statusPreloader,
+    //отключение кнопки
+    statusButton: state.usersPage.buttonDisabled,
   };
 };
 
-//Создаем контейнерную компоненту,подключаем наши команды к state и dispatch, оборачиваем ей презентационную компоненту BlockProfileInfo
-const BlockUsersContainer = connect(mapStateToProps, {
+//Создаем контейнерную компоненту BlockUsersContainer,подключаем mapStateToProps и передаем ей методы для dispatch , оборачиваем ей презентационную компоненту BlockUsersAPI
+export const BlockUsersContainer = connect(mapStateToProps, {
   followAC,
   unfollowAC,
   setUsersAC,
@@ -98,5 +107,5 @@ const BlockUsersContainer = connect(mapStateToProps, {
   setTotalPagesAC,
   setPreloaderAC,
   setUserInfoAC,
+  buttonDisabledAC,
 })(BlockUsersAPI);
-export default BlockUsersContainer;

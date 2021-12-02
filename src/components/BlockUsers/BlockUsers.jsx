@@ -44,17 +44,19 @@ const BlockUsers = (props) => {
             <div>
               {u.followed ? (
                 <button
+                  disabled={props.disabled.some((id) => id === u.id)}
                   onClick={() => {
                     //Делаем запрос на отмену подписки к пользователю
+                    props.buttonDisabled(true, u.id);
                     axios
                       .post(
                         `http://localhost:5000/follow?id=${u.id}&status=false`
                       )
                       .then((response) => {
                         //Если ответ положительный, тогда отписуемся и в state
-                        debugger;
                         if (response.data === true) {
                           props.unfollow(u.id);
+                          props.buttonDisabled(false, u.id);
                         }
                       });
                   }}>
@@ -62,18 +64,19 @@ const BlockUsers = (props) => {
                 </button>
               ) : (
                 <button
+                  disabled={props.disabled.some((id) => id === u.id)}
                   onClick={() => {
                     //Делаем запрос на отмену подписки к пользователю
+                    props.buttonDisabled(true, u.id);
                     axios
                       .post(
                         `http://localhost:5000/follow?id=${u.id}&status=true`
                       )
                       .then((response) => {
                         //Если ответ положительный, тогда отписуемся и в state
-                        debugger;
                         if (response.data === true) {
-                          debugger;
                           props.follow(u.id);
+                          props.buttonDisabled(false, u.id);
                         }
                       });
                   }}>
