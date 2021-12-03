@@ -11,5 +11,11 @@ export const userAPI = {
     },
     getUser(id) {
         return instance.get(`users?userId=${id}`).then(response => response.data)
+    },
+    follow(userID, status) {
+        return instance
+            .post(
+                `follow?id=${userID}&status=${status}`
+            )
     }
 }

@@ -2,7 +2,6 @@ import React from "react";
 import style from "./BlockUsers.module.css";
 import user_logo from "./user-default.jpg";
 import { NavLink } from "react-router-dom";
-import * as axios from "axios";
 
 const BlockUsers = (props) => {
   //Сколько кнопок со страницами нужно вывести?
@@ -46,19 +45,7 @@ const BlockUsers = (props) => {
                 <button
                   disabled={props.disabled.some((id) => id === u.id)}
                   onClick={() => {
-                    //Делаем запрос на отмену подписки к пользователю
-                    props.buttonDisabled(true, u.id);
-                    axios
-                      .post(
-                        `http://localhost:5000/follow?id=${u.id}&status=false`
-                      )
-                      .then((response) => {
-                        //Если ответ положительный, тогда отписуемся и в state
-                        if (response.data === true) {
-                          props.unfollow(u.id);
-                          props.buttonDisabled(false, u.id);
-                        }
-                      });
+                    props.unfollow(u.id);
                   }}>
                   Followed
                 </button>
@@ -66,19 +53,7 @@ const BlockUsers = (props) => {
                 <button
                   disabled={props.disabled.some((id) => id === u.id)}
                   onClick={() => {
-                    //Делаем запрос на отмену подписки к пользователю
-                    props.buttonDisabled(true, u.id);
-                    axios
-                      .post(
-                        `http://localhost:5000/follow?id=${u.id}&status=true`
-                      )
-                      .then((response) => {
-                        //Если ответ положительный, тогда отписуемся и в state
-                        if (response.data === true) {
-                          props.follow(u.id);
-                          props.buttonDisabled(false, u.id);
-                        }
-                      });
+                    props.follow(u.id);
                   }}>
                   Unfollowed
                 </button>

@@ -1,3 +1,5 @@
+import { userAPI } from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -44,7 +46,7 @@ export const usersPageReducer = (state = initialState, action) => {
         case 'SET_PRELOADER':
             return { ...state, statusPreloader: action.statusPreloader }
         case 'SET_BUTTON_DISABLED':
-            return { ...state, buttonDisabled: action.status ? [...state.buttonDisabled, action.userID] : state.buttonDisabled.filter(id => id != action.userID) }
+            return { ...state, buttonDisabled: action.status ? [...state.buttonDisabled, action.userID] : state.buttonDisabled.filter(id => id !== action.userID) }
         default: return state;
     }
 };
@@ -56,3 +58,51 @@ export let setPageAC = (numberPage) => ({ type: SET_CURRENT_PAGE, numberPage })
 export let setTotalPagesAC = (totalPages) => ({ type: SET_TOTAL_PAGES, totalPages })
 export let setPreloaderAC = (statusPreloader) => ({ type: SET_PRELOADER, statusPreloader })
 export let buttonDisabledAC = (status, userID) => ({ type: SET_BUTTON_DISABLED, status, userID })
+
+/* *************************************************************THUNKS-CREATOR*********************************************************** */
+
+export const getUsers = (numberPage) => {
+    //Возврашаем Thunk
+    return (dispatch) => {
+        //Включаем preloader
+        dispatch(setPreloaderAC(true));
+        //Делаем запрос на сервер за массивом с пользователями
+        userAPI.getUsers(numberPage).then((data) => {
+            /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+            dispatch(setUsersAC(data.users));
+            dispatch(setTotalPagesAC(data.totalPages));
+            //Выключаем preloader
+            dispatch(setPreloaderAC(false));
+        });
+    }
+}
+
+export const follow = (userID) => {
+    //Возврашаем Thunk
+    return (dispatch) => {
+        //Делаем запрос на подписку к пользователю
+        dispatch(buttonDisabledAC(true, userID));
+        //Делаем запрос на отмену или активацию подписки к пользователю
+        userAPI.follow(userID, 'true').then((response) => {
+            //Если ответ положительный, тогда отписуемся и в state
+            if (response.data === true) {
+                dispatch(followAC(userID));
+                dispatch(buttonDisabledAC(false, userID));
+            }
+        });
+    }
+}
+export const unfollow = (userID) => {
+    //Возврашаем Thunk
+    return (dispatch) => {
+        //Делаем запрос на отмену подписки к пользователю
+        dispatch(buttonDisabledAC(true, userID));
+        userAPI.follow(userID, "false").then((response) => {
+            //Если ответ положительный, тогда отписуемся и в state
+            if (response.data === true) {
+                dispatch(unfollowAC(userID));
+                dispatch(buttonDisabledAC(false, userID));
+            }
+        });
+    }
+};

@@ -1,12 +1,9 @@
 import { connect } from "react-redux";
 import {
-  followAC,
-  unfollowAC,
-  setUsersAC,
+  follow,
+  unfollow,
   setPageAC,
-  setTotalPagesAC,
-  setPreloaderAC,
-  buttonDisabledAC,
+  getUsers,
 } from "../../redux/usersPageReducer";
 import BlockUsers from "./BlockUsers";
 import React from "react";
@@ -19,30 +16,16 @@ import { userAPI } from "../../api/api.js";
 class BlockUsersAPI extends React.Component {
   /* Вызываем метод жизненного цикла компонента */
   componentDidMount() {
-    //Включаем preloader
-    this.props.setPreloaderAC(true);
-    /* Так как у нас пустой стейт, делаем запрос на сервер */
-    userAPI.getUsers(this.props.numberPage).then((data) => {
-      /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
-      this.props.setUsersAC(data.users);
-      this.props.setTotalPagesAC(data.totalPages);
-      //Выключаем preloader
-      this.props.setPreloaderAC(false);
-    });
+    this.props.getUsers(this.props.numberPage);
   }
   ////////////////////////////////
   //Обработчик выбраной страницы//
   ////////////////////////////////
   selectedPage = (num) => {
+    //меняем numberPage в state
     this.props.setPageAC(num);
-    //Включаем preloader
-    this.props.setPreloaderAC(true);
-    userAPI.getUsers(num).then((data) => {
-      // И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
-      this.props.setUsersAC(data.users);
-      //Выключаем preloader
-      this.props.setPreloaderAC(false);
-    });
+    //вызываем thunk загрузки массива пользователей
+    this.props.getUsers(num);
   };
   /////////////////////////////////////
   //Обработчик выбраного пользователя//
@@ -70,10 +53,9 @@ class BlockUsersAPI extends React.Component {
         numberPage={this.props.numberPage}
         selectedPage={this.selectedPage}
         users={this.props.users}
-        unfollow={this.props.unfollowAC}
-        follow={this.props.followAC}
+        unfollow={this.props.unfollow}
+        follow={this.props.follow}
         getUser={this.getUser}
-        buttonDisabled={this.props.buttonDisabledAC}
         disabled={this.props.statusButton}
       />
     );
@@ -100,12 +82,9 @@ let mapStateToProps = (state) => {
 
 //Создаем контейнерную компоненту BlockUsersContainer,подключаем mapStateToProps и передаем ей методы для dispatch , оборачиваем ей презентационную компоненту BlockUsersAPI
 export const BlockUsersContainer = connect(mapStateToProps, {
-  followAC,
-  unfollowAC,
-  setUsersAC,
+  unfollow,
+  follow,
   setPageAC,
-  setTotalPagesAC,
-  setPreloaderAC,
   setUserInfoAC,
-  buttonDisabledAC,
+  getUsers,
 })(BlockUsersAPI);
