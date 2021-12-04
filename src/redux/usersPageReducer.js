@@ -1,4 +1,5 @@
 import { userAPI } from "../api/api";
+import { setUserInfoAC } from "./postPageReducer";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -51,6 +52,7 @@ export const usersPageReducer = (state = initialState, action) => {
     }
 };
 
+/***************************************************************ACTION CREATORS*********************************************************** */
 export let followAC = (userId) => ({ type: FOLLOW, userId })
 export let unfollowAC = (userId) => ({ type: UNFOLLOW, userId })
 export let setUsersAC = (users) => ({ type: SET_USERS, users })
@@ -60,7 +62,7 @@ export let setPreloaderAC = (statusPreloader) => ({ type: SET_PRELOADER, statusP
 export let buttonDisabledAC = (status, userID) => ({ type: SET_BUTTON_DISABLED, status, userID })
 
 /* *************************************************************THUNKS-CREATOR*********************************************************** */
-
+//Получение массива пользователей
 export const getUsers = (numberPage) => {
     //Возврашаем Thunk
     return (dispatch) => {
@@ -76,7 +78,23 @@ export const getUsers = (numberPage) => {
         });
     }
 }
+//Получение информации о конкретном, выбранном пользователе
+export const getUserInfo = (userID) => {
+    //Возврашаем Thunk
+    return (dispatch) => {
+        //Включаем preloader
+        dispatch(setPreloaderAC(true));
+        //Делаем запрос на получение информации о выбранном пользователе
+        userAPI.getUser(userID).then((data) => {
+            // И диспачем его в state через метод setUserInfoAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
+            dispatch(setUserInfoAC(data.user));
+            //Выключаем preloader
+            dispatch(setPreloaderAC(false));
+        });
+    }
+}
 
+//Подписаться на пользователя
 export const follow = (userID) => {
     //Возврашаем Thunk
     return (dispatch) => {
@@ -92,6 +110,7 @@ export const follow = (userID) => {
         });
     }
 }
+//Отписаться от пользователя
 export const unfollow = (userID) => {
     //Возврашаем Thunk
     return (dispatch) => {

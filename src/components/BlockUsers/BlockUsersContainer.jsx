@@ -4,18 +4,20 @@ import {
   unfollow,
   setPageAC,
   getUsers,
+  getUserInfo,
+  setPreloaderAC,
 } from "../../redux/usersPageReducer";
 import BlockUsers from "./BlockUsers";
 import React from "react";
 import Preloader from "../common/Preloader";
 import { setUserInfoAC } from "../../redux/postPageReducer";
-import { userAPI } from "../../api/api.js";
 
 /*************************Классовая компонента для работы с запросами на сервер*****************************/
 /* Создаем классовую компоненту, мы используем ее в место функциональной, что бы не нарушать принцип чистоты функции, если бы использовали функциональную */
 class BlockUsersAPI extends React.Component {
   /* Вызываем метод жизненного цикла компонента */
   componentDidMount() {
+    //Получаем массив с пользователями
     this.props.getUsers(this.props.numberPage);
   }
   ////////////////////////////////
@@ -31,15 +33,7 @@ class BlockUsersAPI extends React.Component {
   //Обработчик выбраного пользователя//
   /////////////////////////////////////
   getUser = (id) => {
-    //Включаем preloader
-    this.props.setPreloaderAC(true);
-    //Делаем запрос на получение информации о выбранном пользователе
-    userAPI.getUser(id).then((data) => {
-      // И диспачем его в state через метод setUserInfoAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
-      this.props.setUserInfoAC(data.user);
-      //Выключаем preloader
-      this.props.setPreloaderAC(false);
-    });
+    this.props.getUserInfo(id);
   };
   /* Вызываем метод, который вернет разметку JSX */
   render() {
@@ -87,4 +81,6 @@ export const BlockUsersContainer = connect(mapStateToProps, {
   setPageAC,
   setUserInfoAC,
   getUsers,
+  getUserInfo,
+  setPreloaderAC,
 })(BlockUsersAPI);

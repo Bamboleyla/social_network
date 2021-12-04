@@ -1,3 +1,4 @@
+import { authAPI } from '../api/api'
 const SET_USER_DATA = 'SET_USER_DATA';
 
 //Если в authReduser придет state = undefined будем использывать state по default, первоначальный
@@ -20,4 +21,23 @@ export const authReducer = (state = initialState, action) => {
     }
 };
 
+/***************************************************************ACTION CREATORS*********************************************************** */
 export let setAuthData = (userID, email, login, isAuth) => ({ type: SET_USER_DATA, data: { userID, email, login, isAuth } })
+
+/* *************************************************************THUNKS-CREATOR*********************************************************** */
+//Получение информации о аунтифицированном пользователе
+export const getAuthData = () => {
+    //Возврашаем Thunk
+    return (dispatch) => {
+        /* Так как у нас пустой стейт, делаем запрос на сервер */
+        authAPI.me().then((response) => {
+            /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
+            dispatch(setAuthData(
+                response.data.userID,
+                response.data.email,
+                response.data.login,
+                true
+            ));
+        });
+    }
+}

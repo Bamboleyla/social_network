@@ -4,7 +4,7 @@ const instance = axios.create({
     baseURL: 'http://localhost:5000/'
 })
 
-//Создадим объект который будет иметь методы для работы со всеми API сервера
+//Запросы связанные с получением пользователей, данных о пользователе
 export const userAPI = {
     getUsers(num) {
         return instance.get(`users?page=${num}`).then(response => response.data)
@@ -17,5 +17,12 @@ export const userAPI = {
             .post(
                 `follow?id=${userID}&status=${status}`
             )
+    }
+}
+
+//Запросы связанные с аунтификацией
+export const authAPI = {
+    me() {
+        return instance.get(`auth`)
     }
 }
