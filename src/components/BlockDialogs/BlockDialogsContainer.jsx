@@ -6,7 +6,10 @@ import BlockDialogs from "./BlockDialogs";
 //Создаем функцию которая будет принимать через connect нужную часть state
 let mapStateToProps = (state) => {
   return {
+    //данные о диалогах
     dialogsPage: state.dialogsPage,
+    //состояние Авторизации
+    isAuth: state.auth.isAuth,
   };
 };
 //Создаем функцию которая будет принимать через connect необходимые dispatch из store, но так как нам не чего не нужно пока, поставим просто заглушку

@@ -51,6 +51,7 @@ class BlockUsersAPI extends React.Component {
         follow={this.props.follow}
         getUser={this.getUser}
         disabled={this.props.statusButton}
+        isAuth={this.props.isAuth}
       />
     );
   }
@@ -71,6 +72,8 @@ let mapStateToProps = (state) => {
     statusPreloader: state.usersPage.statusPreloader,
     //отключение кнопки
     statusButton: state.usersPage.buttonDisabled,
+    //состояние авторизации
+    isAuth: state.auth.isAuth,
   };
 };
 

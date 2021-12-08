@@ -1,0 +1,9 @@
+h1 {
+  text-align: center;
+  margin: 100px auto 0px auto;
+  border: 1px solid;
+  width: 200px;
+  background-color: burlywood;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}

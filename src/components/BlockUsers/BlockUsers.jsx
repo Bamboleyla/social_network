@@ -2,6 +2,7 @@ import React from "react";
 import style from "./BlockUsers.module.css";
 import user_logo from "./user-default.jpg";
 import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router";
 
 const BlockUsers = (props) => {
   //Сколько кнопок со страницами нужно вывести?
@@ -13,6 +14,7 @@ const BlockUsers = (props) => {
     return result;
   };
   let pages = howMuchpages();
+  if (props.isAuth === false) return <Redirect to={"/login"} />;
   return (
     <div>
       <div className={style.numberPage}>
@@ -62,12 +64,12 @@ const BlockUsers = (props) => {
           </span>
           <span>
             <span>
-              <div>{u.fullName}</div>
-              <div>{u.status}</div>
+              <div>name: {u.fullName}</div>
+              <div>status: "{u.status}"</div>
             </span>
             <span>
-              <div>{u.location.country}</div>
-              <div>{u.location.sity}</div>
+              <div>country: {u.location.country}</div>
+              <div>sity: {u.location.sity}</div>
             </span>
           </span>
         </div>
