@@ -11,6 +11,7 @@ import BlockUsers from "./BlockUsers";
 import React from "react";
 import Preloader from "../common/Preloader";
 import { setUserInfoAC } from "../../redux/postPageReducer";
+import { withAuthRedirect } from "../../hok/withAuthRedirect";
 
 /*************************Классовая компонента для работы с запросами на сервер*****************************/
 /* Создаем классовую компоненту, мы используем ее в место функциональной, что бы не нарушать принцип чистоты функции, если бы использовали функциональную */
@@ -51,11 +52,13 @@ class BlockUsersAPI extends React.Component {
         follow={this.props.follow}
         getUser={this.getUser}
         disabled={this.props.statusButton}
-        isAuth={this.props.isAuth}
       />
     );
   }
 }
+/************************************HOK*****************************************/
+//HOK который добавит в нашу компоненту проверку и проверит на аунтификацию
+let redirectHOK = withAuthRedirect(BlockUsersAPI);
 
 /*************************Контейнерная компонента*****************************/
 
@@ -72,8 +75,6 @@ let mapStateToProps = (state) => {
     statusPreloader: state.usersPage.statusPreloader,
     //отключение кнопки
     statusButton: state.usersPage.buttonDisabled,
-    //состояние авторизации
-    isAuth: state.auth.isAuth,
   };
 };
 
@@ -86,4 +87,4 @@ export const BlockUsersContainer = connect(mapStateToProps, {
   getUsers,
   getUserInfo,
   setPreloaderAC,
-})(BlockUsersAPI);
+})(redirectHOK);
