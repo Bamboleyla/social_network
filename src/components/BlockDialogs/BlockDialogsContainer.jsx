@@ -1,9 +1,8 @@
 import { connect } from "react-redux";
 import BlockDialogs from "./BlockDialogs";
 import { withAuthRedirect } from "../../hok/withAuthRedirect";
-/************************************HOK*****************************************/
-//HOK который добавит в нашу компоненту проверку на аунтификацию
-let redirectHOK = withAuthRedirect(BlockDialogs);
+import { compose } from "redux";
+
 /*************************Контейнерная компонента*****************************/
 //Создаем функцию которая будет принимать через connect нужную часть state
 let mapStateToProps = (state) => {
@@ -17,9 +16,8 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = () => {
   return {};
 };
-//Создаем контейнерную компоненту,подключаем наши команды к state и dispatch, оборачиваем ей презентационную компоненту BlockDialogs
-const BlockDialogsContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(redirectHOK);
-export default BlockDialogsContainer;
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
+)(BlockDialogs);

@@ -6,9 +6,16 @@
 
 .item a {
   text-decoration: none;
+  border: 1px solid black;
+  width: 150px;
+  margin-bottom: 2px;
+  display: block;
+  padding: 5px 0 5px 5px;
+  background-color: khaki;
+  color: black;
 }
 
-.active {
+a.active {
   font-size: large;
-  color: white;
+  color: red;
 }
