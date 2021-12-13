@@ -1,12 +1,13 @@
 .img img {
-  padding: 10px;
   width: 150px;
+  border-radius: 30px;
 }
 
-.discription {
-  padding: 10px;
+.wrapper {
+  padding: 20px;
 }
 
-.text {
-  padding: 10px;
+.status {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

@@ -1,5 +1,6 @@
 import style from "./BlockProfileInfo.module.css";
 import React from "react";
+import ProfileStatus from "./ProfileStatus";
 
 const BlockProfileInfo = (props) => {
   /* Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе */
@@ -16,9 +17,12 @@ const BlockProfileInfo = (props) => {
   };
 
   return (
-    <div>
+    <div className={style.wrapper}>
       <div className={style.img}>
         <img src={props.userPhoto} alt="my_photo"></img>
+      </div>
+      <div className={style.status}>
+        My status today: <ProfileStatus status="Hello everybody!" />
       </div>
       <div className={style.discription}> Ava + Discription</div>
       <div className={style.text}>
