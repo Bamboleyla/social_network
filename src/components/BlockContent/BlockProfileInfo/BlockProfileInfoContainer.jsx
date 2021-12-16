@@ -9,6 +9,7 @@ let mapStateToProps = (state) => {
   return {
     newPostText: state.postsPage.newPostText,
     userPhoto: state.postsPage.userInfo.userPhoto,
+    userStatus: state.postsPage.userInfo.status
   };
 };
 //Создаем функцию которая будет принимать через connect необходимые dispatch из store

@@ -5,7 +5,8 @@ const SET_USERINFO = 'SET_USERINFO';
 let initialState = {
     //Информация о пользователе
     userInfo: {
-        userPhoto: "https://raduga-shop.ru/wa-data/public/shop/products/43/95/29543/images/47374/47374.970.jpg"
+        userPhoto: "https://raduga-shop.ru/wa-data/public/shop/products/43/95/29543/images/47374/47374.970.jpg",
+        status: ""
     },
     //Информация о постах пользователя
     commentsData: [
@@ -27,7 +28,8 @@ export const postPageReducer = (state = initialState, action) => {
             let idComents = state.commentsData.length + 1;
             //Возврашаем новый state в виде копии старого с добавлением нового сообщения, но более глубокие копии делаем только тех частей state которые будут изменены при выполнении action
             return {
-                ...state, commentsData: [...state.commentsData, {
+                ...state,
+                commentsData: [...state.commentsData, {
                     id: idComents,
                     message: state.newPostText,
                     likes: 0
@@ -36,10 +38,11 @@ export const postPageReducer = (state = initialState, action) => {
         case 'SYNCING-POST':
             /****** Добавление в state любого изменения textarea в блоке с постами ******/
             //делаем поверхностную копию state, меняем свойство newPostText
-            return { ...state, newPostText: action.text };
+            return {...state, newPostText: action.text };
         case 'SET_USERINFO':
-            return { ...state, userInfo: { userPhoto: action.userInfo.ava } };
-        default: return state;
+            return {...state, userInfo: { userPhoto: action.userInfo.ava, status: action.userInfo.status } };
+        default:
+            return state;
     }
 };
 export let addPostAC = () => ({ type: ADD_POST });

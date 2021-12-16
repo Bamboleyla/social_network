@@ -1,7 +1,7 @@
 /*********************************************************************/
 /* Чтобы запустить сервер набери в терминале node express/express.js */
 /*********************************************************************/
-const express = require('express');  //подключились к библиотеке экспресс
+const express = require('express'); //подключились к библиотеке экспресс
 const app = express(); //создаем обьект подключения 
 const jsonParser = express.json(); // подклячаем Парсер(программа считывающая переданные данные)
 const cors = require('cors') // подключение библиотеки cors для преодаление защиты от кросс браузерных запросов
@@ -9,7 +9,7 @@ const fs = require("fs"); //для чтения и записи в этот фа
 //const mongoose = require('mongoose') //подключаю библиотеку mongoose
 const PORT = 5000;
 const filePath = './users.json'; //константа с местоположением файла где хранятся все пользователи
-const users = require('./users.json');//Читаем файл users.json, чтобы знать сколько у нас здесь пользователей
+const users = require('./users.json'); //Читаем файл users.json, чтобы знать сколько у нас здесь пользователей
 const { mainModule } = require('process');
 //Запускаем corse для кросбраузерной, безошибочной работы сервера и преложения на одной локальной машине
 app.use(cors());
@@ -19,19 +19,19 @@ let now = () => new Date().toLocaleTimeString();
 //функция которая возвращает информацию о пользователе по id;
 let find_a_user = (id) => users.users.find((el) => el.id == id);
 /***************************GET страницу с документацией*************************************************/
-app.get("/home", function (request, response) { // Определяем обработчик для маршрута "/"
+app.get("/home", function(request, response) { // Определяем обработчик для маршрута "/"
     response.sendFile(__dirname + '/express.html'); //Определяем ответ на запрос
 });
 
 /***************************GET информацио о user или или users******************************************/
-app.get("/users", function (request, response) {
-    let userId = request.query.userId;                //Проверяем наличие userId, если есть значит запрос за информацией по одному конкретному пользователю, если undefined, то тогда за страницей с users 
+app.get("/users", function(request, response) {
+    let userId = request.query.userId; //Проверяем наличие userId, если есть значит запрос за информацией по одному конкретному пользователю, если undefined, то тогда за страницей с users 
     if (!userId) {
         console.log(`${now()} Получен запрос на получение USERS`) // Определяем обработчик для маршрута "/"
-        let total_users = users.users.length;            //total_users сколько всего у нас пользователей
-        let numberPage = request.query.page;             //указываем, пока жестко какую страницу нужно выгрузить на клиент
-        let totalPages = Math.ceil(total_users / 10);    //totalPages сколько всего будет страниц с пользователями
-        let usersList = (usersArr, number) => {          //Функция которая делит общее количество пользователей на 10 и возврашает десяток соответствующий номеру страницы
+        let total_users = users.users.length; //total_users сколько всего у нас пользователей
+        let numberPage = request.query.page; //указываем, пока жестко какую страницу нужно выгрузить на клиент
+        let totalPages = Math.ceil(total_users / 10); //totalPages сколько всего будет страниц с пользователями
+        let usersList = (usersArr, number) => { //Функция которая делит общее количество пользователей на 10 и возврашает десяток соответствующий номеру страницы
             let result = [];
             let start = number === 1 ? 0 : (number - 1) * 10;
             let finish = number === 1 ? 10 : number * 10;
@@ -46,23 +46,22 @@ app.get("/users", function (request, response) {
 
         response.send(result); //Отправляем ответ
         console.log(`${now()} Данные USERS отправлены`)
-    }
-    else {
+    } else {
         console.log(`${now()} Получен запрос на получение информации о user ${userId}`)
         let result = { "user": find_a_user(userId) };
         response.send(result); //Отправляем ответ
         console.log(`${now()} Пользователь ${userId} найден, данные отправлены`)
     };
 });
-/***************************************GET Ауинтификация***************************************************/
-app.get("/auth", function (request, response) { // Определяем обработчик для маршрута "/auth"
+/***************************************ЗАПРОСЫ СВЯЗАННЫЕ С АУИНТИФИКАЦИЕЙ /AUTH***************************************************/
+app.get("/auth", function(request, response) { // Определяем обработчик для маршрута "/auth"
     console.log(`${now()} Получен запрос на ауинтификацию`);
-    response.send({ 'userID': 1, 'email': 'dvorobjevredstar@mail.ru', 'login': "owner" }); //Определяем ответ на запрос
+    response.send({ 'userID': 1, 'email': 'dvorobjevredstar@mail.ru', 'login': "owner", 'ava': "https://raduga-shop.ru/wa-data/public/shop/products/43/95/29543/images/47374/47374.970.jpg" }); //Определяем ответ на запрос
     console.log(`${now()} ответ отправлен`);
 });
 
 /***************************POST ОТПИСАТЬСЯ*************************************************/
-app.post("/follow", jsonParser, function (req, res) {
+app.post("/follow", jsonParser, function(req, res) {
 
     if (!req.body) return res.sendStatus(400);
     console.log(`${now()} получен запрос на отмену подписки на пользователя с id = ${req.query.id}`);
@@ -74,9 +73,7 @@ app.post("/follow", jsonParser, function (req, res) {
         data = JSON.stringify(users);
         fs.writeFileSync("./express/users.json", data);
         console.log(`${now()} свойство followed у user id = ${req.query.id} изменено на ${status}`)
-    }
-
-    else console.log(`${now()} Ошибка! Нельзя изменить у user id = ${req.query.id} свойство followed на ${status}, так как он уже ${idUser.followed}`)
+    } else console.log(`${now()} Ошибка! Нельзя изменить у user id = ${req.query.id} свойство followed на ${status}, так как он уже ${idUser.followed}`)
 
     // перезаписываем файл с новыми данными
 
@@ -85,7 +82,7 @@ app.post("/follow", jsonParser, function (req, res) {
     res.send(true);
 });
 /***************************ЗАПРОСЫ СВЯЗАННЫЕ С КОНКРЕТНЫМ ПОЛЬЗОВАТЕЛЕМ /USER******************************************/
-app.get("/user", function (request, response) { // Определяем endpoint
+app.get("/user", function(request, response) { // Определяем endpoint
     let userId = request.query.userId;
     let status = request.query.status;
     switch (status) {

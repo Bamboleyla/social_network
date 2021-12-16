@@ -6,6 +6,7 @@ let initialState = {
     userID: null,
     email: null,
     login: null,
+    ava: null,
     isAuth: false
 }
 
@@ -17,12 +18,13 @@ export const authReducer = (state = initialState, action) => {
                 ...action.data
             }
 
-        default: return state;
+        default:
+            return state;
     }
 };
 
 /***************************************************************ACTION CREATORS*********************************************************** */
-export let setAuthData = (userID, email, login, isAuth) => ({ type: SET_USER_DATA, data: { userID, email, login, isAuth } })
+export let setAuthData = (userID, email, login, ava, isAuth) => ({ type: SET_USER_DATA, data: { userID, email, login, ava, isAuth } })
 
 /* *************************************************************THUNKS-CREATOR*********************************************************** */
 //Получение информации о аунтифицированном пользователе

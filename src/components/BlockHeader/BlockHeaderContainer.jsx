@@ -9,6 +9,7 @@ class BlockHeaderContainer extends React.Component {
     this.props.getAuthData();
   }
   render() {
+    debugger;
     return <BlockHeader {...this.props} />;
   }
 }
@@ -17,6 +18,7 @@ let mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
     login: state.auth.login,
+    img:state.ava
   };
 };
 

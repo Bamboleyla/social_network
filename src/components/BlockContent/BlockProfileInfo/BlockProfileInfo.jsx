@@ -22,9 +22,9 @@ const BlockProfileInfo = (props) => {
         <img src={props.userPhoto} alt="my_photo"></img>
       </div>
       <div className={style.status}>
-        My status today: <ProfileStatus status="Hello everybody!" />
+        <span className={style.title}>My status today: </span><ProfileStatus status={props.userStatus} />
       </div>
-      <div className={style.discription}> Ava + Discription</div>
+      <div className={style.discription}> Write your new post</div>
       <div className={style.text}>
         <div>
           <textarea
