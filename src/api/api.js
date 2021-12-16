@@ -5,12 +5,9 @@ const instance = axios.create({
 })
 
 //Запросы связанные с получением пользователей, данных о пользователе
-export const userAPI = {
+export const usersAPI = {
     getUsers(num) {
         return instance.get(`users?page=${num}`).then(response => response.data)
-    },
-    getUser(id) {
-        return instance.get(`users?userId=${id}`).then(response => response.data)
     },
     follow(userID, status) {
         return instance
@@ -18,6 +15,16 @@ export const userAPI = {
                 `follow?id=${userID}&status=${status}`
             )
     }
+}
+
+//Запросы связанные с получением информации о одном конкретном пользователе
+export const userAPI = {
+    getUser(id) {
+        return instance.get(`users?userId=${id}`).then(response => response.data)
+    },
+    getStatus(id) {
+        return instance.get(`user?statusId=${id}&status=${'get_status'}`).then(response => response.data)
+    },
 }
 
 //Запросы связанные с аунтификацией

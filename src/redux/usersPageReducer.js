@@ -1,4 +1,4 @@
-import { userAPI } from "../api/api";
+import { usersAPI, userAPI } from "../api/api";
 import { setUserInfoAC } from "./postPageReducer";
 
 const FOLLOW = 'FOLLOW';
@@ -69,7 +69,7 @@ export const getUsers = (numberPage) => {
         //Включаем preloader
         dispatch(setPreloaderAC(true));
         //Делаем запрос на сервер за массивом с пользователями
-        userAPI.getUsers(numberPage).then((data) => {
+        usersAPI.getUsers(numberPage).then((data) => {
             /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
             dispatch(setUsersAC(data.users));
             dispatch(setTotalPagesAC(data.totalPages));
@@ -101,7 +101,7 @@ export const follow = (userID) => {
         //Делаем запрос на подписку к пользователю
         dispatch(buttonDisabledAC(true, userID));
         //Делаем запрос на отмену или активацию подписки к пользователю
-        userAPI.follow(userID, 'true').then((response) => {
+        usersAPI.follow(userID, 'true').then((response) => {
             //Если ответ положительный, тогда отписуемся и в state
             if (response.data === true) {
                 dispatch(followAC(userID));
@@ -116,7 +116,7 @@ export const unfollow = (userID) => {
     return (dispatch) => {
         //Делаем запрос на отмену подписки к пользователю
         dispatch(buttonDisabledAC(true, userID));
-        userAPI.follow(userID, "false").then((response) => {
+        usersAPI.follow(userID, "false").then((response) => {
             //Если ответ положительный, тогда отписуемся и в state
             if (response.data === true) {
                 dispatch(unfollowAC(userID));

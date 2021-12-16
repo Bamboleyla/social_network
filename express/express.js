@@ -16,6 +16,8 @@ app.use(cors());
 app.use(express.json());
 //функция которая возвращает текущее время;
 let now = () => new Date().toLocaleTimeString();
+//функция которая возвращает информацию о пользователе по id;
+let find_a_user = (id) => users.users.find((el) => el.id == id);
 /***************************GET страницу с документацией*************************************************/
 app.get("/home", function (request, response) { // Определяем обработчик для маршрута "/"
     response.sendFile(__dirname + '/express.html'); //Определяем ответ на запрос
@@ -47,7 +49,6 @@ app.get("/users", function (request, response) {
     }
     else {
         console.log(`${now()} Получен запрос на получение информации о user ${userId}`)
-        find_a_user = (id) => users.users.find((el) => el.id == id);
         let result = { "user": find_a_user(userId) };
         response.send(result); //Отправляем ответ
         console.log(`${now()} Пользователь ${userId} найден, данные отправлены`)
@@ -66,7 +67,6 @@ app.post("/follow", jsonParser, function (req, res) {
     if (!req.body) return res.sendStatus(400);
     console.log(`${now()} получен запрос на отмену подписки на пользователя с id = ${req.query.id}`);
 
-    find_a_user = (id) => users.users.find((el) => el.id == id);
     idUser = find_a_user(req.query.id);
     const status = req.query.status === 'true' ? true : false;
     if (idUser.followed !== status) {
@@ -83,6 +83,20 @@ app.post("/follow", jsonParser, function (req, res) {
 
     console.log(`${now()} СЕРВЕР ОЖИДАЕТ НОВОГО ЗАПРОСА`)
     res.send(true);
+});
+/***************************ЗАПРОСЫ СВЯЗАННЫЕ С КОНКРЕТНЫМ ПОЛЬЗОВАТЕЛЕМ /USER******************************************/
+app.get("/user", function (request, response) { // Определяем endpoint
+    let userId = request.query.userId;
+    let status = request.query.status;
+    switch (status) {
+        case 'get_status':
+            console.log(`${now()} Получен запрос на получение статуса пользователя с id=${userId}`);
+            let status = find_a_user(userId);
+            response.send({ 'userID': 1, 'email': 'dvorobjevredstar@mail.ru', 'login': "owner" }); //Определяем ответ на запрос  
+    }
+
+    response.send({ 'userID': 1, 'email': 'dvorobjevredstar@mail.ru', 'login': "owner" }); //Определяем ответ на запрос
+    console.log(`${now()} ответ отправлен`);
 });
 
 
