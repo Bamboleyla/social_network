@@ -21,3 +21,7 @@
     padding: 10px;
     background-color: burlywood;
 }
+
+.app-wrapper-content {
+    overflow: auto;
+}

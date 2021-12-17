@@ -11,3 +11,13 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+.title {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.discription {
+    margin-bottom: 10px;
+}

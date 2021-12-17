@@ -19,12 +19,12 @@ let now = () => new Date().toLocaleTimeString();
 //функция которая возвращает информацию о пользователе по id;
 let find_a_user = (id) => users.users.find((el) => el.id == id);
 /***************************GET страницу с документацией*************************************************/
-app.get("/home", function(request, response) { // Определяем обработчик для маршрута "/"
+app.get("/home", function (request, response) { // Определяем обработчик для маршрута "/"
     response.sendFile(__dirname + '/express.html'); //Определяем ответ на запрос
 });
 
 /***************************GET информацио о user или или users******************************************/
-app.get("/users", function(request, response) {
+app.get("/users", function (request, response) {
     let userId = request.query.userId; //Проверяем наличие userId, если есть значит запрос за информацией по одному конкретному пользователю, если undefined, то тогда за страницей с users 
     if (!userId) {
         console.log(`${now()} Получен запрос на получение USERS`) // Определяем обработчик для маршрута "/"
@@ -54,14 +54,14 @@ app.get("/users", function(request, response) {
     };
 });
 /***************************************ЗАПРОСЫ СВЯЗАННЫЕ С АУИНТИФИКАЦИЕЙ /AUTH***************************************************/
-app.get("/auth", function(request, response) { // Определяем обработчик для маршрута "/auth"
+app.get("/auth", function (request, response) { // Определяем обработчик для маршрута "/auth"
     console.log(`${now()} Получен запрос на ауинтификацию`);
-    response.send({ 'userID': 1, 'email': 'dvorobjevredstar@mail.ru', 'login': "owner", 'ava': "https://raduga-shop.ru/wa-data/public/shop/products/43/95/29543/images/47374/47374.970.jpg" }); //Определяем ответ на запрос
+    response.send({ 'userID': 1, 'email': 'dvorobjevredstar@mail.ru', 'login': "owner", 'ava': "https://img5.goodfon.ru/original/1024x1024/2/ac/lev-portret-tsar.jpg", 'status': "I can't do anything, I don't know anything" }); //Определяем ответ на запрос
     console.log(`${now()} ответ отправлен`);
 });
 
 /***************************POST ОТПИСАТЬСЯ*************************************************/
-app.post("/follow", jsonParser, function(req, res) {
+app.post("/follow", jsonParser, function (req, res) {
 
     if (!req.body) return res.sendStatus(400);
     console.log(`${now()} получен запрос на отмену подписки на пользователя с id = ${req.query.id}`);
@@ -82,7 +82,7 @@ app.post("/follow", jsonParser, function(req, res) {
     res.send(true);
 });
 /***************************ЗАПРОСЫ СВЯЗАННЫЕ С КОНКРЕТНЫМ ПОЛЬЗОВАТЕЛЕМ /USER******************************************/
-app.get("/user", function(request, response) { // Определяем endpoint
+app.get("/user", function (request, response) { // Определяем endpoint
     let userId = request.query.userId;
     let status = request.query.status;
     switch (status) {

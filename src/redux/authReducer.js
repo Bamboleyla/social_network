@@ -1,4 +1,5 @@
 import { authAPI } from '../api/api'
+import { setUserInfoAC } from './postPageReducer';
 const SET_USER_DATA = 'SET_USER_DATA';
 
 //Если в authReduser придет state = undefined будем использывать state по default, первоначальный
@@ -38,8 +39,11 @@ export const getAuthData = () => {
                 response.data.userID,
                 response.data.email,
                 response.data.login,
+                response.data.ava,
                 true
             ));
+            //диспачим в state postPageReducer что бы на странице пользователя изначально отобразился наш профиль
+            dispatch(setUserInfoAC({ ava: response.data.ava, status: response.data.status }));
         });
     }
 }
