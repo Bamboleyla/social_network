@@ -20,10 +20,7 @@ export const usersAPI = {
 //Запросы связанные с получением информации о одном конкретном пользователе
 export const userAPI = {
     getUser(id) {
-        return instance.get(`users?userId=${id}`).then(response => response.data)
-    },
-    getStatus(id) {
-        return instance.get(`user?statusId=${id}&status=${'get_status'}`).then(response => response.data)
+        return instance.get(`user?userId=${id}&action=${'getuser'}`).then(response => response.data)
     },
 }
 

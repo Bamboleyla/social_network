@@ -8,6 +8,7 @@ let initialState = {
     email: null,
     login: null,
     ava: null,
+    status: null,
     isAuth: false
 }
 
@@ -25,7 +26,7 @@ export const authReducer = (state = initialState, action) => {
 };
 
 /***************************************************************ACTION CREATORS*********************************************************** */
-export let setAuthData = (userID, email, login, ava, isAuth) => ({ type: SET_USER_DATA, data: { userID, email, login, ava, isAuth } })
+export let setAuthData = (userID, email, login, ava, status, isAuth) => ({ type: SET_USER_DATA, data: { userID, email, login, ava, status, isAuth } })
 
 /* *************************************************************THUNKS-CREATOR*********************************************************** */
 //Получение информации о аунтифицированном пользователе
@@ -40,8 +41,10 @@ export const getAuthData = () => {
                 response.data.email,
                 response.data.login,
                 response.data.ava,
+                response.data.status,
                 true
             ));
+            debugger;
             //диспачим в state postPageReducer что бы на странице пользователя изначально отобразился наш профиль
             dispatch(setUserInfoAC({ ava: response.data.ava, status: response.data.status }));
         });
