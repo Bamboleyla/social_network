@@ -15,7 +15,6 @@ const BlockProfileInfo = (props) => {
   let sendPost = () => {
     props.addPost();
   };
-
   return (
     <div className={style.wrapper}>
       <div className={style.img}>
@@ -23,7 +22,11 @@ const BlockProfileInfo = (props) => {
       </div>
       <div className={style.status}>
         <div className={style.title}>My status today: </div>
-        <ProfileStatus status={props.userStatus} />
+        <ProfileStatus
+          userID={props.userID}
+          status={props.userStatus}
+          updateStatus={props.updateStatus}
+        />
       </div>
       <div className={style.discription}> Write your new post</div>
       <div className={style.text}>

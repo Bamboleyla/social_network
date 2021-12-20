@@ -44,9 +44,8 @@ export const getAuthData = () => {
                 response.data.status,
                 true
             ));
-            debugger;
             //диспачим в state postPageReducer что бы на странице пользователя изначально отобразился наш профиль
-            dispatch(setUserInfoAC({ ava: response.data.ava, status: response.data.status }));
+            dispatch(setUserInfoAC({ id: response.data.id, ava: response.data.ava, status: response.data.status }));
         });
     }
 }

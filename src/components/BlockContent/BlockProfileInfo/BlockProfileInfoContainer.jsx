@@ -1,5 +1,9 @@
 import { connect } from "react-redux";
-import { addPostAC, syncingPostAC } from "../../../redux/postPageReducer";
+import {
+  addPostAC,
+  syncingPostAC,
+  updateStatus,
+} from "../../../redux/postPageReducer";
 import BlockProfileInfo from "./BlockProfileInfo";
 
 /*************************Контейнерная компонента*****************************/
@@ -9,7 +13,8 @@ let mapStateToProps = (state) => {
   return {
     newPostText: state.postsPage.newPostText,
     userPhoto: state.postsPage.userInfo.userPhoto,
-    userStatus: state.postsPage.userInfo.status
+    userStatus: state.postsPage.userInfo.status,
+    userID: state.postsPage.userInfo.userID,
   };
 };
 //Создаем функцию которая будет принимать через connect необходимые dispatch из store
@@ -24,6 +29,7 @@ let mapDispatchToProps = (dispatch) => {
     syncing: (text) => {
       dispatch(syncingPostAC(text));
     },
+    updateStatus,
   };
 };
 //Создаем контейнерную компоненту,подключаем наши команды к state и dispatch, оборачиваем ей презентационную компоненту BlockProfileInfo

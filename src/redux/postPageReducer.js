@@ -1,12 +1,16 @@
+import { userAPI } from "../api/api";
+
 const ADD_POST = 'ADD-POST';
 const SYNCING_POST = 'SYNCING-POST';
 const SET_USERINFO = 'SET_USERINFO';
+const UPDATE_STATUS = 'UPDATE_STATUS';
 //Если в postPageReducer придет state = undefined будем использывать state по default, первоначальный
 let initialState = {
     //Информация о пользователе
     userInfo: {
-        userPhoto: "https://raduga-shop.ru/wa-data/public/shop/products/43/95/29543/images/47374/47374.970.jpg",
-        status: ""
+        userID: null,
+        userPhoto: null,
+        status: null
     },
     //Информация о постах пользователя
     commentsData: [
@@ -21,6 +25,7 @@ let initialState = {
 }
 
 export const postPageReducer = (state = initialState, action) => {
+    debugger;
     switch (action.type) {
         case 'ADD-POST':
             /******* Функция которая добавляет новый текст поста в state ******/
@@ -38,13 +43,31 @@ export const postPageReducer = (state = initialState, action) => {
         case 'SYNCING-POST':
             /****** Добавление в state любого изменения textarea в блоке с постами ******/
             //делаем поверхностную копию state, меняем свойство newPostText
-            return {...state, newPostText: action.text };
+            return { ...state, newPostText: action.text };
         case 'SET_USERINFO':
-            return {...state, userInfo: { userPhoto: action.userInfo.ava, status: action.userInfo.status } };
+            return { ...state, userInfo: { userID: action.userInfo.id, userPhoto: action.userInfo.ava, status: action.userInfo.status } };
+        case 'UPDATE_STATUS':
+            return { ...state, userInfo: { ...state.userInfo, status: action.status } };
         default:
             return state;
     }
 };
+/*****************************************************************************ACTION CREATORS**********************************************************************************************/
 export let addPostAC = () => ({ type: ADD_POST });
 export let syncingPostAC = (text) => ({ type: SYNCING_POST, text });
 export let setUserInfoAC = (userInfo) => ({ type: SET_USERINFO, userInfo });
+export let updateStatusAC = (status) => ({ type: UPDATE_STATUS, status });
+/*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
+//Изменить статус пользователя
+export const updateStatus = (userID, status) => {
+    //Возврашаем Thunk
+    return (dispatch) => {
+        //Делаем запрос на изменение статуса пользователя с userID
+        userAPI.changeStatus(userID, status).then((response) => {
+            //Если ответ положительный, тогда изменяем статус в state
+            if (response.data === true) {
+                dispatch(updateStatusAC(status));
+            }
+        });
+    }
+};

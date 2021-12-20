@@ -22,6 +22,9 @@ export const userAPI = {
     getUser(id) {
         return instance.get(`user?userId=${id}&action=${'getuser'}`).then(response => response.data)
     },
+    changeStatus(id, status) {
+        return instance.put(`user`, { id: id, status: status }).then(response => response.data)
+    }
 }
 
 //Запросы связанные с аунтификацией

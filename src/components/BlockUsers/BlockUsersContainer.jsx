@@ -10,7 +10,6 @@ import {
 import BlockUsers from "./BlockUsers";
 import React from "react";
 import Preloader from "../common/Preloader";
-import { setUserInfoAC } from "../../redux/postPageReducer";
 import { withAuthRedirect } from "../../hok/withAuthRedirect";
 import { compose } from "redux";
 
@@ -82,7 +81,6 @@ export const BlockUsersContainer = compose(
     unfollow,
     follow,
     setPageAC,
-    setUserInfoAC,
     getUsers,
     getUserInfo,
     setPreloaderAC,

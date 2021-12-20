@@ -52,7 +52,7 @@ export const usersPageReducer = (state = initialState, action) => {
     }
 };
 
-/***************************************************************ACTION CREATORS*********************************************************** */
+/*****************************************************************************ACTION CREATORS*********************************************************************************************/
 export let followAC = (userId) => ({ type: FOLLOW, userId })
 export let unfollowAC = (userId) => ({ type: UNFOLLOW, userId })
 export let setUsersAC = (users) => ({ type: SET_USERS, users })
@@ -61,7 +61,7 @@ export let setTotalPagesAC = (totalPages) => ({ type: SET_TOTAL_PAGES, totalPage
 export let setPreloaderAC = (statusPreloader) => ({ type: SET_PRELOADER, statusPreloader })
 export let buttonDisabledAC = (status, userID) => ({ type: SET_BUTTON_DISABLED, status, userID })
 
-/* *************************************************************THUNKS-CREATOR*********************************************************** */
+/*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
 //Получение массива пользователей
 export const getUsers = (numberPage) => {
     //Возврашаем Thunk
@@ -86,6 +86,7 @@ export const getUserInfo = (userID) => {
         dispatch(setPreloaderAC(true));
         //Делаем запрос на получение информации о выбранном пользователе
         userAPI.getUser(userID).then((data) => {
+            debugger;
             // И диспачем его в state через метод setUserInfoAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
             dispatch(setUserInfoAC(data.user));
             //Выключаем preloader
