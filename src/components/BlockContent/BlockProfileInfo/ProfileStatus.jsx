@@ -4,6 +4,7 @@ import style from "./ProfileStatus.module.css";
 class ProfileStatus extends React.Component {
   state = {
     editMode: false,
+    status: this.props.status,
   };
   activatedEditMode = () => {
     this.setState({
@@ -14,13 +15,19 @@ class ProfileStatus extends React.Component {
     this.setState({
       editMode: false,
     });
+    this.props.updateStatus(this.props.userID, this.state.status);
+  };
+  onStatusChange = (e) => {
+    this.setState({
+      status: e.currentTarget.value,
+    });
   };
   render() {
     return (
       <div className={style.status}>
         {!this.state.editMode && (
           <div>
-            <span onDoubleClick={this.activatedEditMode.bind(this)}>
+            <span onDoubleClick={this.activatedEditMode}>
               {this.props.status}
             </span>
           </div>
@@ -28,9 +35,10 @@ class ProfileStatus extends React.Component {
         {this.state.editMode && (
           <div>
             <input
-              onBlur={this.deactivatedEditMode.bind(this)}
+              onChange={this.onStatusChange}
+              onBlur={this.deactivatedEditMode}
               autoFocus={true}
-              value={this.props.status}
+              value={this.state.status}
             />
           </div>
         )}

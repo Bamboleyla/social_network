@@ -60,8 +60,10 @@ export let updateStatusAC = (status) => ({ type: UPDATE_STATUS, status });
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
 //Изменить статус пользователя
 export const updateStatus = (userID, status) => {
+    debugger;
     //Возврашаем Thunk
     return (dispatch) => {
+        debugger;
         //Делаем запрос на изменение статуса пользователя с userID
         userAPI.changeStatus(userID, status).then((response) => {
             //Если ответ положительный, тогда изменяем статус в state
