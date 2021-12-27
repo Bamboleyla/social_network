@@ -86,7 +86,6 @@ export const getUserInfo = (userID) => {
         dispatch(setPreloaderAC(true));
         //Делаем запрос на получение информации о выбранном пользователе
         userAPI.getUser(userID).then((data) => {
-            debugger;
             // И диспачем его в state через метод setUserInfoAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
             dispatch(setUserInfoAC(data.user));
             //Выключаем preloader

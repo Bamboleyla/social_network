@@ -91,7 +91,7 @@ app.get("/user", function (request, response) { // Определяем endpoint
 
 });
 app.put("/user", function (request, response) { // Определяем endpoint
-    let idUser = find_a_user(req.query.id);
+    console.log(`${now()} Получен запрос на изменение информации о user`);
     let action = request.query.action;
     switch (action) {
         case 'status':
@@ -99,7 +99,7 @@ app.put("/user", function (request, response) { // Определяем endpoint
             let result = { "user": find_a_user(userId) };
             response.send(result); //Отправляем ответ
             return console.log(`${now()} Пользователь ${userId} найден, данные отправлены`)
-        default: console.log(`${now()} Произошла ошибка! Запрос ${request.originalUrl} не обработан`)
+        default: console.log(`${now()} Произошла ошибка! Запрос ${request.originalUrl} не обработан`);
 
     }
 
