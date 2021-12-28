@@ -9,11 +9,12 @@ const BlockProfileInfo = (props) => {
   let sendText = () => {
     /* Получаем значение который ввел пользователь в textarea */
     let textFromTextArea = linkTextArea.current.value;
-    props.syncing(textFromTextArea);
+    props.syncingPostAC(textFromTextArea);
   };
 
   let sendPost = () => {
-    props.addPost();
+    props.addPostAC();
+    props.syncingPostAC("");
   };
   return (
     <div className={style.wrapper}>

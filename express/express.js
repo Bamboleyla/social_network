@@ -15,6 +15,11 @@ app.use(express.json());
 let now = () => new Date().toLocaleTimeString();
 //функция которая возвращает информацию о пользователе по id;
 let find_a_user = (id) => users.users.find((el) => el.id == id);
+//функция которая записывает в файл произведенные изменения с определенным пользователем
+let writeUsers = () => {
+    let data = JSON.stringify(users);//Конвертируем JS значение в JSON объект
+    fs.writeFileSync("./express/users.json", data); //Записываем данные в файл
+};
 
 /*****************************************************************************************************************************************************************************************/
 /**************************************************************СТРАНИЦА С ДОКУМЕНТАЦИЕЙ /HOME*********************************************************************************************/
@@ -65,11 +70,9 @@ app.post("/follow", jsonParser, function (req, res) {
     const status = req.query.status === 'true' ? true : false; //Узнаем какой статус необходимо установить пользователю
     if (idUser.followed !== status) { //Если статус пользователя не равен статусу который необходимо установить из запроса
         idUser.followed = status;//Изменяем статус пользователя
-        data = JSON.stringify(users);//Конвертируем JS значение в JSON объект
-        fs.writeFileSync("./express/users.json", data); //Записываем данные в файл
+        writeUsers(); //записываем изменения в ./express/users.json
         console.log(`${now()} свойство followed у user id = ${req.query.id} изменено на ${status}`)
     } else console.log(`${now()} Ошибка! Нельзя изменить у user id = ${req.query.id} свойство followed на ${status}, так как он уже ${idUser.followed}`) // перезаписываем файл с новыми данными
-
     console.log(`${now()} СЕРВЕР ОЖИДАЕТ НОВОГО ЗАПРОСА`)
     res.send(true);
 });
@@ -92,13 +95,16 @@ app.get("/user", function (request, response) { // Определяем endpoint
 });
 app.put("/user", function (request, response) { // Определяем endpoint
     console.log(`${now()} Получен запрос на изменение информации о user`);
-    let action = request.query.action;
+    let action = request.body.action;
+    let userId = request.body.id;
     switch (action) {
-        case 'status':
+        case 'changeStatus':
             console.log(`${now()} Получен запрос на изменение информации о user ${userId}`);
             let result = { "user": find_a_user(userId) };
-            response.send(result); //Отправляем ответ
-            return console.log(`${now()} Пользователь ${userId} найден, данные отправлены`)
+            result.user.status = request.body.status;
+            writeUsers(); //записываем изменения в ./express/users.json
+            res.send(true); //Отправляем ответ
+            return console.log(`${now()} Статус ${userId} изменен на ${request.body.status}`)
         default: console.log(`${now()} Произошла ошибка! Запрос ${request.originalUrl} не обработан`);
 
     }

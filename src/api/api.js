@@ -24,7 +24,7 @@ export const userAPI = {
     },
     changeStatus(id, status) {
         debugger;
-        return instance.put(`user`, { id: id, status: status }).then(response => response.data)
+        return instance.put(`user`, { action: 'changeStatus', id: id, status: status }).then(response => response.data)
     }
 }
 
