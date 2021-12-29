@@ -22,13 +22,21 @@ class ProfileStatus extends React.Component {
       status: e.currentTarget.value,
     });
   };
+  //Компонент жизненного цикла componentDidUpdate, который принимает предыдуший prevProps и предыдуший prevState и дает возможность сравнить с текущими this.props; this.state;
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({ status: this.props.status });
+    }
+    debugger;
+  }
   render() {
+    console.log(this.state);
     return (
       <div className={style.status}>
         {!this.state.editMode && (
           <div>
             <span onDoubleClick={this.activatedEditMode}>
-              {this.props.status}
+              {this.state.status}
             </span>
           </div>
         )}

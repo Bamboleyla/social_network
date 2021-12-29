@@ -23,7 +23,6 @@ export const userAPI = {
         return instance.get(`user?userId=${id}&action=${'getuser'}`).then(response => response.data)
     },
     changeStatus(id, status) {
-        debugger;
         return instance.put(`user`, { action: 'changeStatus', id: id, status: status }).then(response => response.data)
     }
 }

@@ -25,7 +25,6 @@ let initialState = {
 }
 
 export const postPageReducer = (state = initialState, action) => {
-    debugger;
     switch (action.type) {
         case 'ADD-POST':
             /******* Функция которая добавляет новый текст поста в state ******/
@@ -60,13 +59,11 @@ export let updateStatusAC = (status) => ({ type: UPDATE_STATUS, status });
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
 //Изменить статус пользователя
 export const updateStatus = (userID, status) => {
-    debugger;
     //Возврашаем Thunk
     return (dispatch) => {
         //Делаем запрос на изменение статуса пользователя с userID
         userAPI.changeStatus(userID, status).then((response) => {
             //Если ответ положительный, тогда изменяем статус в state
-            debugger;
             if (response.data === true) {
                 dispatch(updateStatusAC(status));
             }
