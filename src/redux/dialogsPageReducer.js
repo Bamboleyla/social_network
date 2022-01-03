@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const SYNCING_MESSAGE = 'SYNCING-MESSAGE';
 
 //Если в dialogsPageReducer придет state = undefined будем использывать state по default, первоначальный
 let initialState = {
@@ -18,7 +17,6 @@ let initialState = {
         { id: 2, message: "And good luck on your project!" },
         { id: 3, message: "React is wonderful!" },
     ],
-    newMessageText: ""
 };
 
 export const dialogsPageReducer = (state = initialState, action) => {
@@ -31,16 +29,12 @@ export const dialogsPageReducer = (state = initialState, action) => {
             return {
                 ...state, messageData: [...state.messageData, {
                     id: idMessage,
-                    message: state.newMessageText
+                    message: action.message
                 }]
             };
-        case 'SYNCING-MESSAGE':
-            //делаем поверхностную копию state, меняем свойство newMessageText, возврашаем
-            return { ...state, newMessageText: action.text };
         default:
             return state;
 
     }
 }
-export let addMessageAC = () => ({ type: ADD_MESSAGE });
-export let syncingMessageAC = (text) => ({ type: SYNCING_MESSAGE, text: text });
+export let addMessageAC = (message) => ({ type: ADD_MESSAGE, message });

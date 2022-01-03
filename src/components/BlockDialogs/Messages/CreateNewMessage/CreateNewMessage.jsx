@@ -1,30 +1,37 @@
 import React from "react";
+import { Field, reduxForm } from "redux-form";
 
 const CreateNewMessage = (props) => {
-  let linkTextArea = React.createRef(); //Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе
-  let addNewMessage = () => {
-    props.addMessage();
-  };
-
-  let sendNewTextMessage = () => {
-    let textFromTextArea = linkTextArea.current.value;
-    props.syncing(textFromTextArea);
+  let addNewMessage = (values) => {
+    props.addMessage(values.newMessageBody);
   };
 
   return (
     <div>
-      <div>
-        <textarea
-          ref={linkTextArea}
-          onChange={sendNewTextMessage}
-          value={props.newMessageText}
-          placeholder="Введите ваше сообщение"></textarea>
-      </div>
-      <div>
-        <button onClick={addNewMessage}>Send</button>
-      </div>
+      <AddMessageFormRedux onSubmit={addNewMessage} />
     </div>
   );
 };
+
+const AddMessageForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field
+          component="textarea"
+          name="newMessageBody"
+          placeholder="Введите ваше сообщение"
+        />
+      </div>
+      <div>
+        <button>Отправить сообщение</button>
+      </div>
+    </form>
+  );
+};
+
+const AddMessageFormRedux = reduxForm({ form: "dialogAddMessageForm" })(
+  AddMessageForm
+);
 
 export default CreateNewMessage;

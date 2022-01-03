@@ -1,20 +1,11 @@
 import style from "./BlockProfileInfo.module.css";
 import React from "react";
 import ProfileStatus from "./ProfileStatus";
+import { Field, reduxForm } from "redux-form";
 
 const BlockProfileInfo = (props) => {
-  /* Создаем обычную пустую ссылку, которую можно передать любому элементу DOM и потом получать через нее информацию о элементе */
-  let linkTextArea = React.createRef();
-
-  let sendText = () => {
-    /* Получаем значение который ввел пользователь в textarea */
-    let textFromTextArea = linkTextArea.current.value;
-    props.syncingPostAC(textFromTextArea);
-  };
-
-  let sendPost = () => {
-    props.addPostAC();
-    props.syncingPostAC("");
+  let sendPost = (values) => {
+    props.addPostAC(values.newPostText);
   };
   return (
     <div className={style.wrapper}>
@@ -31,20 +22,31 @@ const BlockProfileInfo = (props) => {
       </div>
       <div className={style.discription}> Write your new post</div>
       <div className={style.text}>
-        <div>
-          <textarea
-            onChange={sendText}
-            ref={linkTextArea}
-            value={props.newPostText}
-            placeholder="Введите ваше сообщение"
-          />
-        </div>
-        <div>
-          <button onClick={sendPost}>Add Post</button>
-        </div>
+        <AddPostFormRedux onSubmit={sendPost} />
       </div>
     </div>
   );
 };
+
+const AddNewPostForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field
+          component="textarea"
+          name="newPostText"
+          placeholder="Введите текст поста"
+        />
+      </div>
+      <div>
+        <button>Добавить пост</button>
+      </div>
+    </form>
+  );
+};
+
+const AddPostFormRedux = reduxForm({ form: "ProfileAddNewPostForm" })(
+  AddNewPostForm
+);
 
 export default BlockProfileInfo;

@@ -1,7 +1,6 @@
 import { userAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const SYNCING_POST = 'SYNCING-POST';
 const SET_USERINFO = 'SET_USERINFO';
 const UPDATE_STATUS = 'UPDATE_STATUS';
 //Если в postPageReducer придет state = undefined будем использывать state по default, первоначальный
@@ -35,14 +34,10 @@ export const postPageReducer = (state = initialState, action) => {
                 ...state,
                 commentsData: [...state.commentsData, {
                     id: idComents,
-                    message: state.newPostText,
+                    message: action.post,
                     likes: 0
                 }]
             };
-        case 'SYNCING-POST':
-            /****** Добавление в state любого изменения textarea в блоке с постами ******/
-            //делаем поверхностную копию state, меняем свойство newPostText
-            return { ...state, newPostText: action.text };
         case 'SET_USERINFO':
             return { ...state, userInfo: { userID: action.userInfo.id, userPhoto: action.userInfo.ava, status: action.userInfo.status } };
         case 'UPDATE_STATUS':
@@ -52,8 +47,7 @@ export const postPageReducer = (state = initialState, action) => {
     }
 };
 /*****************************************************************************ACTION CREATORS**********************************************************************************************/
-export let addPostAC = () => ({ type: ADD_POST });
-export let syncingPostAC = (text) => ({ type: SYNCING_POST, text });
+export let addPostAC = (post) => ({ type: ADD_POST, post });
 export let setUserInfoAC = (userInfo) => ({ type: SET_USERINFO, userInfo });
 export let updateStatusAC = (status) => ({ type: UPDATE_STATUS, status });
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/

@@ -1,8 +1,5 @@
 import { connect } from "react-redux";
-import {
-  addMessageAC,
-  syncingMessageAC,
-} from "../../../../redux/dialogsPageReducer";
+import { addMessageAC } from "../../../../redux/dialogsPageReducer";
 import CreateNewMessage from "./CreateNewMessage";
 
 /*************************Контейнерная компонента*****************************/
@@ -16,13 +13,8 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
   return {
     //Команда добавления нового сообщения
-    addMessage: () => {
-      dispatch(addMessageAC());
-      dispatch(syncingMessageAC(""));
-    },
-    //Команда передачи текста из textarea в state
-    syncing: (text) => {
-      dispatch(syncingMessageAC(text));
+    addMessage: (message) => {
+      dispatch(addMessageAC(message));
     },
   };
 };
