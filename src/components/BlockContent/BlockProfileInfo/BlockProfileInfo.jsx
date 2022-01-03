@@ -2,6 +2,13 @@ import style from "./BlockProfileInfo.module.css";
 import React from "react";
 import ProfileStatus from "./ProfileStatus";
 import { Field, reduxForm } from "redux-form";
+import {
+  required,
+  maxLengthCreator,
+} from "../../../ulils/validators/validators";
+import { Textarea } from "../../common/formsControls/formsControl";
+
+const maxLengthCreator10 = maxLengthCreator(10);
 
 const BlockProfileInfo = (props) => {
   let sendPost = (values) => {
@@ -33,9 +40,10 @@ const AddNewPostForm = (props) => {
     <form onSubmit={props.handleSubmit}>
       <div>
         <Field
-          component="textarea"
+          component={Textarea}
           name="newPostText"
           placeholder="Введите текст поста"
+          validate={[required, maxLengthCreator10]}
         />
       </div>
       <div>
