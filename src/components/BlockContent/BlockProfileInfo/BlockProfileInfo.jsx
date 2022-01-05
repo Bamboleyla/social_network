@@ -1,6 +1,6 @@
 import style from "./BlockProfileInfo.module.css";
 import React from "react";
-import ProfileStatus from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import { Field, reduxForm } from "redux-form";
 import {
   required,
@@ -21,7 +21,7 @@ const BlockProfileInfo = (props) => {
       </div>
       <div className={style.status}>
         <div className={style.title}>My status today: </div>
-        <ProfileStatus
+        <ProfileStatusWithHooks
           userID={props.userID}
           status={props.userStatus}
           updateStatus={props.updateStatus}
