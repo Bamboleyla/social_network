@@ -39,9 +39,9 @@ export const postPageReducer = (state = initialState, action) => {
                 }]
             };
         case 'SET_USERINFO':
-            return { ...state, userInfo: { userID: action.userInfo.id, userPhoto: action.userInfo.ava, status: action.userInfo.status } };
+            return {...state, userInfo: { userID: action.userInfo.id, userPhoto: action.userInfo.ava, status: action.userInfo.status } };
         case 'UPDATE_STATUS':
-            return { ...state, userInfo: { ...state.userInfo, status: action.status } };
+            return {...state, userInfo: {...state.userInfo, status: action.status } };
         default:
             return state;
     }
@@ -58,7 +58,7 @@ export const updateStatus = (userID, status) => {
         //Делаем запрос на изменение статуса пользователя с userID
         userAPI.changeStatus(userID, status).then((response) => {
             //Если ответ положительный, тогда изменяем статус в state
-            if (response.data === true) {
+            if (response === true) {
                 dispatch(updateStatusAC(status));
             }
         });
