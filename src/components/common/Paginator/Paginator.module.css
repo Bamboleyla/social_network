@@ -1,0 +1,11 @@
+.selected {
+  font-weight: bold;
+}
+
+.numberPage span {
+  margin: 10px;
+}
+
+.numberPage {
+  margin-left: 250px;
+}

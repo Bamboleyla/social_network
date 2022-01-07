@@ -11,9 +11,6 @@ const BlockHeader = (props) => {
       ) : (
         <NavLink to={"/login"}>login</NavLink>
       )}
-      {/*  <div className={style.user}>
-        {props.isAuth ? props.login : <NavLink to={"/login"}>login</NavLink>}
-      </div> */}
       <img src={logo} alt="rocket"></img>
     </header>
   );

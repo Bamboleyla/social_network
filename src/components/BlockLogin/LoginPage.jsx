@@ -2,11 +2,11 @@ import React from "react";
 import { reduxForm, Field } from "redux-form";
 import { required } from "../../ulils/validators/validators";
 import { Input } from "../common/formsControls/formsControl.js";
-import style from "./LoginPage.module.css";
 
-const Form = (props) => {
+//Используем деструктуризацию , если используется часть props, то остальное скрываем, оставляя только нужное { handleSubmit }
+const Form = ({ handleSubmit }) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
         <Field
           placeholder={"Login"}
@@ -46,7 +46,7 @@ const ReduxForm = reduxForm({
 const Page = () => {
   return (
     <div>
-      <h1></h1>
+      <h1>Login</h1>
       <ReduxForm />
     </div>
   );
