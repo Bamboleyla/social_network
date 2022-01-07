@@ -4,7 +4,6 @@ import user_logo from "./user-default.jpg";
 import { NavLink } from "react-router-dom";
 
 export const DivUser = (props) => {
-  debugger;
   return (
     <div key={props.user.id} className={style.user}>
       <span>

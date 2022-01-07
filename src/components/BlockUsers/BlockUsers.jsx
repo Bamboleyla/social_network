@@ -3,7 +3,6 @@ import { Paginator } from "../common/Paginator/Paginator";
 import { DivUser } from "./DivUser";
 
 const BlockUsers = (props) => {
-  debugger;
   return (
     <div>
       {/* Компонента, которая отрисовывает количество страниц с данными */}
