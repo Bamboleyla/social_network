@@ -18,9 +18,7 @@ let initialState = {
         { id: 3, message: "I like it", likes: "10" },
         { id: 4, message: "Yahoo", likes: "5" },
         { id: 5, message: "I'ts work, i'ts wonderfull", likes: "3" },
-    ],
-    //Информация о новом посте
-    newPostText: ""
+    ]
 }
 
 export const postPageReducer = (state = initialState, action) => {
@@ -39,9 +37,9 @@ export const postPageReducer = (state = initialState, action) => {
                 }]
             };
         case 'SET_USERINFO':
-            return {...state, userInfo: { userID: action.userInfo.id, userPhoto: action.userInfo.ava, status: action.userInfo.status } };
+            return { ...state, userInfo: { userID: action.userInfo.id, userPhoto: action.userInfo.ava, status: action.userInfo.status } };
         case 'UPDATE_STATUS':
-            return {...state, userInfo: {...state.userInfo, status: action.status } };
+            return { ...state, userInfo: { ...state.userInfo, status: action.status } };
         default:
             return state;
     }
