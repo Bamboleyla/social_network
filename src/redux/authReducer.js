@@ -42,7 +42,7 @@ export const getAuthData = () => {
                 response.data.login,
                 response.data.ava,
                 response.data.status,
-                true
+                false
             ));
             //диспачим в state postPageReducer что бы на странице пользователя изначально отобразился наш профиль
             dispatch(setUserInfoAC({ id: response.data.id, ava: response.data.ava, status: response.data.status }));
