@@ -19,6 +19,7 @@
     border-radius: 30px;
     margin: 5px 20px 5px 20px;
     border: 1px solid white;
+    vertical-align: middle;
 }
 
 .login {
@@ -28,6 +29,6 @@
     font-weight: bold;
 }
 
-img, div {
+.wrapper div {
     vertical-align: middle;
 }

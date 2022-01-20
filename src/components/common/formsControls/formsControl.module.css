@@ -6,3 +6,9 @@
 .formControl.error span {
     color: red;
 }
+
+.formControl input {
+    width: 271px;
+    height: 31px;
+    display: inline-block;
+}
