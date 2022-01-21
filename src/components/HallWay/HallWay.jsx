@@ -5,16 +5,22 @@ import { Input } from "../common/formsControls/formsControl.js";
 import style from "./HallWay.module.css";
 import logo from "./social.png";
 
-//Используем деструктуризацию , если используется часть props, то остальное скрываем, оставляя только нужное { handleSubmit }
-//1 Создаем форму
+//1 Создаем обычную форму для логанизации
+/* Используем деструктуризацию , так как для олноценной работы формы, нам будет достаточно использовать часть props, а именно только callback handleSubmit
+из reduxForm. Именно он будет собирать всю информацию из Field и отправлять наверх. По этому очень важно остальное скрыть, чтобы предотвратить утечку ненужной
+информации, для этого используем диструктуризацию оставляя только нужное { handleSubmit } */
 const Form = ({ handleSubmit }) => {
   return (
+    /* для нормальной работы формы необходимо handleSubmit повесить на событие формы onSubmit */
     <form onSubmit={handleSubmit}>
       <div className={style.inputBlock}>
         <div className={style.titleImput}>
           <div className={style.text}>Email</div>
+          {/*в место imput, label, textarea и т.д. используем специальную контейнерную компоненту Field из redux-form которая внутри себя отресует 
+          другую компоненту и передаст ей значения в ввиде props */}
           <Field
             placeholder={"Login"}
+            /* каждый Field должен иметь название свойства name={"Login"}, под этим свойством данные будут отправляться в state или сервер */
             name={"Login"}
             component={Input}
             validate={[required]}
@@ -46,11 +52,13 @@ const Form = ({ handleSubmit }) => {
     </form>
   );
 };
-//2 Даем название для redux нашей формой и оборачиваем её
+//2 Обязательно оборачиваем нашу форму специальным хаком reduxForm из библиотеки redux-form, с помошью которого наша форма будет общаться с redux-form отправлять
+// и получать всю необходимую информацию
 const ReduxForm = reduxForm({
+  //Даем уникальное имя форме, под которым она будет записана и хранится в store
   form: "HallWay",
 })(Form);
-
+//3 Создаем страницу с логанизацией
 export const HallWay = () => {
   return (
     <div className={style.wrapper}>
@@ -85,6 +93,7 @@ export const HallWay = () => {
           <div className={style.loginForm}>
             <h1>Login</h1>
             <p>Please enter the email adress and password</p>
+            {/* Помещаем форму на страницу */}
             <ReduxForm />
           </div>
           <div className={style.else}>

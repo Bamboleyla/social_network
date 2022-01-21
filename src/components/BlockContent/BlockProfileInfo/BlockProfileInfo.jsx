@@ -1,6 +1,6 @@
 import style from "./BlockProfileInfo.module.css";
 import React from "react";
-import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
+import { ProfileStatusWithHooks } from "./ProfileStatusWithHooks";
 import { Field, reduxForm } from "redux-form";
 import {
   required,
@@ -29,16 +29,21 @@ const BlockProfileInfo = (props) => {
       </div>
       <div className={style.discription}> Write your new post</div>
       <div className={style.text}>
+        {/* Используем форму AddPostFormRedux из redux-form */}
         <AddPostFormRedux onSubmit={sendPost} />
       </div>
     </div>
   );
 };
-
+//Создаем форму
 const AddNewPostForm = (props) => {
   return (
+    /* Используем для создании формы только тег form */
+    /*  Вешаем обработчик handleSubmit на событие формы onSubmit */
     <form onSubmit={props.handleSubmit}>
       <div>
+        {/* Используем контейнерную компоненту Field вместо imput, texarea, label, указываем ей что нужно отрисовать component={Textarea}, даем ей уникальное имя
+        name="newPostText" в state, вещаем валидатор validate={[required, maxLengthCreator10]} */}
         <Field
           component={Textarea}
           name="newPostText"
@@ -52,7 +57,7 @@ const AddNewPostForm = (props) => {
     </form>
   );
 };
-
+//Присваиваем уникальное имя form: "ProfileAddNewPostForm" для формы AddNewPostForm в state
 const AddPostFormRedux = reduxForm({ form: "ProfileAddNewPostForm" })(
   AddNewPostForm
 );
