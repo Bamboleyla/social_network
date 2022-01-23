@@ -1,3 +1,4 @@
+/* Если у нас в классе .formControl есть .error input или .error textarea тогда усланавливаем ему стиль */
 .formControl.error input,
 .formControl.error textarea {
     background-color: #D81818;

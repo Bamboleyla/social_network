@@ -19,9 +19,10 @@ const Form = ({ handleSubmit }) => {
           {/*в место imput, label, textarea и т.д. используем специальную контейнерную компоненту Field из redux-form которая внутри себя отресует 
           другую компоненту и передаст ей значения в ввиде props */}
           <Field
-            placeholder={"Login"}
+            placeholder={"   Login"}
             /* каждый Field должен иметь название свойства name={"Login"}, под этим свойством данные будут отправляться в state или сервер */
             name={"Login"}
+            /* в данном случае Field отрисует специальную компоненту component={Input} которую мы сами и напишем */
             component={Input}
             validate={[required]}
           />
@@ -29,7 +30,7 @@ const Form = ({ handleSubmit }) => {
         <div className={style.titleImput}>
           <div className={style.text}>Password</div>
           <Field
-            placeholder={"Password"}
+            placeholder={"   Password"}
             name={"password"}
             component={Input}
             validate={[required]}
