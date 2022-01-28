@@ -15,6 +15,7 @@
     max-height: 1024px;
     padding-top: 102px;
     margin: 0 auto;
+    background-color: yellowgreen;
 }
 
 .blockLogo {
@@ -82,8 +83,6 @@
     width: 1440px;
     height: 331px;
 }
-
-.inputBlock {}
 
 .titleImput {
     margin-bottom: 13px;

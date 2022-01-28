@@ -1,6 +1,6 @@
 import React from "react";
 import { reduxForm, Field } from "redux-form";
-import { required } from "../../ulils/validators/validators";
+import { required, thereIsAtAndDot } from "../../ulils/validators/validators";
 import { Input } from "../common/formsControls/formsControl.js";
 import style from "./HallWay.module.css";
 import logo from "./social.png";
@@ -24,7 +24,7 @@ const Form = ({ handleSubmit }) => {
             name={"Login"}
             /* в данном случае Field отрисует специальную компоненту component={Input} которую мы сами и напишем */
             component={Input}
-            validate={[required]}
+            validate={[required, thereIsAtAndDot]}
           />
         </div>
         <div className={style.titleImput}>
@@ -43,7 +43,6 @@ const Form = ({ handleSubmit }) => {
           name={"rememberme"}
           type={"checkbox"}
           className={style.check}
-          validate={[required]}
         />
         <div>remember me</div>
       </div>

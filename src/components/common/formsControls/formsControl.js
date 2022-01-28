@@ -13,7 +13,8 @@ const FormControl = ({ input, meta, child, ...props }) => {
             {props.children}
         </div>
         {/* Если есть ошибка, то выведи span с текстом ошибки, сам текст находится в meta.error*/}
-        {hasError && <span>{meta.error}</span>}
+        {hasError && <div className={style.errorMessage}>
+            {meta.error}</div>}
     </div>
 }
 //Создаем специальную компоненту Textarea
