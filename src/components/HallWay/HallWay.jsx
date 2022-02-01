@@ -1,6 +1,11 @@
 import React from "react";
 import { reduxForm, Field } from "redux-form";
-import { required, thereIsAtAndDot } from "../../ulils/validators/validators";
+import {
+  checkingForCapitalLetters,
+  required,
+  thereIsAtAndDot,
+  thereIsKirilicaOrSimbols,
+} from "../../ulils/validators/validators";
 import { Input } from "../common/formsControls/formsControl.js";
 import style from "./HallWay.module.css";
 import logo from "./social.png";
@@ -24,7 +29,12 @@ const Form = ({ handleSubmit }) => {
             name={"Login"}
             /* в данном случае Field отрисует специальную компоненту component={Input} которую мы сами и напишем */
             component={Input}
-            validate={[required, thereIsAtAndDot]}
+            validate={[
+              required,
+              thereIsAtAndDot,
+              checkingForCapitalLetters,
+              thereIsKirilicaOrSimbols,
+            ]}
           />
         </div>
         <div className={style.titleImput}>

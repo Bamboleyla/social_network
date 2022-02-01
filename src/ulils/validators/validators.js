@@ -1,3 +1,5 @@
+const KIRILLICA = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+const SIMBOLS = '~`!@#$%^&*()+-={}[]|\\/*,<>?":;№';
 /***************************************************************************FUNCTION-VALIDATORS***********************************************************************************************/
 //Создаем валидатор required, который при отсутствиивведенного значения в Field будет возврашать ошибку Field is required
 export const required = value => {
@@ -70,13 +72,47 @@ export const thereIsAtAndDot = text => {
     }
     return "произошла не предвиденная ошибка"
 }
-
+//Валидатор проверки вхождения в адрес почты заглавных букв
+export const checkingForCapitalLetters = (text) => {
+    for (let i = 0; i < text.length; i++) {
+        //Если символ не является @ и '.'
+        if (text[i] !== '@' && text[i] !== '.') {
+            //Если буква заглавная => false
+            if (text[i] === text[i].toUpperCase()) {
+                return 'адресс почты не может содержать заглавные буквы';
+            }
+        }
+    }
+    return undefined;
+}
+//Валидатор проверки вхождения в адрес почты букв из кириллицы и символов опасных для приложения
+export const thereIsKirilicaOrSimbols = (text) => {
+    for (i = 0; i < text.length; i++) {
+        for (a = 0; a < KIRILLICA.length; a++) {
+            if (text[i] == KIRILLICA[a]) {
+                return 'адресс почты не может содержать буквы из кирилицы';
+            }
+        }
+        for (a = 0; a < KIRILLICA.length; a++) {
+            if (text[i] == SIMBOLS[a]) {
+                return 'адресс почты не может содержать ~`!@#$%^&*()+-={}[]|\/*,<>?":;№\''
+            }
+        }
+    }
+    return undefined;
+}
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
 //Создаем THUNKS-CREATOR для валидации по признаку но с разным переданным значением
 /* В этом случае создаем валидатор который проверяет введенное значение в Field на условие не превышающее максимальную длинну строки, в зависимости от нахождения
 формы она может быть разной, к примеру не более 30 символов или 100  */
 //Передаваемый аргумент maxLength который может использовать замыкание и будет тем условием на которое нужно проверить наш Field
 export const maxLengthCreator = (maxLength) => value => {
+    /* Если значение переданное в Field присутсвует и длина более maxLength тогда выводим ошибку max length is ${maxLength} symbols, в противном случае undefined */
+    if (value && value.length > maxLength) return `max length is ${maxLength} symbols`;
+    return undefined;
+}
+/* В этом случае создаем валидатор который проверяет введенное значение в Field на присутствие букв из кириллицы или опасных к использованию знаков для приложения  */
+export const maxLengthCreator = (string) => value => {
     /* Если значение переданное в Field присутсвует и длина более maxLength тогда выводим ошибку max length is ${maxLength} symbols, в противном случае undefined */
     if (value && value.length > maxLength) return `max length is ${maxLength} symbols`;
     return undefined;
