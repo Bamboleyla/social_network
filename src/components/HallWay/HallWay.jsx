@@ -5,6 +5,7 @@ import {
   required,
   thereIsAtAndDot,
   thereIsKirilicaOrSimbols,
+  thereIsSpace,
 } from "../../ulils/validators/validators";
 import { Input } from "../common/formsControls/formsControl.js";
 import style from "./HallWay.module.css";
@@ -32,8 +33,9 @@ const Form = ({ handleSubmit }) => {
             validate={[
               required,
               thereIsAtAndDot,
-              checkingForCapitalLetters,
               thereIsKirilicaOrSimbols,
+              thereIsSpace,
+              checkingForCapitalLetters,
             ]}
           />
         </div>
@@ -43,7 +45,7 @@ const Form = ({ handleSubmit }) => {
             placeholder={"   Password"}
             name={"password"}
             component={Input}
-            validate={[required]}
+            validate={[required, thereIsKirilicaOrSimbols, thereIsSpace]}
           />
         </div>
       </div>
