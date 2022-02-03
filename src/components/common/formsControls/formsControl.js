@@ -12,7 +12,7 @@ const FormControl = ({ input, meta, child, ...props }) => {
             уменьшать дублирование */}
             {props.children}
         </div>
-        {/* Если есть ошибка, то выведи span с текстом ошибки, сам текст находится в meta.error*/}
+        {/* Если есть ошибка, то выведи div с текстом ошибки, сам текст находится в meta.error*/}
         {hasError && <div className={style.errorMessage}>
             {meta.error}</div>}
     </div>
