@@ -4,8 +4,6 @@ import { dialogsPageReducer } from './dialogsPageReducer';
 import { postPageReducer } from './postPageReducer';
 import { usersPageReducer } from './usersPageReducer';
 import thunkMiddleware from 'redux-thunk';
-//специальный reduser из redux-form в котором будет находится вся информация с форм приложения
-import { reducer as FormReducer } from 'redux-form';
 
 let reducers = combineReducers({
     postsPage: postPageReducer,
@@ -14,7 +12,6 @@ let reducers = combineReducers({
     auth: authReducer,
     //Добавляем FormReducer в state приложения, очень важно что бы он был добавлен под значением form: , так как redux-form будет его искать в state именно
     //под этим названием, есть конечно вариант добавить под другим значением, но здесь нужно будет заморочится и искать в документации как это сделать
-    form: FormReducer
 })
 
 // подключаем Redux DevTools

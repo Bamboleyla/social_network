@@ -49,3 +49,15 @@ export const getAuthData = () => {
         });
     }
 }
+//Отправка данных позученных из формы на сервер
+export const logIn = (email, password, rememberMe) => async (dispatch) => {
+    const res = await authAPI.logIn(email, password, rememberMe);
+    dispatch(setAuthData(
+        res.data.userID,
+        res.data.email,
+        res.data.login,
+        res.data.ava,
+        res.data.status,
+        false
+    ));
+}

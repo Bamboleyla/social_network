@@ -21,7 +21,6 @@ const App = () => {
       < div className='app-wrapper-content' >
         < Route path='/dialogs' render={() => < BlockDialogsContainer />} /> {/* Страница Сообщений */}
         < Route path='/contents' render={() => < BlockContent />} /> {/*Страница с Постами */}
-
         < Route path='/news' render={() => {
           { /* Страница Новости с использованием Suspense, которая пока лениво загружается BlockNews выведет пользователю Preloader */ }
           return <Suspense fallback={< Preloader />} >
