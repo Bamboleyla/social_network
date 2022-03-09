@@ -8,7 +8,6 @@ export const HallWay = () => {
   //Использование хука useState, для создания локального state
   let [errors, setErrors] = useState(""); //Данные о ошибках
   let [touched, setTouched] = useState(""); //Данные о ошибках
-  debugger;
   return (
     <div className={style.wrapper}>
       <div className={style.content}>
