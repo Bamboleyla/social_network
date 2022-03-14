@@ -53,14 +53,3 @@
 .button button:hover {
   background-color: #7e6504;
 }
-
-.alert {
-  border: 1px solid red;
-  border-radius: 30px;
-  width: 20px;
-  text-align: center;
-  background-color: red;
-  color: white;
-  display: inline-block;
-  margin-left: 10px;
-}

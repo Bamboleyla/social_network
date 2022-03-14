@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { LogInForm } from "../../forms/LogInForm";
+import { LogInForm } from "../../forms/Login/LogInForm";
 import style from "./HallWay.module.css";
 import logo from "./social.png";
 
-//3 Создаем страницу с логанизацией
 export const HallWay = () => {
-  //Использование хука useState, для создания локального state
   let [errors, setErrors] = useState(""); //Данные о ошибках
-  let [touched, setTouched] = useState(""); //Данные о ошибках
+  let [touched, setTouched] = useState(""); //Данные о тронутых полях
+  debugger;
   return (
     <div className={style.wrapper}>
       <div className={style.content}>
@@ -41,7 +40,6 @@ export const HallWay = () => {
           <div className={style.loginForm}>
             <h1>Login</h1>
             <p>Please enter the email adress and password</p>
-            {/* Помещаем форму на страницу */}
             <LogInForm setErrors={setErrors} setTouched={setTouched} />
           </div>
           <div className={style.else}>
@@ -59,8 +57,10 @@ export const HallWay = () => {
           (touched.password && errors.password) ? (
             <div className={style.error}>
               <h4>Ошибка</h4>
-              <div>{errors.login}</div>
-              <div>{errors.password}</div>
+              {touched.login && errors.login ? <div>{errors.login}</div> : null}
+              {touched.password && errors.password ? (
+                <div>{errors.password}</div>
+              ) : null}
             </div>
           ) : null}
         </div>

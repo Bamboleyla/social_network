@@ -9,31 +9,28 @@ import BlockHeaderContainer from '../../components/BlockHeader/BlockHeaderContai
 import Preloader from '../../components/common/Preloader';
 import { Suspense } from 'react';
 
-/************************* Ленивая загрузка компоненнт BlockNews и LoginPage *********************************************************************************************/
 const BlockNews = React.lazy(() => import('../../components/BlockNews/BlockNews'));
 const LoginPage = React.lazy(() => import('../../components/BlockLogin/LoginPage'));
 
 const App = () => {
   return (
     <div className="app-wrapper" >
-      < BlockHeaderContainer /> {/* Блок Header стартовой страницы */}
-      < BlockNavigation /> {/* Блок Навигации по приложению */}
+      < BlockHeaderContainer />
+      < BlockNavigation />
       < div className='app-wrapper-content' >
-        < Route path='/dialogs' render={() => < BlockDialogsContainer />} /> {/* Страница Сообщений */}
-        < Route path='/contents' render={() => < BlockContent />} /> {/*Страница с Постами */}
+        < Route path='/dialogs' render={() => < BlockDialogsContainer />} />
+        < Route path='/contents' render={() => < BlockContent />} />
         < Route path='/news' render={() => {
-          { /* Страница Новости с использованием Suspense, которая пока лениво загружается BlockNews выведет пользователю Preloader */ }
           return <Suspense fallback={< Preloader />} >
             < BlockNews />
           </Suspense>
         }} />
 
-        < Route path='/users' render={() => < BlockUsersContainer />} /> {/* Список Пользователей */}
+        < Route path='/users' render={() => < BlockUsersContainer />} />
 
         < Route path='/login' render={() => {
-          { /* Страница Логанизации с использованием Suspense, которая пока лениво загружается LoginPage выведет пользователю Preloader */ }
           return <Suspense fallback={< Preloader />} >
-            < LoginPage /> {/* Страница Логанизации */}
+            < LoginPage />
           </Suspense>
         }} />
 
