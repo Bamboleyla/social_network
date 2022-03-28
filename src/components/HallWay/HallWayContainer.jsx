@@ -4,4 +4,4 @@ import { HallWay } from "./HallWay";
 
 /*************************Контейнерная компонента*****************************/
 
-export const HallWayContainer = connect(null, logIn)(HallWay);
+export const HallWayContainer = connect(null, { logIn })(HallWay);

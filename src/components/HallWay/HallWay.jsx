@@ -3,10 +3,9 @@ import { LogInForm } from "../../forms/Login/LogInForm";
 import style from "./HallWay.module.css";
 import logo from "./social.png";
 
-export const HallWay = () => {
-  let [errors, setErrors] = useState(""); //Данные о ошибках
-  let [touched, setTouched] = useState(""); //Данные о тронутых полях
-  debugger;
+export const HallWay = (props) => {
+  let [errors, setErrors] = useState(""); //Ошибки
+  let [touched, setTouched] = useState(""); //Тронутые поля
   return (
     <div className={style.wrapper}>
       <div className={style.content}>
@@ -40,7 +39,11 @@ export const HallWay = () => {
           <div className={style.loginForm}>
             <h1>Login</h1>
             <p>Please enter the email adress and password</p>
-            <LogInForm setErrors={setErrors} setTouched={setTouched} />
+            <LogInForm
+              setErrors={setErrors}
+              setTouched={setTouched}
+              logIn={props.logIn}
+            />
           </div>
           <div className={style.else}>
             <div className={style.questions}>

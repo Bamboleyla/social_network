@@ -50,8 +50,8 @@ export const getAuthData = () => {
     }
 }
 //Отправка данных позученных из формы на сервер
-export const logIn = (email, password, rememberMe) => async (dispatch) => {
-    const res = await authAPI.logIn(email, password, rememberMe);
+export const logIn = (values) => async (dispatch) => {
+    const res = await authAPI.logIn(values.login, values.password, values.rememberMe);
     dispatch(setAuthData(
         res.data.userID,
         res.data.email,

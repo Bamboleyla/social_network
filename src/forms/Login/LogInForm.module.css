@@ -11,6 +11,10 @@
   margin-left: 20px;
 }
 
+.remember {
+  margin-left: 95px;
+}
+
 .remember div {
   display: inline-block;
   width: 200px;

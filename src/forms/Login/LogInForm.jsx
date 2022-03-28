@@ -9,10 +9,6 @@ const initialValues = {
   rememberMe: false,
 };
 
-const onSubmit = (values) => {
-  console.log("Form values", values);
-};
-
 const EmailAdress = ["test@gmail.com"];
 
 const validationShema = Yup.object({
@@ -28,6 +24,9 @@ const validationShema = Yup.object({
 });
 
 export const LogInForm = (props) => {
+  const onSubmit = (values) => {
+    props.logIn(values);
+  };
   return (
     <div>
       <Formik
@@ -35,7 +34,6 @@ export const LogInForm = (props) => {
         validationSchema={validationShema}
         onSubmit={onSubmit}>
         {(formik) => {
-          console.log("data", formik);
           props.setErrors(formik.errors);
           props.setTouched(formik.touched);
           return (

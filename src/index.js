@@ -7,12 +7,12 @@ import './index.css';
 import App from './pages/startPage/App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { HallWay } from './components/HallWay/HallWay';
+import { HallWayContainer } from './components/HallWay/HallWayContainer';
 
 ReactDOM.render(< React.StrictMode >
     < BrowserRouter >
         <Provider store={store} >
-            <HallWay />
+            <HallWayContainer />
             { /* <App /> */}
         </Provider>
     </BrowserRouter >
