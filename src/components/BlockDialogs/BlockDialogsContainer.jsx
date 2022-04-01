@@ -1,7 +1,5 @@
 import { connect } from "react-redux";
 import BlockDialogs from "./BlockDialogs";
-import { withAuthRedirect } from "../../hok/withAuthRedirect";
-import { compose } from "redux";
 
 /*************************Контейнерная компонента*****************************/
 //Создаем функцию которая будет принимать через connect нужную часть state
@@ -17,7 +15,4 @@ let mapDispatchToProps = () => {
   return {};
 };
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withAuthRedirect
-)(BlockDialogs);
+export default connect(mapStateToProps, mapDispatchToProps)(BlockDialogs);

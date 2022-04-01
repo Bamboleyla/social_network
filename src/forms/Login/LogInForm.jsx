@@ -9,12 +9,9 @@ const initialValues = {
   rememberMe: false,
 };
 
-const EmailAdress = ["test@gmail.com"];
-
 const validationShema = Yup.object({
   login: Yup.string()
     .email("Не корректный email")
-    .notOneOf(EmailAdress, "данный email уже занят")
     .lowercase("почта не может содержать в себе заглавные буквы")
     .strict()
     .required("Поле login не может быть пустым"),

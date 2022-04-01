@@ -32,8 +32,8 @@ export const authAPI = {
     me() {
         return instance.get(`auth`)
     },
-    //Логанизация, отправляем данные на сервер, если есть такой пользователь, все ОК. rememberMe ставим по умолчанию false
+    //Логанизация, отправляем данные на сервер, если есть такой пользователь, все ОК
     logIn(email, password, rememberMe = false) {
-        return instance.post(`auth`, { email, password, rememberMe })
+        return instance.post(`api/login`, { email, password, rememberMe })
     }
 }

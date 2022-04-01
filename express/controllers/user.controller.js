@@ -5,8 +5,8 @@ let now = () => new Date().toLocaleTimeString()//функция которая �
 class UserController {
     async createUser(req, res) {
         console.log(` ${now()} поступил запрос на создание нового пользователя`)
-        const { login, password } = req.body
-        const newPerson = await db.query(`INSERT INTO person (login, password) values ($1, $2) RETURNING *`, [login, password])
+        const { email, password } = req.body
+        const newPerson = await db.query(`INSERT INTO person (email, password) values ($1, $2) RETURNING *`, [email, password])
         res.json(newPerson.rows[0])
         console.log(` ${now()} пользователь создан`, newPerson.rows[0])
     }
@@ -24,9 +24,9 @@ class UserController {
         console.log(`${now()} запрос обработан`)
     }
     async updateUser(req, res) {
-        const { id, login, password } = req.body
+        const { id, email, password } = req.body
         console.log(`${now()} поступил запрос на обновление данных у пользователя с id ${id}`)
-        const user = await db.query(`UPDATE person set login =$1, password =$2 where id=$3 RETURNING *`, [login, password, id])
+        const user = await db.query(`UPDATE person set email =$1, password =$2 where id=$3 RETURNING *`, [email, password, id])
         user.rows.length > 0 ? res.json(user.rows[0]) : res.json(`user with id ${id} couldn't update`)
         console.log(`${now()} запрос обработан`)
     }
@@ -35,6 +35,27 @@ class UserController {
         console.log(`${now()} поступил запрос на обновление данных у пользователя с id ${id}`)
         await db.query(`DELETE FROM person where id=$1`, [id])
         res.json('ок')
+        console.log(`${now()} запрос обработан`)
+    }
+    async logIn(req, res) {
+        const email = req.body.email
+        console.log(`${now()} поступил запрос на сверку login и password с данными в БД`)
+        const resDB = await db.query(`SELECT * FROM person where email_unique=$1`, [email])
+        if (resDB.rows[0].password === req.body.password) {
+            res.json({
+                userID: resDB.rows[0].id,
+                email: resDB.rows[0].email_unique,
+                login: resDB.rows[0].nickname,
+                status: resDB.rows[0].status
+            })
+        }
+        else if (resDB.rows.password !== req.body.password) {
+            res.json('password is wrong')
+        }
+        else if (resDB.rows.length === 0) {
+            res.json('logis is undefined')
+        }
+        else res.json('error during login and password verification')
         console.log(`${now()} запрос обработан`)
     }
 }

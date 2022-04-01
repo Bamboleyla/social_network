@@ -6,6 +6,9 @@ import logo from "./social.png";
 export const HallWay = (props) => {
   let [errors, setErrors] = useState(""); //Ошибки
   let [touched, setTouched] = useState(""); //Тронутые поля
+  const auth = (values) => {
+    props.logIn(values).then(props.navigate("./dialogs", { replace: true }));
+  };
   return (
     <div className={style.wrapper}>
       <div className={style.content}>
@@ -42,7 +45,7 @@ export const HallWay = (props) => {
             <LogInForm
               setErrors={setErrors}
               setTouched={setTouched}
-              logIn={props.logIn}
+              logIn={auth}
             />
           </div>
           <div className={style.else}>

@@ -56,7 +56,7 @@ export const logIn = (values) => async (dispatch) => {
         res.data.userID,
         res.data.email,
         res.data.login,
-        res.data.ava,
+        "https://img5.goodfon.ru/original/1024x1024/2/ac/lev-portret-tsar.jpg",
         res.data.status,
         false
     ));

@@ -10,8 +10,6 @@ import {
 import BlockUsers from "./BlockUsers";
 import React from "react";
 import Preloader from "../common/Preloader";
-import { withAuthRedirect } from "../../hok/withAuthRedirect";
-import { compose } from "redux";
 
 /*************************Классовая компонента для работы с запросами на сервер*****************************/
 /* Создаем классовую компоненту, мы используем ее в место функциональной, что бы не нарушать принцип чистоты функции, если бы использовали функциональную */
@@ -76,14 +74,11 @@ let mapStateToProps = (state) => {
 };
 
 //Создаем контейнерную компоненту BlockUsersContainer,подключаем mapStateToProps и передаем ей методы для dispatch , оборачиваем ей презентационную компоненту BlockUsersAPI
-export const BlockUsersContainer = compose(
-  connect(mapStateToProps, {
-    unfollow,
-    follow,
-    setPageAC,
-    getUsers,
-    getUserInfo,
-    setPreloaderAC,
-  }),
-  withAuthRedirect
-)(BlockUsersAPI);
+export const BlockUsersContainer = connect(mapStateToProps, {
+  unfollow,
+  follow,
+  setPageAC,
+  getUsers,
+  getUserInfo,
+  setPreloaderAC,
+})(BlockUsersAPI);
