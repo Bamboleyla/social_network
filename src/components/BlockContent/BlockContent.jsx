@@ -9,5 +9,4 @@ const BlockContent = () => {
     </div>
   );
 };
-//добавляем redirect если пользователь не авторизован
 export default BlockContent;

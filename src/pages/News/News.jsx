@@ -1,6 +1,6 @@
-import style from "./BlockNews.module.css";
+import style from "./News.module.css";
 
-const BlockNews = () => {
+export const News = () => {
   return (
     <div className={style.logo}>
       <img
@@ -9,5 +9,3 @@ const BlockNews = () => {
     </div>
   );
 };
-
-export default BlockNews;
