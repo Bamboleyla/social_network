@@ -20,6 +20,20 @@ const validationShema = Yup.object({
     .required("Поле password не может быть пустым"),
 });
 
+const ErrorMessage = (props) => {
+  return (
+    <div className={style.error}>
+      <h4>Ошибка</h4>
+      {props.touched.login && props.errors.login ? (
+        <div>{props.errors.login}</div>
+      ) : null}
+      {props.touched.password && props.errors.password ? (
+        <div>{props.errors.password}</div>
+      ) : null}
+    </div>
+  );
+};
+
 export const LogInForm = (props) => {
   const onSubmit = (values) => {
     props.logIn(values);
@@ -31,8 +45,6 @@ export const LogInForm = (props) => {
         validationSchema={validationShema}
         onSubmit={onSubmit}>
         {(formik) => {
-          props.setErrors(formik.errors);
-          props.setTouched(formik.touched);
           return (
             <Form>
               <div className={style.FieldBlock}>
@@ -56,6 +68,11 @@ export const LogInForm = (props) => {
               <div className={style.button}>
                 <button type="submit">Login</button>
               </div>
+              {/*  если поле затронуто и есть ошибка => отобразить ошибку */}
+              {(formik.touched.login && formik.errors.login) ||
+              (formik.touched.password && formik.errors.password) ? (
+                <ErrorMessage errors={formik.errors} touched={formik.touched} />
+              ) : null}
             </Form>
           );
         }}

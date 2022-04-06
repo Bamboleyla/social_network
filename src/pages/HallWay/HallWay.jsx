@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { LogInForm } from "../../forms/Login/LogInForm";
 import style from "./HallWay.module.css";
 import logo from "./social.png";
 
 export const HallWay = (props) => {
-  let [errors, setErrors] = useState(""); //Ошибки
-  let [touched, setTouched] = useState(""); //Тронутые поля
   const auth = (values) => {
     props.logIn(values).then(props.navigate("./dialogs", { replace: true }));
   };
@@ -42,11 +40,7 @@ export const HallWay = (props) => {
           <div className={style.loginForm}>
             <h1>Login</h1>
             <p>Please enter the email adress and password</p>
-            <LogInForm
-              setErrors={setErrors}
-              setTouched={setTouched}
-              logIn={auth}
-            />
+            <LogInForm logIn={auth} />
           </div>
           <div className={style.else}>
             <div className={style.questions}>
@@ -58,17 +52,6 @@ export const HallWay = (props) => {
               <div>Sing up</div>
             </div>
           </div>
-          {/*  если поле затронуто и есть ошибка => отобразить ошибку */}
-          {(touched.login && errors.login) ||
-          (touched.password && errors.password) ? (
-            <div className={style.error}>
-              <h4>Ошибка</h4>
-              {touched.login && errors.login ? <div>{errors.login}</div> : null}
-              {touched.password && errors.password ? (
-                <div>{errors.password}</div>
-              ) : null}
-            </div>
-          ) : null}
         </div>
         <div className={style.footer}>
           <div className={style.signature}>

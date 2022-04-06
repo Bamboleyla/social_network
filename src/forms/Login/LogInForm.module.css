@@ -57,3 +57,22 @@
 .button button:hover {
   background-color: #7e6504;
 }
+
+form {
+  position: relative;
+}
+
+.error {
+  position: absolute;
+  top: 215px;
+  border: solid 1px rgba(216, 24, 24, 0.61);
+  color: white;
+  background-color: rgba(216, 24, 24, 0.61);
+  width: 407px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.error h4 {
+  margin: 5px;
+}
