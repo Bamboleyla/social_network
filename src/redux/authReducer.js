@@ -38,9 +38,9 @@ export const authReducer = (state = initialState, action) => {
 export let setAuthData = (userID, email, login, ava, status, isAuth) => ({ type: SET_USER_DATA, data: { userID, email, login, ava, status, isAuth } })
 let setAuthErrors = (status) => {
     if (status === "undefined") {
-        return { type: SET_AUTH_ERRORS, data: 'Пользователь с этим email незарегестрирован' }
+        return { type: SET_AUTH_ERRORS, data: '*Пользователь с этим email незарегестрирован' }
     } else if (status === 'the password is not correct') {
-        return { type: SET_AUTH_ERRORS, data: 'Пароль введен не верно' }
+        return { type: SET_AUTH_ERRORS, data: '*Пароль введен не верно' }
     }
 }
 

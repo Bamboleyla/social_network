@@ -11,33 +11,26 @@ const initialValues = {
 
 const validationShema = Yup.object({
   login: Yup.string()
-    .email("Не корректный email")
-    .lowercase("почта не может содержать в себе заглавные буквы")
+    .email("*Не корректный email")
+    .lowercase("*Почта не может содержать в себе заглавные буквы")
     .strict()
-    .required("Поле login не может быть пустым"),
+    .required("*Поле login не может быть пустым"),
   password: Yup.string()
-    .min(8, "пароль не может быль короче 8 символов")
-    .required("Поле password не может быть пустым"),
+    .min(8, "*Пароль не может быль короче 8 символов")
+    .required("*Поле password не может быть пустым"),
 });
 
-const ErrorValidationForm = (props) => {
+const ErrorsForm = (props) => {
   return (
     <div className={style.error}>
-      <h4>Ошибка</h4>
+      <h4>Ошибка!</h4>
       {props.touched.login && props.errors.login ? (
         <div>{props.errors.login}</div>
       ) : null}
       {props.touched.password && props.errors.password ? (
         <div>{props.errors.password}</div>
       ) : null}
-    </div>
-  );
-};
-const ErrorLogin = (props) => {
-  return (
-    <div className={style.error}>
-      <h4>Ошибка авторизации</h4>
-      <div>{props.statusLogin}</div>
+      <div>{props.statusLogin ? props.statusLogin : null}</div>
     </div>
   );
 };
@@ -78,18 +71,13 @@ export const LogInForm = (props) => {
               </div>
               {/*  если поле затронуто и есть ошибка => отобразить ошибку */}
               {(formik.touched.login && formik.errors.login) ||
-              (formik.touched.password && formik.errors.password) ? (
-                <ErrorValidationForm
+              (formik.touched.password && formik.errors.password) ||
+              props.statusLogin ? (
+                <ErrorsForm
                   errors={formik.errors}
                   touched={formik.touched}
+                  statusLogin={props.statusLogin}
                 />
-              ) : null}
-              {/* ошибки авторизации: 
-              1. незарегестрированный
-              email; 
-              2.пароль не совпадает с учетной записью email; */}
-              {props.statusLogin ? (
-                <ErrorLogin statusLogin={props.statusLogin} />
               ) : null}
             </Form>
           );
