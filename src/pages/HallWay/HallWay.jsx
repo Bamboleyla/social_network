@@ -5,7 +5,7 @@ import logo from "./social.png";
 
 export const HallWay = (props) => {
   const auth = (values) => {
-    props.logIn(values).then(props.navigate("./dialogs", { replace: true }));
+    props.logIn(values);
   };
   return (
     <div className={style.wrapper}>
@@ -40,7 +40,7 @@ export const HallWay = (props) => {
           <div className={style.loginForm}>
             <h1>Login</h1>
             <p>Please enter the email adress and password</p>
-            <LogInForm logIn={auth} />
+            <LogInForm logIn={auth} statusLogin={props.statusLogin} />
           </div>
           <div className={style.else}>
             <div className={style.questions}>

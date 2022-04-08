@@ -20,7 +20,7 @@ const validationShema = Yup.object({
     .required("Поле password не может быть пустым"),
 });
 
-const ErrorMessage = (props) => {
+const ErrorValidationForm = (props) => {
   return (
     <div className={style.error}>
       <h4>Ошибка</h4>
@@ -30,6 +30,14 @@ const ErrorMessage = (props) => {
       {props.touched.password && props.errors.password ? (
         <div>{props.errors.password}</div>
       ) : null}
+    </div>
+  );
+};
+const ErrorLogin = (props) => {
+  return (
+    <div className={style.error}>
+      <h4>Ошибка авторизации</h4>
+      <div>{props.statusLogin}</div>
     </div>
   );
 };
@@ -71,7 +79,17 @@ export const LogInForm = (props) => {
               {/*  если поле затронуто и есть ошибка => отобразить ошибку */}
               {(formik.touched.login && formik.errors.login) ||
               (formik.touched.password && formik.errors.password) ? (
-                <ErrorMessage errors={formik.errors} touched={formik.touched} />
+                <ErrorValidationForm
+                  errors={formik.errors}
+                  touched={formik.touched}
+                />
+              ) : null}
+              {/* ошибки авторизации: 
+              1. незарегестрированный
+              email; 
+              2.пароль не совпадает с учетной записью email; */}
+              {props.statusLogin ? (
+                <ErrorLogin statusLogin={props.statusLogin} />
               ) : null}
             </Form>
           );

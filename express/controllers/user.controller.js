@@ -41,19 +41,19 @@ class UserController {
         const email = req.body.email
         console.log(`${now()} поступил запрос на сверку login и password с данными в БД`)
         const resDB = await db.query(`SELECT * FROM person where email_unique=$1`, [email])
-        if (resDB.rows[0].password === req.body.password) {
+        if (resDB.rows.length === 0) {
+            res.status(200).send('undefined')
+        }
+        else if (resDB.rows[0].password !== req.body.password) {
+            res.status(200).send('the password is not correct');
+        }
+        else if (resDB.rows[0].password === req.body.password) {
             res.json({
                 userID: resDB.rows[0].id,
                 email: resDB.rows[0].email_unique,
                 login: resDB.rows[0].nickname,
                 status: resDB.rows[0].status
             })
-        }
-        else if (resDB.rows.password !== req.body.password) {
-            res.json('password is wrong')
-        }
-        else if (resDB.rows.length === 0) {
-            res.json('logis is undefined')
         }
         else res.json('error during login and password verification')
         console.log(`${now()} запрос обработан`)

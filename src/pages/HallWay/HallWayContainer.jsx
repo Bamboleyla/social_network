@@ -1,8 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 import { logIn } from "../../redux/authReducer";
 import { HallWay } from "./HallWay";
 
-export const HallWayContainer = (props) => {
-  const navigate = useNavigate();
-  return <HallWay navigate={navigate} logIn={logIn} />;
+let mapStateToProps = (state) => {
+  return {
+    statusLogin: state.auth.errors,
+  };
 };
+
+export const HallWayContainer = connect(mapStateToProps, { logIn })(HallWay);

@@ -1,23 +1,32 @@
 import { authAPI } from '../api/api'
 import { setUserInfoAC } from './postPageReducer';
+
 const SET_USER_DATA = 'SET_USER_DATA';
+const SET_AUTH_ERRORS = 'SET_AUTH_ERRORS';
 
 //Если в authReduser придет state = undefined будем использывать state по default, первоначальный
 let initialState = {
-    userID: null,
-    email: null,
-    login: null,
-    ava: null,
-    status: null,
-    isAuth: false
+    user: {
+        userID: null,
+        email: null,
+        login: null,
+        ava: null,
+        status: null,
+        isAuth: false
+    }
 }
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_USER_DATA':
             return {
-                ...state,
+                ...state.user,
                 ...action.data
+            }
+        case 'SET_AUTH_ERRORS':
+            return {
+                ...state,
+                errors: action.data
             }
 
         default:
@@ -27,6 +36,14 @@ export const authReducer = (state = initialState, action) => {
 
 /***************************************************************ACTION CREATORS*********************************************************** */
 export let setAuthData = (userID, email, login, ava, status, isAuth) => ({ type: SET_USER_DATA, data: { userID, email, login, ava, status, isAuth } })
+let setAuthErrors = (status) => {
+    if (status === "undefined") {
+        return { type: SET_AUTH_ERRORS, data: 'Пользователь с этим email незарегестрирован' }
+    } else if (status === 'the password is not correct') {
+        return { type: SET_AUTH_ERRORS, data: 'Пароль введен не верно' }
+    }
+}
+
 
 /* *************************************************************THUNKS-CREATOR*********************************************************** */
 //Получение информации о аунтифицированном пользователе
@@ -51,13 +68,20 @@ export const getAuthData = () => {
 }
 //Отправка данных позученных из формы на сервер
 export const logIn = (values) => async (dispatch) => {
-    const res = await authAPI.logIn(values.login, values.password, values.rememberMe);
-    dispatch(setAuthData(
-        res.data.userID,
-        res.data.email,
-        res.data.login,
-        "https://img5.goodfon.ru/original/1024x1024/2/ac/lev-portret-tsar.jpg",
-        res.data.status,
-        false
-    ));
+    try {
+        const res = await authAPI.logIn(values.login, values.password, values.rememberMe);
+        if (typeof (res.data) === 'string') {
+            dispatch(setAuthErrors(res.data))
+        } else {
+            dispatch(setAuthData(
+                res.data.userID,
+                res.data.email,
+                res.data.login,
+                "https://img5.goodfon.ru/original/1024x1024/2/ac/lev-portret-tsar.jpg",
+                res.data.status,
+                false
+            ))
+        }
+    }
+    catch (err) { alert(err) }
 }
