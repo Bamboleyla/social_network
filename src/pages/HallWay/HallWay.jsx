@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LogInForm } from "../../forms/Login/LogInForm";
 import style from "./HallWay.module.css";
 import logo from "./social.png";
+import { useNavigate } from "react-router-dom";
 
 export const HallWay = (props) => {
+  let navigate = useNavigate();
+  useEffect(() => {
+    //После выполнения props.logIn(values) и появления ошибок автаризации props.statusLogin будет в себе нести список ошибок
+    //Если авторизация пройдет успешно и ошибок не будет props.statusLogin будет иметь значение false и тогда пройдет перенаправление пользователя "./home"
+    props.statusLogin === false && navigate("./home", { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.statusLogin]);
+
   const auth = (values) => {
     props.logIn(values);
   };
+
   return (
     <div className={style.wrapper}>
       <div className={style.content}>

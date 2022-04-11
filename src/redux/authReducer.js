@@ -20,8 +20,7 @@ export const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_USER_DATA':
             return {
-                ...state.user,
-                ...action.data
+                ...state, user: action.data, errors: false
             }
         case 'SET_AUTH_ERRORS':
             return {
@@ -82,6 +81,8 @@ export const logIn = (values) => async (dispatch) => {
                 false
             ))
         }
+
+        debugger;
     }
     catch (err) { alert(err) }
 }
