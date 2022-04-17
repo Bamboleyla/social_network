@@ -16,7 +16,7 @@ let initialState = {
     }
 }
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action:any) => {
     switch (action.type) {
         case 'SET_USER_DATA':
             return {
@@ -34,8 +34,8 @@ export const authReducer = (state = initialState, action) => {
 };
 
 /***************************************************************ACTION CREATORS*********************************************************** */
-export let setAuthData = (userID, email, login, ava, status, isAuth) => ({ type: SET_USER_DATA, data: { userID, email, login, ava, status, isAuth } })
-let setAuthErrors = (status) => {
+export let setAuthData = (userID:number, email:string, login:string, ava:string, status:string, isAuth:boolean) => ({ type: SET_USER_DATA, data: { userID, email, login, ava, status, isAuth } })
+let setAuthErrors = (status:any) => {
     if (status === "undefined") {
         return { type: SET_AUTH_ERRORS, data: '*Пользователь с этим email незарегестрирован' }
     } else if (status === 'the password is not correct') {
@@ -48,9 +48,9 @@ let setAuthErrors = (status) => {
 //Получение информации о аунтифицированном пользователе
 export const getAuthData = () => {
     //Возврашаем Thunk
-    return (dispatch) => {
+    return (dispatch:any) => {
         /* Так как у нас пустой стейт, делаем запрос на сервер */
-        authAPI.me().then((response) => {
+        authAPI.me().then((response:any) => {
             /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
             dispatch(setAuthData(
                 response.data.userID,
@@ -66,7 +66,7 @@ export const getAuthData = () => {
     }
 }
 //Отправка данных позученных из формы на сервер
-export const logIn = (values) => async (dispatch) => {
+export const logIn = (values:any) => async (dispatch:any) => {
     try {
         const res = await authAPI.logIn(values.login, values.password, values.rememberMe);
         if (typeof (res.data) === 'string') {
