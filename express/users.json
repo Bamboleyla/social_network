@@ -6,22 +6,7 @@
       "fullName": "Дима",
       "status": "Почему квадрат, квадратный?",
       "location": { "country": "Russia", "sity": "Ufa" },
-      "ava": "https://znamenitka.ru/uploads/posts/2019-11/dmitriy-shepelev-pokazal-podpischikam-poceluy-s-ekaterinoy-tulupovoy-1.jpg",
-      "profileInfo": {
-        "aboutMe": "Хочу что бы шоколад стал бесплатным",
-        "study": { "status": false, "where": null },
-        "work": { "status": false, "where": null },
-        "contact": {
-          "mob": "+793755668421",
-          "email": "huismrpupkin@gmail.com"
-        },
-        "age": 37,
-        "sex": "man"
-      },
-      "loginInfo": {
-        "email": "dvorobjevredstar@mail.ru",
-        "password": "123456"
-      }
+      "ava": "https://znamenitka.ru/uploads/posts/2019-11/dmitriy-shepelev-pokazal-podpischikam-poceluy-s-ekaterinoy-tulupovoy-1.jpg"
     },
     {
       "id": 2,
@@ -29,11 +14,7 @@
       "fullName": "Любовь",
       "status": "I was born for love",
       "location": { "country": "Russia", "sity": "Ufa" },
-      "ava": "https://img.staticdj.com/32121491cc340b5557e39ac79355113e.jpeg",
-      "loginInfo": {
-        "email": "",
-        "password": ""
-      }
+      "ava": "https://img.staticdj.com/32121491cc340b5557e39ac79355113e.jpeg"
     },
     {
       "id": 3,

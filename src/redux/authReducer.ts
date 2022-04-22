@@ -1,34 +1,25 @@
 import { authAPI } from "../api/api";
 import { setUserInfoAC } from "./postPageReducer";
 
-const SET_USER_DATA: string = "SET_USER_DATA";
-const SET_AUTH_ERRORS: string = "SET_AUTH_ERRORS";
+const SET_USER_DATA: "SET_USER_DATA" = "SET_USER_DATA";
+const SET_AUTH_ERRORS: "SET_AUTH_ERRORS" = "SET_AUTH_ERRORS";
 
-type initialStateType = {
+let initialState = {
   user: {
-    userID: null | number;
-    email: null | string;
-    login: null | string;
-    ava: null | string;
-    status: null | string;
-    isAuth: boolean;
-  };
-};
-
-let initialState: initialStateType = {
-  user: {
-    userID: null,
-    email: null,
-    login: null,
-    ava: null,
-    status: null,
+    userID: null as null | number,
+    email: null as null | string,
+    login: null as null | string,
+    ava: null as null | string,
+    status: null as null | string,
     isAuth: false,
   },
 };
 
+export type initialStateType = typeof initialState;
+
 export const authReducer = (
-  state: initialStateType = initialState,
-  action: { type: string; data: initialStateType | boolean }
+  state = initialState,
+  action: { type: string; data: initialStateType | string }
 ) => {
   switch (action.type) {
     case "SET_USER_DATA":
@@ -56,7 +47,17 @@ export let setAuthData = (
   ava: string,
   status: string,
   isAuth: boolean
-) => ({
+): {
+  type: typeof SET_USER_DATA;
+  data: {
+    userID: number;
+    email: string;
+    login: string;
+    ava: string;
+    status: string;
+    isAuth: boolean;
+  };
+} => ({
   type: SET_USER_DATA,
   data: { userID, email, login, ava, status, isAuth },
 });
@@ -76,7 +77,7 @@ let setAuthErrors = (status: string) => {
 //Получение информации о аунтифицированном пользователе
 export const getAuthData = () => {
   //Возврашаем Thunk
-  return (dispatch: any) => {
+  return (dispatch: any): void => {
     /* Так как у нас пустой стейт, делаем запрос на сервер */
     authAPI.me().then((response: any) => {
       /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
