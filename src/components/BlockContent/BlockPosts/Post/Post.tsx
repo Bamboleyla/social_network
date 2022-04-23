@@ -1,7 +1,11 @@
 /* Здесь находится модель-шаблон поста */
 import style from "./Post.module.css";
 
-const Post = (props) => {
+type propsType = {
+  message: string;
+  likesCount: string;
+};
+const Post: React.FC<propsType> = (props) => {
   return (
     <div className={style.item}>
       <img

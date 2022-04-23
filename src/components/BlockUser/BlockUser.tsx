@@ -1,7 +1,9 @@
-import React from "react";
 import style from "./BlockUser.module.css";
-
-export const BlockUser = (props) => {
+type propsType = {
+  ava: string;
+  login: string;
+};
+export const BlockUser: React.FC<propsType> = (props) => {
   return (
     <div className={style.wrapper}>
       <img src={props.ava} alt="userPhoto"></img>

@@ -1,5 +1,4 @@
 import style from "./BlockProfileInfo.module.css";
-import React from "react";
 import { ProfileStatusWithHooks } from "./ProfileStatusWithHooks";
 import { Field, reduxForm } from "redux-form";
 import {

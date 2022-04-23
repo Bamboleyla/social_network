@@ -9,7 +9,7 @@ import {
 } from "../../redux/usersPageReducer";
 import BlockUsers from "./BlockUsers";
 import React from "react";
-import Preloader from "../common/Preloader";
+import Preloader from "../common/Preloader.tsx";
 
 /*************************Классовая компонента для работы с запросами на сервер*****************************/
 /* Создаем классовую компоненту, мы используем ее в место функциональной, что бы не нарушать принцип чистоты функции, если бы использовали функциональную */

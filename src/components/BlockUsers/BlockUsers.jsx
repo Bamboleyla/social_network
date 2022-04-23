@@ -1,5 +1,5 @@
 import React from "react";
-import { Paginator } from "../common/Paginator/Paginator";
+import { Paginator } from "../common/Paginator/Paginator.tsx";
 import { DivUser } from "./DivUser";
 
 const BlockUsers = (props) => {

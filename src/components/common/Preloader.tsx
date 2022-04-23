@@ -1,8 +1,7 @@
-import React from "react";
 import loader from "./loader.gif";
 import style from "./Preloader.module.css";
 
-const Preloader = (props) => {
+const Preloader = () => {
   return <img src={loader} alt="preloader" className={style.logo} />;
 };
 

@@ -1,8 +1,12 @@
-import React from "react";
 import style from "./Paginator.module.css";
 
+type propsType = {
+  totalPages: number;
+  numberPage: number;
+  selectedPage: (p: number) => void;
+};
 /* Компонента, которая отрисовывает количество страниц с данными */
-export const Paginator = (props) => {
+export const Paginator: React.FC<propsType> = (props) => {
   //Сколько кнопок со страницами нужно вывести?
   let howMuchpages = () => {
     let result = [];
@@ -16,7 +20,7 @@ export const Paginator = (props) => {
     <div className={style.numberPage}>
       {pages.map((p) => (
         <span
-          className={props.numberPage === p && style.selected}
+          className={props.numberPage === p ? style.selected : undefined}
           onClick={() => {
             props.selectedPage(p);
           }}>

@@ -1,6 +1,6 @@
 import style from "./BlockDialogs.module.css";
 import Dialog from "./Dialog/Dialog";
-import Message from "./Messages/Message";
+import Message from "./Messages/Message.tsx";
 import CreateNewMessageContainer from "./Messages/CreateNewMessage/CreateNewMessageContainer";
 
 const BlockDialogs = (props) => {

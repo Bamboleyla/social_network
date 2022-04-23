@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { LogInForm } from "../../forms/Login/LogInForm";
 import style from "./HallWay.module.css";
 import logo from "./social.png";
@@ -16,7 +16,6 @@ export const HallWay = (props) => {
   const auth = (values) => {
     props.logIn(values);
   };
-
   return (
     <div className={style.wrapper}>
       <div className={style.content}>

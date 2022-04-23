@@ -1,6 +1,6 @@
 /* Здесь будет находится все посты пользователя */
 import style from "./BlockPosts.module.css";
-import Post from "./Post/Post";
+import Post from "./Post/Post.tsx";
 
 const BlockPosts = (props) => {
   let comments = props.commentsData.map((m) => (
