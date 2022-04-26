@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import { addPostAC, updateStatus } from "../../../redux/postPageReducer";
+import { AppStateType } from "../../../redux/redux-store";
 import BlockProfileInfo from "./BlockProfileInfo";
 
 /*************************Контейнерная компонента*****************************/
 
 //Создаем функцию которая будет принимать через connect нужную часть state
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
   return {
     newPostText: state.postsPage.newPostText,
     userPhoto: state.postsPage.userInfo.userPhoto,

@@ -19,6 +19,7 @@ let initialState = {
     { id: 4, message: "Yahoo", likes: "5" },
     { id: 5, message: "I'ts work, i'ts wonderfull", likes: "3" },
   ],
+  newPostText: "",
 };
 
 export type initialStateType = typeof initialState;

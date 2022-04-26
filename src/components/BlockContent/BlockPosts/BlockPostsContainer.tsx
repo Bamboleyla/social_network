@@ -1,10 +1,11 @@
 /* Здесь будет находится все посты пользователя */
 import { connect } from "react-redux";
-import BlockPosts from "./BlockPosts.tsx";
+import { AppStateType } from "../../../redux/redux-store";
+import BlockPosts from "./BlockPosts";
 /*************************Контейнерная компонента*****************************/
 
 //Создаем функцию которая будет принимать через connect нужную часть state
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
   return {
     commentsData: state.postsPage.commentsData,
   };

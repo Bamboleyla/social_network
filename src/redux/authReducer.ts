@@ -12,6 +12,7 @@ let initialState = {
     ava: null as null | string,
     status: null as null | string,
     isAuth: false,
+    errors: null as boolean | null,
   },
 };
 

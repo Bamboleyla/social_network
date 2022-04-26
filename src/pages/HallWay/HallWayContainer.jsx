@@ -4,6 +4,7 @@ import { HallWay } from "./HallWay";
 
 let mapStateToProps = (state) => {
   return {
+
     statusLogin: state.auth.errors,
   };
 };
