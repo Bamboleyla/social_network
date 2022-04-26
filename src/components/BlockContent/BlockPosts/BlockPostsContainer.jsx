@@ -1,6 +1,6 @@
 /* Здесь будет находится все посты пользователя */
 import { connect } from "react-redux";
-import BlockPosts from "./BlockPosts";
+import BlockPosts from "./BlockPosts.tsx";
 /*************************Контейнерная компонента*****************************/
 
 //Создаем функцию которая будет принимать через connect нужную часть state
@@ -19,4 +19,5 @@ const BlockPostsContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(BlockPosts);
+
 export default BlockPostsContainer;
