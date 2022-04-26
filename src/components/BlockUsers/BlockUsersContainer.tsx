@@ -6,14 +6,29 @@ import {
   getUsers,
   getUserInfo,
   setPreloaderAC,
+  usersType,
 } from "../../redux/usersPageReducer";
-import BlockUsers from "./BlockUsers";
 import React from "react";
-import Preloader from "../common/Preloader.tsx";
+import Preloader from "../common/Preloader";
+import { AppStateType } from "../../redux/redux-store";
+import BlockUsers from "./BlockUsers";
 
-/*************************Классовая компонента для работы с запросами на сервер*****************************/
-/* Создаем классовую компоненту, мы используем ее в место функциональной, что бы не нарушать принцип чистоты функции, если бы использовали функциональную */
-class BlockUsersAPI extends React.Component {
+//Для того чтобы типизировать классовую компоненту необходимо указать тибы для PropsType и StateType
+//Так-как в данном компоненте нет локального State, нам достаточно типизировать PropsType
+type PropsType = {
+  numberPage: number;
+  getUsers: (numberPage: number) => void;
+  setPageAC: (num: number) => void;
+  getUserInfo: (id: number) => void;
+  statusPreloader: boolean;
+  totalPages: number;
+  users: usersType[];
+  unfollow: (num: number) => void;
+  follow: (num: number) => void;
+  statusButton: Array<number>;
+};
+
+class BlockUsersAPI extends React.Component<PropsType> {
   /* Вызываем метод жизненного цикла компонента */
   componentDidMount() {
     //Получаем массив с пользователями
@@ -22,7 +37,7 @@ class BlockUsersAPI extends React.Component {
   ////////////////////////////////
   //Обработчик выбраной страницы//
   ////////////////////////////////
-  selectedPage = (num) => {
+  selectedPage = (num: number) => {
     //меняем numberPage в state
     this.props.setPageAC(num);
     //вызываем thunk загрузки массива пользователей
@@ -31,7 +46,7 @@ class BlockUsersAPI extends React.Component {
   /////////////////////////////////////
   //Обработчик выбраного пользователя//
   /////////////////////////////////////
-  getUser = (id) => {
+  getUser = (id: number) => {
     this.props.getUserInfo(id);
   };
   /* Вызываем метод, который вернет разметку JSX */
@@ -58,7 +73,7 @@ class BlockUsersAPI extends React.Component {
 /*************************Контейнерная компонента*****************************/
 
 //Создаем функцию которая будет принимать через connect нужную часть state и делится им с компонентой
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
   return {
     //массив юзеров
     users: state.usersPage.users,

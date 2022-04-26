@@ -1,9 +1,16 @@
-import React from "react";
 import style from "./DivUser.module.css";
 import user_logo from "./user-default.jpg";
 import { NavLink } from "react-router-dom";
+import { usersType } from "../../redux/usersPageReducer";
 
-export const DivUser = (props) => {
+type PropsType = {
+  getUser: (num: number) => void;
+  disabled: Array<number>;
+  unfollow: (num: number) => void;
+  follow: (num: number) => void;
+  user: usersType;
+};
+export const DivUser: React.FC<PropsType> = (props) => {
   return (
     <div key={props.user.id} className={style.user}>
       <span>

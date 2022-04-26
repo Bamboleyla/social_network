@@ -1,8 +1,18 @@
-import React from "react";
-import { Paginator } from "../common/Paginator/Paginator.tsx";
+import { usersType } from "../../redux/usersPageReducer";
+import { Paginator } from "../common/Paginator/Paginator";
 import { DivUser } from "./DivUser";
 
-const BlockUsers = (props) => {
+type PropsType = {
+  numberPage: number;
+  getUser: (num: number) => void;
+  totalPages: number;
+  users: usersType[];
+  unfollow: (num: number) => void;
+  follow: (num: number) => void;
+  disabled: Array<number>;
+  selectedPage: (num: number) => void;
+};
+const BlockUsers: React.FC<PropsType> = (props) => {
   return (
     <div>
       {/* Компонента, которая отрисовывает количество страниц с данными */}

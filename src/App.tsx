@@ -2,11 +2,11 @@ import { HallWayContainer } from "./pages/HallWay/HallWayContainer";
 import { Route, Routes } from "react-router-dom";
 import BlockContent from "./components/BlockContent/BlockContent";
 import BlockDialogsContainer from "./components/BlockDialogs/BlockDialogsContainer";
-import { BlockUsersContainer } from "./components/BlockUsers/BlockUsersContainer";
 import { Settings } from "./pages/Settings/Settings";
 import { Music } from "./pages/Music/Music";
 import { News } from "./pages/News/News";
 import { Profile } from "./pages/Profile/Profile";
+import { BlockUsersContainer } from "./components/BlockUsers/BlockUsersContainer";
 
 const App = () => {
   return (

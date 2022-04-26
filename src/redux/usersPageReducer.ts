@@ -9,7 +9,7 @@ const SET_TOTAL_PAGES: "SET_TOTAL_PAGES" = "SET_TOTAL_PAGES";
 const SET_PRELOADER: "SET_PRELOADER" = "SET_PRELOADER";
 const SET_BUTTON_DISABLED: "SET_BUTTON_DISABLED" = "SET_BUTTON_DISABLED";
 
-type usersType = {
+export type usersType = {
   id: number;
   followed: boolean;
   fullName: string;
