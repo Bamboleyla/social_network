@@ -67,14 +67,18 @@ export const postPageReducer = (
 export let addPostAC = (
   post: string
 ): { type: typeof ADD_POST; post: string } => ({ type: ADD_POST, post });
+
+export type setUserInfoACType = {
+  type: typeof SET_USERINFO;
+  userInfo: { id: number; ava: string; status: string };
+};
+
 export let setUserInfoAC = (userInfo: {
   id: number;
   ava: string;
   status: string;
-}): {
-  type: typeof SET_USERINFO;
-  userInfo: { id: number; ava: string; status: string };
-} => ({ type: SET_USERINFO, userInfo });
+}): setUserInfoACType => ({ type: SET_USERINFO, userInfo });
+
 export let updateStatusAC = (
   status: string
 ): { type: typeof UPDATE_STATUS; status: string } => ({

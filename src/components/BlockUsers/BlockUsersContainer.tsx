@@ -34,22 +34,21 @@ class BlockUsersAPI extends React.Component<PropsType> {
     //Получаем массив с пользователями
     this.props.getUsers(this.props.numberPage);
   }
-  ////////////////////////////////
+
   //Обработчик выбраной страницы//
-  ////////////////////////////////
   selectedPage = (num: number) => {
     //меняем numberPage в state
     this.props.setPageAC(num);
+
     //вызываем thunk загрузки массива пользователей
     this.props.getUsers(num);
   };
-  /////////////////////////////////////
-  //Обработчик выбраного пользователя//
-  /////////////////////////////////////
+
+  //Обработчик выбраного пользователя
   getUser = (id: number) => {
     this.props.getUserInfo(id);
   };
-  /* Вызываем метод, который вернет разметку JSX */
+
   render() {
     //Если true выводим картинку прелоадера, так как список user еще не загрузился
     return this.props.statusPreloader === true ? (
@@ -69,8 +68,6 @@ class BlockUsersAPI extends React.Component<PropsType> {
     );
   }
 }
-
-/*************************Контейнерная компонента*****************************/
 
 //Создаем функцию которая будет принимать через connect нужную часть state и делится им с компонентой
 let mapStateToProps = (state: AppStateType) => {

@@ -1,5 +1,7 @@
+import { ThunkAction } from "redux-thunk";
 import { usersAPI, userAPI } from "../api/api";
-import { setUserInfoAC } from "./postPageReducer";
+import { setUserInfoAC, setUserInfoACType } from "./postPageReducer";
+import { AppStateType } from "./redux-store";
 
 const FOLLOW: "FOLLOW" = "FOLLOW";
 const UNFOLLOW: "UNFOLLOW" = "UNFOLLOW";
@@ -28,9 +30,21 @@ let initialState = {
 
 export type initialStateType = typeof initialState;
 
+//Общий тип action состоящий из всех actions которые можно отработать в usersPageReducer
+type ActionsType =
+  | followACType
+  | unfollowACType
+  | setUsersACType
+  | setPageACType
+  | setTotalPagesACType
+  | setPreloaderACType
+  | buttonDisabledACType
+  //Т.к. setUserInfoAC импортируемый из другого редюсера, незабываем импортировать и его type
+  | setUserInfoACType;
+
 export const usersPageReducer = (
   state = initialState,
-  action: any
+  action: ActionsType
 ): initialStateType => {
   switch (action.type) {
     case "FOLLOW":
@@ -134,10 +148,16 @@ export let buttonDisabledAC = (
 });
 
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
+//Определяем тип для Dispatch()
+//type DispatchType = Dispatch<ActionsType> незабудь import { Dispatch } from "redux";
+
 //Получение массива пользователей
-export const getUsers = (numberPage: number) => {
+//Тип ThunkAction принимает аргументы(что возвращает?,тип глобального State, спец action, перечень типов actions)
+export const getUsers = (
+  numberPage: number
+): ThunkAction<void, AppStateType, unknown, ActionsType> => {
   //Возврашаем Thunk
-  return (dispatch: any) => {
+  return (dispatch) => {
     //Включаем preloader
     dispatch(setPreloaderAC(true));
     //Делаем запрос на сервер за массивом с пользователями
@@ -150,10 +170,18 @@ export const getUsers = (numberPage: number) => {
     });
   };
 };
+
 //Получение информации о конкретном, выбранном пользователе
-export const getUserInfo = (userID: number) => {
+export const getUserInfo = (
+  userID: number
+): ThunkAction<
+  void,
+  AppStateType | setUserInfoACType,
+  unknown,
+  ActionsType
+> => {
   //Возврашаем Thunk
-  return (dispatch: any) => {
+  return (dispatch) => {
     //Включаем preloader
     dispatch(setPreloaderAC(true));
     //Делаем запрос на получение информации о выбранном пользователе
@@ -167,9 +195,11 @@ export const getUserInfo = (userID: number) => {
 };
 
 //Подписаться на пользователя
-export const follow = (userID: number) => {
+export const follow = (
+  userID: number
+): ThunkAction<void, AppStateType, unknown, ActionsType> => {
   //Возврашаем Thunk
-  return (dispatch: any) => {
+  return (dispatch) => {
     //Делаем запрос на подписку к пользователю
     dispatch(buttonDisabledAC(true, userID));
     //Делаем запрос на отмену или активацию подписки к пользователю
@@ -183,9 +213,11 @@ export const follow = (userID: number) => {
   };
 };
 //Отписаться от пользователя
-export const unfollow = (userID: number) => {
+export const unfollow = (
+  userID: number
+): ThunkAction<void, AppStateType, unknown, ActionsType> => {
   //Возврашаем Thunk
-  return (dispatch: any) => {
+  return (dispatch) => {
     //Делаем запрос на отмену подписки к пользователю
     dispatch(buttonDisabledAC(true, userID));
     usersAPI.follow(userID, "false").then((response: any) => {
