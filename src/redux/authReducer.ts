@@ -1,5 +1,7 @@
+import { ThunkAction } from "redux-thunk";
 import { authAPI } from "../api/api";
-import { setUserInfoAC } from "./postPageReducer";
+import { setUserInfoAC, setUserInfoACType } from "./postPageReducer";
+import { AppStateType } from "./redux-store";
 
 const SET_USER_DATA: "SET_USER_DATA" = "SET_USER_DATA";
 const SET_AUTH_ERRORS: "SET_AUTH_ERRORS" = "SET_AUTH_ERRORS";
@@ -41,14 +43,7 @@ export const authReducer = (
 };
 
 /***************************************************************ACTION CREATORS*********************************************************** */
-export let setAuthData = (
-  userID: number,
-  email: string,
-  login: string,
-  ava: string,
-  status: string,
-  isAuth: boolean
-): {
+type setAuthDataType = {
   type: typeof SET_USER_DATA;
   data: {
     userID: number;
@@ -58,27 +53,47 @@ export let setAuthData = (
     status: string;
     isAuth: boolean;
   };
-} => ({
+};
+export const setAuthData = (
+  userID: number,
+  email: string,
+  login: string,
+  ava: string,
+  status: string,
+  isAuth: boolean
+): setAuthDataType => ({
   type: SET_USER_DATA,
   data: { userID, email, login, ava, status, isAuth },
 });
 
-let setAuthErrors = (status: string) => {
-  if (status === "undefined") {
-    return {
-      type: SET_AUTH_ERRORS,
-      data: "*Пользователь с этим email незарегестрирован",
-    };
-  } else if (status === "the password is not correct") {
-    return { type: SET_AUTH_ERRORS, data: "*Пароль введен не верно" };
-  }
+type setAuthErrorsType = { type: typeof SET_AUTH_ERRORS; data: string };
+
+const setAuthErrors = (status: string): setAuthErrorsType => {
+  let data = "";
+  if (status === "undefined")
+    data = "*Пользователь с этим email незарегестрирован";
+  else if (status === "the password is not correct")
+    data = "*Пароль введен не верно";
+  return { type: SET_AUTH_ERRORS, data };
 };
+
+//Общий тип action состоящий из всех actions которые можно отработать в usersPageReducer
+type ActionsType =
+  | setAuthDataType
+  | setAuthErrorsType
+  //Т.к. setUserInfoAC импортируемый из другого редюсера, незабываем импортировать и его type
+  | setUserInfoACType;
 
 /* *************************************************************THUNKS-CREATOR*********************************************************** */
 //Получение информации о аунтифицированном пользователе
-export const getAuthData = () => {
+export const getAuthData = (): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  ActionsType
+> => {
   //Возврашаем Thunk
-  return (dispatch: any): void => {
+  return (dispatch): void => {
     /* Так как у нас пустой стейт, делаем запрос на сервер */
     authAPI.me().then((response: any) => {
       /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */

@@ -174,12 +174,7 @@ export const getUsers = (
 //Получение информации о конкретном, выбранном пользователе
 export const getUserInfo = (
   userID: number
-): ThunkAction<
-  void,
-  AppStateType | setUserInfoACType,
-  unknown,
-  ActionsType
-> => {
+): ThunkAction<void, AppStateType, unknown, ActionsType> => {
   //Возврашаем Thunk
   return (dispatch) => {
     //Включаем preloader

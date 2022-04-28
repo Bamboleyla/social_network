@@ -85,7 +85,7 @@ app.post("/follow", jsonParser, function (req, res) {
     if (!req.body) return res.sendStatus(400);
     console.log(`${now()} получен запрос на отмену подписки на пользователя с id = ${req.query.id}`);
 
-    const idUser = find_a_user(req.query.id); //Находим информацию о пользователе с нужным id
+    const idUser = find_a_user(Number(req.query.id)); //Находим информацию о пользователе с нужным id
     const status = req.query.status === 'true' ? true : false; //Узнаем какой статус необходимо установить пользователю
     if (idUser.followed !== status) { //Если статус пользователя не равен статусу который необходимо установить из запроса
         idUser.followed = status; //Изменяем статус пользователя
@@ -104,7 +104,7 @@ app.get("/user", function (request, response) { // Определяем endpoint
     switch (action) {
         case 'getuser':
             console.log(`${now()} Получен запрос на получение информации о user ${userId}`)
-            let result = { "user": find_a_user(userId) };
+            let result = { "user": find_a_user(Number(userId)) };
             response.send(result); //Отправляем ответ
             return console.log(`${now()} Пользователь ${userId} найден, данные отправлены`)
         default:
@@ -120,7 +120,7 @@ app.put("/user", function (request, response) { // Определяем endpoint
     switch (action) {
         case 'changeStatus':
             console.log(`${now()} Получен запрос на изменение информации о user ${userId}`);
-            let result = { "user": find_a_user(userId) };
+            let result = { "user": find_a_user(Number(userId)) };
             result.user.status = request.body.status;
             writeUsers(); //записываем изменения в ./express/users.json
             response.send(true); //Отправляем ответ

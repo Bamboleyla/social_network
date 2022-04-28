@@ -1,4 +1,6 @@
+import { ThunkAction } from "redux-thunk";
 import { userAPI } from "../api/api";
+import { AppStateType } from "./redux-store";
 
 const ADD_POST: "ADD-POST" = "ADD-POST";
 const SET_USERINFO: "SET_USERINFO" = "SET_USERINFO";
@@ -64,32 +66,42 @@ export const postPageReducer = (
   }
 };
 /*****************************************************************************ACTION CREATORS**********************************************************************************************/
-export let addPostAC = (
-  post: string
-): { type: typeof ADD_POST; post: string } => ({ type: ADD_POST, post });
+type addPostACTS = { type: typeof ADD_POST; post: string };
+export let addPostAC = (post: string): addPostACTS => ({
+  type: ADD_POST,
+  post,
+});
 
 export type setUserInfoACType = {
   type: typeof SET_USERINFO;
   userInfo: { id: number; ava: string; status: string };
 };
-
 export let setUserInfoAC = (userInfo: {
   id: number;
   ava: string;
   status: string;
 }): setUserInfoACType => ({ type: SET_USERINFO, userInfo });
 
-export let updateStatusAC = (
-  status: string
-): { type: typeof UPDATE_STATUS; status: string } => ({
+type updateStatusACTS = {
+  type: typeof UPDATE_STATUS;
+  status: string;
+};
+export let updateStatusAC = (status: string): updateStatusACTS => ({
   type: UPDATE_STATUS,
   status,
 });
+
+//Общий тип action состоящий из всех actions которые можно отработать в usersPageReducer
+type ActionsType = addPostACTS | setUserInfoACType | updateStatusACTS;
+
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
 //Изменить статус пользователя
-export const updateStatus = (userID: number, status: string) => {
+export const updateStatus = (
+  userID: number,
+  status: string
+): ThunkAction<void, AppStateType, unknown, ActionsType> => {
   //Возврашаем Thunk
-  return (dispatch: any) => {
+  return (dispatch) => {
     //Делаем запрос на изменение статуса пользователя с userID
     userAPI.changeStatus(userID, status).then((response: any) => {
       //Если ответ положительный, тогда изменяем статус в state
