@@ -1,7 +1,7 @@
 import style from "./BlockHeader.module.css";
 import logo from "./img_header.png";
 import { NavLink } from "react-router-dom";
-import { BlockUser } from "../BlockUser/BlockUser.tsx";
+import { BlockUser } from "../BlockUser/BlockUser";
 
 const BlockHeader = (props) => {
   return (

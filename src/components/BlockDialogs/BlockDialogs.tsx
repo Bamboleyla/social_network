@@ -1,9 +1,11 @@
 import style from "./BlockDialogs.module.css";
 import Dialog from "./Dialog/Dialog";
-import Message from "./Messages/Message.tsx";
+import Message from "./Messages/Message";
 import CreateNewMessageContainer from "./Messages/CreateNewMessage/CreateNewMessageContainer";
+import { dialogsPageReducerType } from "../../redux/dialogsPageReducer";
 
-const BlockDialogs = (props) => {
+type PropsType = { dialogsPage: dialogsPageReducerType };
+const BlockDialogs: React.FC<PropsType> = (props) => {
   let dialogs = props.dialogsPage.dialogsData.map((d) => (
     <Dialog id={d.id} key={d.id} name={d.name} />
   ));

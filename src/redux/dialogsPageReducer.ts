@@ -1,11 +1,11 @@
 const ADD_MESSAGE: "ADD-MESSAGE" = "ADD-MESSAGE";
 
-export type initialStateType = {
+export type dialogsPageReducerType = {
   dialogsData: { id: number; name: string }[];
   messageData: { id: number; message: string }[];
 };
 
-let initialState: initialStateType = {
+let initialState: dialogsPageReducerType = {
   dialogsData: [
     { id: 1, name: "Dmitriy" },
     { id: 2, name: "Luba" },
@@ -26,7 +26,7 @@ let initialState: initialStateType = {
 export const dialogsPageReducer = (
   state = initialState,
   action: any
-): initialStateType => {
+): dialogsPageReducerType => {
   switch (action.type) {
     case "ADD-MESSAGE":
       //*****Функция которая добавляет новый текст сообщения в state*****

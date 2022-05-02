@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./formsControl.module.css";
 
 const FormControl = ({ input, meta, child, ...props }) => {

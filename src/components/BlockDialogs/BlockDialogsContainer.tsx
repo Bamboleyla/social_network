@@ -1,9 +1,13 @@
 import { connect } from "react-redux";
+import { dialogsPageReducerType } from "../../redux/dialogsPageReducer";
+import { AppStateType } from "../../redux/redux-store";
 import BlockDialogs from "./BlockDialogs";
 
 /*************************Контейнерная компонента*****************************/
 //Создаем функцию которая будет принимать через connect нужную часть state
-let mapStateToProps = (state) => {
+let mapStateToProps = (
+  state: AppStateType
+): { dialogsPage: dialogsPageReducerType } => {
   return {
     //данные о диалогах
     dialogsPage: state.dialogsPage,

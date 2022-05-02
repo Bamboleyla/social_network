@@ -1,6 +1,6 @@
 import style from "./BlockProfileInfo.module.css";
 import { ProfileStatusWithHooks } from "./ProfileStatusWithHooks";
-import { Field, reduxForm } from "redux-form";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import {
   required,
   maxLengthCreator,
@@ -9,9 +9,20 @@ import { Textarea } from "../../common/formsControls/formsControl";
 //Так как maxLengthCreator10 это валидаторкриэйтор, его нельзя передать напрямую в Field, он просто не будет работать, его одязательно нужно обозначить за пределами компоненты
 const maxLengthCreator10 = maxLengthCreator(10);
 
-const BlockProfileInfo = (props) => {
+type BlockProfileInfoType = {
+  newPostText: string;
+  userPhoto: string;
+  userStatus: string | null;
+  userID: number | null;
+  addPostAC: (post: string) => void;
+  updateStatus: (userID: number, status: string) => void;
+};
+const BlockProfileInfo: React.FC<BlockProfileInfoType> = (props) => {
   /* Обработчик события onSubmit формы AddPostFormRedux, который полученное значение values из формы задиспатчит в state */
-  let sendPost = (values) => {
+  /* type sendPostType = {
+    newPostText: string;
+  }; */
+  let sendPost = (values: any) => {
     props.addPostAC(values.newPostText);
   };
   return (
@@ -36,7 +47,7 @@ const BlockProfileInfo = (props) => {
   );
 };
 //Создаем форму
-const AddNewPostForm = (props) => {
+const AddNewPostForm: React.FC<InjectedFormProps> = (props) => {
   return (
     /* Используем для создании формы только тег form */
     /*  Вешаем обработчик handleSubmit на событие формы onSubmit */

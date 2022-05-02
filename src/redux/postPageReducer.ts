@@ -10,7 +10,7 @@ let initialState = {
   //Информация о пользователе
   userInfo: {
     userID: null as null | number,
-    userPhoto: null as null | string,
+    userPhoto: "",
     status: null as null | string,
   },
   //Информация о постах пользователя
@@ -66,7 +66,7 @@ export const postPageReducer = (
   }
 };
 /*****************************************************************************ACTION CREATORS**********************************************************************************************/
-type addPostACTS = { type: typeof ADD_POST; post: string };
+export type addPostACTS = { type: typeof ADD_POST; post: string };
 export let addPostAC = (post: string): addPostACTS => ({
   type: ADD_POST,
   post,
