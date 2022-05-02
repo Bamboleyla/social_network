@@ -1,15 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { usersAPI, userAPI } from "../api/api";
 import { setUserInfoAC, setUserInfoACType } from "./postPageReducer";
-import { AppStateType } from "./redux-store";
-
-const FOLLOW: "FOLLOW" = "FOLLOW";
-const UNFOLLOW: "UNFOLLOW" = "UNFOLLOW";
-const SET_USERS: "SET_USERS" = "SET_USERS";
-const SET_CURRENT_PAGE: "SET_CURRENT_PAGE" = "SET_CURRENT_PAGE";
-const SET_TOTAL_PAGES: "SET_TOTAL_PAGES" = "SET_TOTAL_PAGES";
-const SET_PRELOADER: "SET_PRELOADER" = "SET_PRELOADER";
-const SET_BUTTON_DISABLED: "SET_BUTTON_DISABLED" = "SET_BUTTON_DISABLED";
+import { AppStateType, InferActyonsType } from "./redux-store";
 
 export type usersType = {
   id: number;
@@ -31,16 +23,7 @@ let initialState = {
 export type initialStateType = typeof initialState;
 
 //Общий тип action состоящий из всех actions которые можно отработать в usersPageReducer
-type ActionsType =
-  | followACType
-  | unfollowACType
-  | setUsersACType
-  | setPageACType
-  | setTotalPagesACType
-  | setPreloaderACType
-  | buttonDisabledACType
-  //Т.к. setUserInfoAC импортируемый из другого редюсера, незабываем импортировать и его type
-  | setUserInfoACType;
+type ActionsType = InferActyonsType<typeof actions>;
 
 export const usersPageReducer = (
   state = initialState,
@@ -88,64 +71,48 @@ export const usersPageReducer = (
 };
 
 /*****************************************************************************ACTION CREATORS*********************************************************************************************/
-type followACType = { type: typeof FOLLOW; userId: number };
-export let followAC = (userId: number): followACType => ({
-  type: FOLLOW,
-  userId,
-});
+export const actions = {
+  followAC: (userId: number) =>
+    ({
+      type: "FOLLOW",
+      userId,
+    } as const),
 
-type unfollowACType = { type: typeof UNFOLLOW; userId: number };
-export let unfollowAC = (userId: number): unfollowACType => ({
-  type: UNFOLLOW,
-  userId,
-});
+  unfollowAC: (userId: number) =>
+    ({
+      type: "UNFOLLOW",
+      userId,
+    } as const),
+  setUsersAC: (users: usersType[]) =>
+    ({
+      type: "SET_USERS",
+      users,
+    } as const),
 
-type setUsersACType = { type: typeof SET_USERS; users: usersType[] };
-export let setUsersAC = (users: usersType[]): setUsersACType => ({
-  type: SET_USERS,
-  users,
-});
+  setPageAC: (numberPage: number) =>
+    ({
+      type: "SET_CURRENT_PAGE",
+      numberPage,
+    } as const),
 
-type setPageACType = {
-  type: typeof SET_CURRENT_PAGE;
-  numberPage: number;
+  setTotalPagesAC: (totalPages: number) =>
+    ({
+      type: "SET_TOTAL_PAGES",
+      totalPages,
+    } as const),
+  setPreloaderAC: (statusPreloader: boolean) =>
+    ({
+      type: "SET_PRELOADER",
+      statusPreloader,
+    } as const),
+
+  buttonDisabledAC: (status: boolean, userID: number) =>
+    ({
+      type: "SET_BUTTON_DISABLED",
+      status,
+      userID,
+    } as const),
 };
-export let setPageAC = (numberPage: number): setPageACType => ({
-  type: SET_CURRENT_PAGE,
-  numberPage,
-});
-
-type setTotalPagesACType = {
-  type: typeof SET_TOTAL_PAGES;
-  totalPages: number;
-};
-export let setTotalPagesAC = (totalPages: number): setTotalPagesACType => ({
-  type: SET_TOTAL_PAGES,
-  totalPages,
-});
-
-type setPreloaderACType = {
-  type: typeof SET_PRELOADER;
-  statusPreloader: boolean;
-};
-export let setPreloaderAC = (statusPreloader: boolean): setPreloaderACType => ({
-  type: SET_PRELOADER,
-  statusPreloader,
-});
-
-type buttonDisabledACType = {
-  type: typeof SET_BUTTON_DISABLED;
-  status: boolean;
-  userID: number;
-};
-export let buttonDisabledAC = (
-  status: boolean,
-  userID: number
-): buttonDisabledACType => ({
-  type: SET_BUTTON_DISABLED,
-  status,
-  userID,
-});
 
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
 //Определяем тип для Dispatch()
@@ -159,14 +126,14 @@ export const getUsers = (
   //Возврашаем Thunk
   return (dispatch) => {
     //Включаем preloader
-    dispatch(setPreloaderAC(true));
+    dispatch(actions.setPreloaderAC(true));
     //Делаем запрос на сервер за массивом с пользователями
     usersAPI.getUsers(numberPage).then((data: any) => {
       /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
-      dispatch(setUsersAC(data.users));
-      dispatch(setTotalPagesAC(data.totalPages));
+      dispatch(actions.setUsersAC(data.users));
+      dispatch(actions.setTotalPagesAC(data.totalPages));
       //Выключаем preloader
-      dispatch(setPreloaderAC(false));
+      dispatch(actions.setPreloaderAC(false));
     });
   };
 };
@@ -174,17 +141,22 @@ export const getUsers = (
 //Получение информации о конкретном, выбранном пользователе
 export const getUserInfo = (
   userID: number
-): ThunkAction<void, AppStateType, unknown, ActionsType> => {
+): ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  ActionsType | setUserInfoACType
+> => {
   //Возврашаем Thunk
   return (dispatch) => {
     //Включаем preloader
-    dispatch(setPreloaderAC(true));
+    dispatch(actions.setPreloaderAC(true));
     //Делаем запрос на получение информации о выбранном пользователе
     userAPI.getUser(userID).then((data: any) => {
       // И диспачем его в state через метод setUserInfoAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
       dispatch(setUserInfoAC(data.user));
       //Выключаем preloader
-      dispatch(setPreloaderAC(false));
+      dispatch(actions.setPreloaderAC(false));
     });
   };
 };
@@ -196,13 +168,13 @@ export const follow = (
   //Возврашаем Thunk
   return (dispatch) => {
     //Делаем запрос на подписку к пользователю
-    dispatch(buttonDisabledAC(true, userID));
+    dispatch(actions.buttonDisabledAC(true, userID));
     //Делаем запрос на отмену или активацию подписки к пользователю
     usersAPI.follow(userID, "true").then((response: any) => {
       //Если ответ положительный, тогда отписуемся и в state
       if (response.data === true) {
-        dispatch(followAC(userID));
-        dispatch(buttonDisabledAC(false, userID));
+        dispatch(actions.followAC(userID));
+        dispatch(actions.buttonDisabledAC(false, userID));
       }
     });
   };
@@ -214,12 +186,12 @@ export const unfollow = (
   //Возврашаем Thunk
   return (dispatch) => {
     //Делаем запрос на отмену подписки к пользователю
-    dispatch(buttonDisabledAC(true, userID));
+    dispatch(actions.buttonDisabledAC(true, userID));
     usersAPI.follow(userID, "false").then((response: any) => {
       //Если ответ положительный, тогда отписуемся и в state
       if (response.data === true) {
-        dispatch(unfollowAC(userID));
-        dispatch(buttonDisabledAC(false, userID));
+        dispatch(actions.unfollowAC(userID));
+        dispatch(actions.buttonDisabledAC(false, userID));
       }
     });
   };

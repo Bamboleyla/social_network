@@ -2,11 +2,10 @@ import { connect } from "react-redux";
 import {
   follow,
   unfollow,
-  setPageAC,
   getUsers,
   getUserInfo,
-  setPreloaderAC,
   usersType,
+  actions,
 } from "../../redux/usersPageReducer";
 import React from "react";
 import Preloader from "../common/Preloader";
@@ -89,8 +88,8 @@ let mapStateToProps = (state: AppStateType) => {
 export const BlockUsersContainer = connect(mapStateToProps, {
   unfollow,
   follow,
-  setPageAC,
+  setPageAC: actions.setPageAC,
   getUsers,
   getUserInfo,
-  setPreloaderAC,
+  setPreloaderAC: actions.setPreloaderAC,
 })(BlockUsersAPI);

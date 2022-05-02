@@ -18,6 +18,12 @@ type RootReducerType = typeof rootReducer;
 
 export type AppStateType = ReturnType<RootReducerType>;
 
+// Напишим дженерик, который будет сам получать типы из переданных ему actions в методах объектов
+type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never;
+export type InferActyonsType<
+  T extends { [key: string]: (...args: any[]) => any }
+> = ReturnType<PropertiesType<T>>;
+
 // подключаем Redux DevTools
 //1 Если приложение будет открыто в браузере где нет расширения Redux DevTools, тогда вместо window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ вызовется compose
 //@ts-ignore
