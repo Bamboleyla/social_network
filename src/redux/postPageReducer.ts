@@ -1,10 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import { userAPI } from "../api/api";
-import { AppStateType } from "./redux-store";
-
-const ADD_POST: "ADD-POST" = "ADD-POST";
-const SET_USERINFO: "SET_USERINFO" = "SET_USERINFO";
-const UPDATE_STATUS: "UPDATE_STATUS" = "UPDATE_STATUS";
+import { AppStateType, InferActyonsType } from "./redux-store";
 
 let initialState = {
   //Информация о пользователе
@@ -66,33 +62,24 @@ export const postPageReducer = (
   }
 };
 /*****************************************************************************ACTION CREATORS**********************************************************************************************/
-export type addPostACTS = { type: typeof ADD_POST; post: string };
-export let addPostAC = (post: string): addPostACTS => ({
-  type: ADD_POST,
-  post,
-});
+export const actions = {
+  addPostAC: (post: string) =>
+    ({
+      type: "ADD_POST",
+      post,
+    } as const),
+  setUserInfoAC: (userInfo: { id: number; ava: string; status: string }) =>
+    ({ type: "SET_USERINFO", userInfo } as const),
 
-export type setUserInfoACType = {
-  type: typeof SET_USERINFO;
-  userInfo: { id: number; ava: string; status: string };
+  updateStatusAC: (status: string) =>
+    ({
+      type: "UPDATE_STATUS",
+      status,
+    } as const),
 };
-export let setUserInfoAC = (userInfo: {
-  id: number;
-  ava: string;
-  status: string;
-}): setUserInfoACType => ({ type: SET_USERINFO, userInfo });
-
-type updateStatusACTS = {
-  type: typeof UPDATE_STATUS;
-  status: string;
-};
-export let updateStatusAC = (status: string): updateStatusACTS => ({
-  type: UPDATE_STATUS,
-  status,
-});
 
 //Общий тип action состоящий из всех actions которые можно отработать в usersPageReducer
-type ActionsType = addPostACTS | setUserInfoACType | updateStatusACTS;
+type ActionsType = InferActyonsType<typeof actions>;
 
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
 //Изменить статус пользователя
@@ -106,7 +93,7 @@ export const updateStatus = (
     userAPI.changeStatus(userID, status).then((response: any) => {
       //Если ответ положительный, тогда изменяем статус в state
       if (response === true) {
-        dispatch(updateStatusAC(status));
+        dispatch(actions.updateStatusAC(status));
       }
     });
   };

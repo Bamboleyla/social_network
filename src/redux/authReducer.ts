@@ -1,10 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { authAPI } from "../api/api";
-import { setUserInfoAC, setUserInfoACType } from "./postPageReducer";
-import { AppStateType } from "./redux-store";
-
-const SET_USER_DATA: "SET_USER_DATA" = "SET_USER_DATA";
-const SET_AUTH_ERRORS: "SET_AUTH_ERRORS" = "SET_AUTH_ERRORS";
+import { actions as actionsPost } from "./postPageReducer";
+import { AppStateType, InferActyonsType } from "./redux-store";
 
 let initialState = {
   user: {
@@ -43,46 +40,33 @@ export const authReducer = (
 };
 
 /***************************************************************ACTION CREATORS*********************************************************** */
-type setAuthDataType = {
-  type: typeof SET_USER_DATA;
-  data: {
-    userID: number;
-    email: string;
-    login: string;
-    ava: string;
-    status: string;
-    isAuth: boolean;
-  };
-};
-export const setAuthData = (
-  userID: number,
-  email: string,
-  login: string,
-  ava: string,
-  status: string,
-  isAuth: boolean
-): setAuthDataType => ({
-  type: SET_USER_DATA,
-  data: { userID, email, login, ava, status, isAuth },
-});
-
-type setAuthErrorsType = { type: typeof SET_AUTH_ERRORS; data: string };
-
-const setAuthErrors = (status: string): setAuthErrorsType => {
-  let data = "";
-  if (status === "undefined")
-    data = "*Пользователь с этим email незарегестрирован";
-  else if (status === "the password is not correct")
-    data = "*Пароль введен не верно";
-  return { type: SET_AUTH_ERRORS, data };
+const actions = {
+  setAuthData: (
+    userID: number,
+    email: string,
+    login: string,
+    ava: string,
+    status: string,
+    isAuth: boolean
+  ) =>
+    ({
+      type: "SET_USER_DATA",
+      data: { userID, email, login, ava, status, isAuth },
+    } as const),
+  setAuthErrors: (status: string) => {
+    let data = "";
+    if (status === "undefined")
+      data = "*Пользователь с этим email незарегестрирован";
+    else if (status === "the password is not correct")
+      data = "*Пароль введен не верно";
+    return { type: "SET_AUTH_ERRORS", data } as const;
+  },
+  //Добавляем используемые экшены из других редюсеров
+  setUserInfoAC: actionsPost.setUserInfoAC,
 };
 
 //Общий тип action состоящий из всех actions которые можно отработать в usersPageReducer
-type ActionsType =
-  | setAuthDataType
-  | setAuthErrorsType
-  //Т.к. setUserInfoAC импортируемый из другого редюсера, незабываем импортировать и его type
-  | setUserInfoACType;
+type ActionsType = InferActyonsType<typeof actions>;
 
 /* *************************************************************THUNKS-CREATOR*********************************************************** */
 //Получение информации о аунтифицированном пользователе
@@ -98,7 +82,7 @@ export const getAuthData = (): ThunkAction<
     authAPI.me().then((response: any) => {
       /* И диспачем его в state через метод setUsersAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой */
       dispatch(
-        setAuthData(
+        actions.setAuthData(
           response.data.userID,
           response.data.email,
           response.data.login,
@@ -109,7 +93,7 @@ export const getAuthData = (): ThunkAction<
       );
       //диспачим в state postPageReducer что бы на странице пользователя изначально отобразился наш профиль
       dispatch(
-        setUserInfoAC({
+        actions.setUserInfoAC({
           id: response.data.id,
           ava: response.data.ava,
           status: response.data.status,
@@ -129,10 +113,10 @@ export const logIn =
         values.rememberMe
       );
       if (typeof res.data === "string") {
-        dispatch(setAuthErrors(res.data));
+        dispatch(actions.setAuthErrors(res.data));
       } else {
         dispatch(
-          setAuthData(
+          actions.setAuthData(
             res.data.userID,
             res.data.email,
             res.data.login,

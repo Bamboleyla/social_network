@@ -1,4 +1,4 @@
-const ADD_MESSAGE: "ADD-MESSAGE" = "ADD-MESSAGE";
+import { InferActyonsType } from "./redux-store";
 
 export type dialogsPageReducerType = {
   dialogsData: { id: number; name: string }[];
@@ -48,12 +48,13 @@ export const dialogsPageReducer = (
   }
 };
 
-export let addMessageAC = (
-  message: string
-): {
-  type: typeof ADD_MESSAGE;
-  message: string;
-} => ({
-  type: ADD_MESSAGE,
-  message,
-});
+const actions = {
+  addMessageAC: (message: string) =>
+    ({
+      type: "ADD_MESSAGE",
+      message,
+    } as const),
+};
+
+//Общий тип action состоящий из всех actions которые можно отработать в usersPageReducer
+type ActionsType = InferActyonsType<typeof actions>;

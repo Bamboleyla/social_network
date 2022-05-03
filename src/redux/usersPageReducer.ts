@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { usersAPI, userAPI } from "../api/api";
-import { setUserInfoAC, setUserInfoACType } from "./postPageReducer";
 import { AppStateType, InferActyonsType } from "./redux-store";
+import { actions as actionsPost } from "./postPageReducer";
 
 export type usersType = {
   id: number;
@@ -112,11 +112,10 @@ export const actions = {
       status,
       userID,
     } as const),
+  setUserInfoAC: actionsPost.setUserInfoAC,
 };
 
 /*****************************************************************************THUNKS-CREATOR***********************************************************************************************/
-//Определяем тип для Dispatch()
-//type DispatchType = Dispatch<ActionsType> незабудь import { Dispatch } from "redux";
 
 //Получение массива пользователей
 //Тип ThunkAction принимает аргументы(что возвращает?,тип глобального State, спец action, перечень типов actions)
@@ -141,12 +140,7 @@ export const getUsers = (
 //Получение информации о конкретном, выбранном пользователе
 export const getUserInfo = (
   userID: number
-): ThunkAction<
-  void,
-  AppStateType,
-  unknown,
-  ActionsType | setUserInfoACType
-> => {
+): ThunkAction<void, AppStateType, unknown, ActionsType> => {
   //Возврашаем Thunk
   return (dispatch) => {
     //Включаем preloader
@@ -154,7 +148,7 @@ export const getUserInfo = (
     //Делаем запрос на получение информации о выбранном пользователе
     userAPI.getUser(userID).then((data: any) => {
       // И диспачем его в state через метод setUserInfoAC, обратите внимание на this так как любая классовая компонента это объект и обращение к props совершенно другой
-      dispatch(setUserInfoAC(data.user));
+      dispatch(actionsPost.setUserInfoAC(data.user));
       //Выключаем preloader
       dispatch(actions.setPreloaderAC(false));
     });
