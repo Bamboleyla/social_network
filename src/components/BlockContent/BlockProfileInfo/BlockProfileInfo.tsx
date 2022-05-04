@@ -14,8 +14,14 @@ type BlockProfileInfoType = {
   userPhoto: string;
   userStatus: string | null;
   userID: number | null;
-  addPostAC: (post: string) => void;
-  updateStatus: (userID: number, status: string) => void;
+  addPost: (post: string) => {
+    readonly type: "ADD_POST";
+    readonly post: string;
+  };
+  updateStatus: (status: string) => {
+    readonly type: "UPDATE_STATUS";
+    readonly status: string;
+  };
 };
 const BlockProfileInfo: React.FC<BlockProfileInfoType> = (props) => {
   /* Обработчик события onSubmit формы AddPostFormRedux, который полученное значение values из формы задиспатчит в state */
@@ -23,7 +29,7 @@ const BlockProfileInfo: React.FC<BlockProfileInfoType> = (props) => {
     newPostText: string;
   }; */
   let sendPost = (values: any) => {
-    props.addPostAC(values.newPostText);
+    props.addPost(values.newPostText);
   };
   return (
     <div className={style.wrapper}>

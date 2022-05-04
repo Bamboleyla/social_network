@@ -1,5 +1,3 @@
-import { InferActyonsType } from "./redux-store";
-
 export type dialogsPageReducerType = {
   dialogsData: { id: number; name: string }[];
   messageData: { id: number; message: string }[];
@@ -48,7 +46,7 @@ export const dialogsPageReducer = (
   }
 };
 
-const actions = {
+export const actions = {
   addMessageAC: (message: string) =>
     ({
       type: "ADD_MESSAGE",
@@ -57,4 +55,4 @@ const actions = {
 };
 
 //Общий тип action состоящий из всех actions которые можно отработать в usersPageReducer
-type ActionsType = InferActyonsType<typeof actions>;
+/* type ActionsType = InferActyonsType<typeof actions>; */

@@ -40,7 +40,7 @@ export const authReducer = (
 };
 
 /***************************************************************ACTION CREATORS*********************************************************** */
-const actions = {
+export const actions = {
   setAuthData: (
     userID: number,
     email: string,

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { addMessageAC } from "../../../../redux/dialogsPageReducer";
+import { actions } from "../../../../redux/dialogsPageReducer";
 import CreateNewMessage from "./CreateNewMessage";
 
 /*************************Контейнерная компонента*****************************/
@@ -14,7 +14,7 @@ let mapDispatchToProps = (dispatch) => {
   return {
     //Команда добавления нового сообщения
     addMessage: (message) => {
-      dispatch(addMessageAC(message));
+      dispatch(actions.addMessageAC(message));
     },
   };
 };

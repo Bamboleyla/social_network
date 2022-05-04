@@ -1,17 +1,13 @@
 import BlockHeader from "./BlockHeader";
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setAuthData, getAuthData } from "../../redux/authReducer";
+import { actions } from "../../redux/authReducer";
 
-class BlockHeaderContainer extends React.Component {
+const BlockHeaderContainer = (props) => {
   /* Вызываем метод жизненного цикла компонента */
-  componentDidMount() {
-    this.props.getAuthData();
-  }
-  render() {
-    return <BlockHeader {...this.props} />;
-  }
-}
+  useEffect(() => props.getAuthData, []);
+  return <BlockHeader {...props} />;
+};
 
 let mapStateToProps = (state) => {
   return {
@@ -21,6 +17,7 @@ let mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setAuthData, getAuthData })(
-  BlockHeaderContainer
-);
+export default connect(mapStateToProps, {
+  setAuthData: actions.setAuthData,
+  getAuthData: actions.getAuthData,
+})(BlockHeaderContainer);
