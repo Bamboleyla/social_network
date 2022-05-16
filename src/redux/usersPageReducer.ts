@@ -12,7 +12,7 @@ export type usersType = {
   ava: string;
 };
 
-let initialState = {
+export let initialState = {
   users: [] as usersType[],
   numberPage: 1,
   totalPages: 5,

@@ -9,7 +9,7 @@ export const HallWay = (props) => {
   useEffect(() => {
     //После выполнения props.logIn(values) и появления ошибок автаризации props.statusLogin будет в себе нести список ошибок
     //Если авторизация пройдет успешно и ошибок не будет props.statusLogin будет иметь значение false и тогда пройдет перенаправление пользователя "./home"
-    props.statusLogin === false && navigate("./home", { replace: true });
+    props.statusLogin === false && navigate("./profile", { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.statusLogin]);
 
