@@ -6,13 +6,6 @@ import {
 } from "./usersPageReducer";
 import { usersAPI } from "../api/api";
 
-jest.mock("../api/api");
-
-const usersAPIMock = usersAPI;
-
-//@ts-ignore
-usersAPIMock.follow.mockReturnValue({ data: true });
-
 let state: initialStateType;
 beforeEach(() => {
   state = {
@@ -260,31 +253,17 @@ describe("buttonDisabledAC", () => {
   });
 });
 
+const usersAPIMock = usersAPI;
+jest.mock("../api/api");
+//@ts-ignore
+usersAPIMock.follow.mockReturnValue({ data: true });
+
 describe("follow", () => {
-  /* const response = usersAPIMock.follow(1, "true");
-  console.log("res", response); */
-  it("follow", () => {
+  it("follow", async () => {
     const dispatchMock = jest.fn();
-    //Подписаться на пользователя
-    const followTest = (userID: number) => {
-      //Возврашаем Thunk
-      //@ts-ignore
-      return async (dispatchMock) => {
-        dispatchMock(actions.buttonDisabledAC(true, userID));
-        //Делаем запрос на отмену или активацию подписки к пользователю
-        const result = await usersAPIMock.follow(userID, "true");
-        //Если ответ положительный, тогда отписуемся и в state
-        if (result.data === true) {
-          dispatchMock(actions.followAC(userID));
-          dispatchMock(actions.buttonDisabledAC(false, userID));
-        }
-      };
-    };
-
-    const thunk = followTest(1);
-
+    const thunk = follow(1);
     //@ts-ignore
-    thunk(dispatchMock);
+    await thunk(dispatchMock);
 
     expect(dispatchMock).toBeCalledTimes(3);
   });
