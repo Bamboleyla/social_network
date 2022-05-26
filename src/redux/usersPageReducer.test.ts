@@ -253,17 +253,23 @@ describe("buttonDisabledAC", () => {
   });
 });
 
-const usersAPIMock = usersAPI;
+// Делаем заглушку на метод
 jest.mock("../api/api");
-//@ts-ignore
-usersAPIMock.follow.mockReturnValue({ data: true });
+// Копируем объект со всеми его методами
+const usersAPIMock = usersAPI;
 
 describe("follow", () => {
   it("follow", async () => {
-    const dispatchMock = jest.fn();
-    const thunk = follow(1);
+    // Устанавливаем значение которое будет возврашать метод usersAPIMock.follow при каждом его вызове
     //@ts-ignore
-    await thunk(dispatchMock);
+    usersAPIMock.follow.mockResolvedValue({ data: true });
+    //Делаем фиктивный dispatch
+    const dispatchMock = jest.fn();
+
+    const thunk = follow(1);
+
+    //@ts-ignore
+    thunk(dispatchMock);
 
     expect(dispatchMock).toBeCalledTimes(3);
   });

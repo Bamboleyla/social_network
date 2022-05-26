@@ -160,11 +160,11 @@ export const follow = (
   userID: number
 ): ThunkAction<void, AppStateType, unknown, ActionsType> => {
   //Возврашаем Thunk
-  return async (dispatch) => {
+  return (dispatch) => {
     //Делаем запрос на подписку к пользователю
     dispatch(actions.buttonDisabledAC(true, userID));
     //Делаем запрос на отмену или активацию подписки к пользователю
-    await usersAPI.follow(userID, "true").then((response: any) => {
+    usersAPI.follow(userID, "true").then((response: any) => {
       //Если ответ положительный, тогда отписуемся и в state
       if (response.data === true) {
         dispatch(actions.followAC(userID));
